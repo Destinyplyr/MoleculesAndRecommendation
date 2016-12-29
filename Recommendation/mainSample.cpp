@@ -87,7 +87,9 @@ int main(int argc, char const *argv[])
 	}
 
 
-	cout << "IN main recommendation " << endl;
+	cout << "*******************  Recommendation system simulation  *******************" << endl;
+
+	
 
 
 	return 0;
