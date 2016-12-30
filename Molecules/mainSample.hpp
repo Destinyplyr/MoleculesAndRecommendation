@@ -7,7 +7,7 @@
 // #include "DBListManagement.cpp"
 // #include "DBHManagement.cpp"
 #include "Headers.hpp"
-// #include "UtilsH.h"
+#include "Utilities.hpp"
 // #include "Algorithms.h"
 
 // void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric);

@@ -6,6 +6,9 @@ int main(int argc, char const *argv[])
 	ifstream inputFile;
 	ifstream conFile;
 	ofstream outputFile;
+	string GARBAGE;
+	// int N;
+	// int numConform;
 	// int initChoice;
 	// int assignChoice;
 	// int updateChoice;
@@ -14,10 +17,9 @@ int main(int argc, char const *argv[])
 	// ClusterTable* clusterTable;
 	// int** clusterAssign;
 	// double** distance_matrix;
-	// string GARBAGE;
 	// string choice;
 	// string filename;
-	// Conf* myConf = new Conf();
+	Conf* myConf = new Conf();
 	// Metrics* myMetric = new Metrics();
 	// bool completeFlag = false;
 	// bool first_time_lsh;
@@ -56,6 +58,7 @@ int main(int argc, char const *argv[])
 				}
 				
 				//Init_Metrics(myMetric, inputFile);
+				Init_Conf(myConf, inputFile);
 				i++;
 			}
 			else if (strcmp(argv[i], "-o") == 0)
@@ -87,7 +90,8 @@ int main(int argc, char const *argv[])
 	}
 
 
-	cout << "IN main molecules " << endl;
+	cout << "Number of conformations : " << myConf->numConform << endl;
+	cout << "Numbe of points in conformation : " << myConf->N << endl;
 
 
 	return 0;
