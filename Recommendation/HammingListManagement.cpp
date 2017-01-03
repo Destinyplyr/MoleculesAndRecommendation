@@ -1,0 +1,73 @@
+#include "Headers.h"
+#include "ListData.h"
+
+template <typename T>
+void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetric)
+{
+	string GARBAGE;
+	string genericStr;
+	string pointStr;
+	string itemNos;
+	bitset<64> currentPoint;
+	int point_number = 0;
+	int index;
+	double* point;
+
+	inputFile >> GARBAGE;  					//Read "@metric space"
+	inputFile >> GARBAGE;					//Read etc, "hamming"
+
+	if (strcmp(GARBAGE.c_str(), "hamming") == 0)
+	{
+		inputFile >> itemNos;  				//Read "item1"
+
+		getline(inputFile, genericStr);
+		do {
+			index = 0;
+
+	   		stringstream linestream(genericStr);
+	   		getline(linestream, pointStr, '\t');
+	   		getline(linestream, pointStr, '\t');
+
+	   		currentPoint = bitset<64>(string(pointStr));
+    		if (!this->HammingB2BDuplicate(currentPoint)) {
+    			cout << "point inserted: " << currentPoint << " - " << point_number << " - " << itemNos <<endl;
+    			this->Insert(currentPoint, point_number, itemNos);
+    		}
+    		inputFile >> itemNos;		//next itemno
+    		point_number++;
+
+   		}while(getline(inputFile, genericStr));
+   		myMetric->point_number = point_number;
+	}
+
+}
+
+template <typename T>
+void ListData<T>::DistanceMatrixComputationHamming(Metrics* myMetric, double** distance_matrix) {
+	Node<T>* driver_node;
+	Node<T>* current_node;
+
+	driver_node = this->header;
+	// bitset<64> a(string("1010111010100100001010110000100100001001000100011101100011100000"));
+	// bitset<64> b(string("0010111010100100011011110001100010011001000000011101100001100000"));
+	//cout << myMetric->point_number <<endl;
+
+	for (int i = 0; i < myMetric->point_number; i++) {
+		current_node = driver_node->getNext();
+		//cout << "item " << i << "\t";
+		for (int j = 0; j < myMetric->point_number; j++) {
+			if (j <= i) {
+				distance_matrix[i][j] = 0;
+			}
+			else {
+				if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+				{
+					distance_matrix[i][j] = this->DistanceB2BHamming(current_node->getKey(), driver_node->getKey());
+					//cout << "dham: " <<this->DistanceB2BHamming(a, b) <<endl;					//cout << distance_matrix[i][j] << "\t";
+					current_node = current_node->getNext();
+				}
+			}
+		}
+		driver_node = driver_node->getNext();
+	}
+}

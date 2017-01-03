@@ -1,4 +1,4 @@
-#include "mainSample.hpp"
+#include "mainSample.h"
 
 int main(int argc, char const *argv[])
 {
@@ -6,26 +6,26 @@ int main(int argc, char const *argv[])
 	ifstream inputFile;
 	ifstream conFile;
 	ofstream outputFile;
-	// int initChoice;
-	// int assignChoice;
-	// int updateChoice;
-	// int* centroids;
-	// int point_number;
-	// ClusterTable* clusterTable;
-	// int** clusterAssign;
-	// double** distance_matrix;
-	// string GARBAGE;
-	// string choice;
-	// string filename;
-	// Conf* myConf = new Conf();
-	// Metrics* myMetric = new Metrics();
-	// bool completeFlag = false;
-	// bool first_time_lsh;
-	// int L, k;
-	// L = 5;
-	// k = 4;
-	// int hashCreationDone;
-	//bool outParameter = false, inParameter = false, confParameter = false;
+	int initChoice;
+	int assignChoice;
+	int updateChoice;
+	int* centroids;
+	int point_number;
+	ClusterTable* clusterTable;
+	int** clusterAssign;
+	double** distance_matrix;
+	string GARBAGE;
+	string choice;
+	string filename;
+	Conf* myConf = new Conf();
+	Metrics* myMetric = new Metrics();
+	bool validateFlag = false;
+	bool first_time_lsh;
+	int L, k;
+	L = 5;
+	k = 4;
+	int hashCreationDone;
+	bool outParameter = false, inParameter = false, confParameter = false;
 
 	std::cout.setf(std::ios_base::fixed, std::ios_base::floatfield);
 	std::cout.precision(20);
@@ -74,10 +74,10 @@ int main(int argc, char const *argv[])
 
 				i++;
 			}
-			// else if (strcmp(argv[i], "-complete") == 0)
-			// {
-			// 	completeFlag = true;
-			// }
+			else if (strcmp(argv[i], "-validate") == 0)
+			{
+				validateFlag = true;
+			}
 			else
 			{
 				cout << "You've given wrong input" <<endl;
@@ -87,9 +87,7 @@ int main(int argc, char const *argv[])
 	}
 
 
-	cout << "*******************  Recommendation system simulation  *******************" << endl;
-
-	
+	CLI( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids,clusterAssign, L, k, validateFlag) ;
 
 
 	return 0;
