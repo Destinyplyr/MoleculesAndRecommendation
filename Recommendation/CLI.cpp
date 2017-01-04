@@ -35,14 +35,13 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	myMetric->metric_space = "hamming";
 	cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
-	cin >> GARBAGE;
 
 	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
 		ListData<boost::dynamic_bitset<> >* hammingList = new ListData<boost::dynamic_bitset<> >();
 		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
-		//hammingList->ListInsertionHamming(inputFile, myMetric);
-
+		hammingList->ListInsertionHamming(inputFile, myMetric);
+		//cout << "ended" <<endl;
 		// clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
 		// SetClaransFraction(myConf, myMetric);
 
@@ -97,12 +96,12 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		delete DBHList;
 	}*/
 	//DELETE SEGMENT
-	for (int i = 0; i < myMetric->point_number; i++) {
+	/*for (int i = 0; i < myMetric->point_number; i++) {
 	    delete [] distance_matrix[i];
 	}
 	delete[] distance_matrix;       //distance matrix deletion
 	//cout << "ekana to distance" << endl;
-	delete[] centroids;
+	delete[] centroids;*/
 	//cout << "ekana to insertion" << endl;
 
 	//delete clusterTable;

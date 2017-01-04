@@ -8,37 +8,60 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 	string genericStr;
 	string pointStr;
 	string itemNos;
-	boost::dynamic_bitset<> currentPoint;
+	boost::dynamic_bitset<> currentPoint(myMetric->point_dimension);
 	//bitset<64> currentPoint;
 	int point_number = 0;
 	int index;
 	double* point;
 
-	inputFile >> GARBAGE;  					//Read "@metric space"
-	inputFile >> GARBAGE;					//Read etc, "hamming"
 
-	if (strcmp(GARBAGE.c_str(), "hamming") == 0)
+	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
-		inputFile >> itemNos;  				//Read "item1"
-
+		//inputFile >> itemNos;  				//Read "item1"
+		cout << 1 <<endl;
 		getline(inputFile, genericStr);
 		do {
-			index = 0;
+			//index = 0;
 
-	   		stringstream linestream(genericStr);
-	   		getline(linestream, pointStr, '\t');
-	   		getline(linestream, pointStr, '\t');
+			stringstream linestream(genericStr);
+			getline(linestream, pointStr, '\t');
+			//cout << pointStr <<endl;
+			if (stoi(pointStr) != point_number)	//if we are changing user
+			{
+				if (point_number != 0)		//we are changing user
+				{
+					cout << "Inserting: " << currentPoint <<endl;
+					this->Insert(currentPoint, point_number, to_string(point_number));
+				}
+				point_number = stoi(pointStr);
+				currentPoint.reset();		//reset the bitset
+			}
+			getline(linestream, pointStr, '\t');
+			index = stoi(pointStr);
+			/*if (stoi(pointStr) > item_max)
+			{
+				item_max = stoi(pointStr);
+			}*/
+			getline(linestream, pointStr, '\t');
+			if (stoi(pointStr) > 2)			//if it has a positive rating mark it
+			{
+				currentPoint[index-1] = 1;
+			}
 
-	   		currentPoint = bitset<64>(string(pointStr));
-    		if (!this->HammingB2BDuplicate(currentPoint)) {
+	   		/*stringstream linestream(genericStr);
+	   		getline(linestream, pointStr, '\t');
+	   		getline(linestream, pointStr, '\t');*/
+
+	   		//currentPoint = bitset<64>(string(pointStr));
+    		/*if (!this->HammingB2BDuplicate(currentPoint)) {
     			cout << "point inserted: " << currentPoint << " - " << point_number << " - " << itemNos <<endl;
     			this->Insert(currentPoint, point_number, itemNos);
     		}
     		inputFile >> itemNos;		//next itemno
-    		point_number++;
+    		point_number++;*/
 
    		}while(getline(inputFile, genericStr));
-   		myMetric->point_number = point_number;
+   		//myMetric->point_number = point_number;
 	}
 
 }
