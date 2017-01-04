@@ -45,11 +45,12 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 	string pointStr;
 	int point_dimension = 0;
 	int point_number = 0;
+	int item_max = 0;
 
-	inputFile >> GARBAGE;  					//Read "@metric space"
-	inputFile >> myMetric->metric_space;	//Read etc, "hamming"
+	/*inputFile >> GARBAGE;  					//Read "@metric space"
+	inputFile >> myMetric->metric_space;	//Read etc, "hamming"*/
 
-	if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
+	/*if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
 	{
 		inputFile >> GARBAGE;  				//Read "@metric space"
 		if (strcmp(GARBAGE.c_str(), "@metric") == 0) {
@@ -75,9 +76,37 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 		inputFile >> GARBAGE;		//read itemno
 		inputFile >> genericStr;	//read an item
 		myMetric->point_dimension = genericStr.length();
-	}
+	}*/
 
-	if (strcmp(myMetric->metric_space.c_str(), "matrix") == 0) {
+	getline(inputFile, genericStr);
+	do {
+
+   		stringstream linestream(genericStr);
+   		getline(linestream, pointStr, '\t');
+   		//cout << pointStr <<endl;
+   		if (stoi(pointStr) != point_number)
+   		{
+   			point_number = stoi(pointStr);
+   		}
+   		getline(linestream, pointStr, '\t');
+   		if (stoi(pointStr) > item_max)
+   		{
+   			item_max = stoi(pointStr);
+   		}
+   		getline(linestream, pointStr, '\t');
+   		//cout << pointStr <<endl;
+
+   		/*currentPoint = bitset<64>(string(pointStr));
+		if (!this->HammingB2BDuplicate(currentPoint)) {
+			cout << "point inserted: " << currentPoint << " - " << point_number << " - " << itemNos <<endl;
+			this->Insert(currentPoint, point_number, itemNos);
+		}
+		inputFile >> itemNos;		//next itemno
+		point_number++;*/
+
+	}while(getline(inputFile, genericStr));
+
+	/*if (strcmp(myMetric->metric_space.c_str(), "matrix") == 0) {
 		inputFile >> GARBAGE;		//read itemno
         getline(inputFile, genericStr);
         stringstream linestream2(genericStr);
@@ -85,7 +114,10 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
             ++point_number;
         }
         myMetric->point_number = point_number;
-	}	
+	}	*/
+    cout << "Giving to myMetric: pointdim: " << item_max << " pointno: " << point_number <<endl;
+    myMetric->point_dimension = item_max;
+    myMetric->point_number = point_number;
 
  	inputFile.clear();      		//Restart
  	inputFile.seekg(0, ios::beg);   //Data file back from start

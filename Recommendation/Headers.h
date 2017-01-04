@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
+#include <string>
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
@@ -8,6 +9,7 @@
 #include <climits>
 #include <limits>
 #include <bitset>
+#include <boost/dynamic_bitset.hpp>
 
 using namespace std;
 

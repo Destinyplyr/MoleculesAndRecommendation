@@ -1,18 +1,18 @@
 # In order to execute this "makefile" just type "make"
 
-OBJS 	=  mainSample.o CLI.o
-SOURCE	=  mainSample.cpp CLI.cpp
-HEADER  = mainSample.hpp Headers.hpp
+OBJS 	=  mainSample.o CLI.o ClusterNodeFunctions.o ClusterTableFunctions.o DistanceMatrixFunctions.o Utilities.o 
+SOURCE	=  mainSample.cpp CLI.cpp ClusterNodeFunctions.cpp ClusterTableFunctions.cpp DistanceMatrixFunctions.cpp Utilities.cpp
+HEADER  = mainSample.h Headers.h UtilsH.h Algorithms.h ClusterNode.h ClusterTable.h DistanceMatrixFunctions.h ListData.h MathFunctions.h Returns.h TrickList.h
 OUT  	= recommendation
 CC	= g++
-FLAGS   = -g -c 
+FLAGS   = -g -c -std=c++11
 
 all: $(OBJS)
 	$(CC) -g $(OBJS) -o $(OUT)
 
 # create/compile the individual files
 
-mainSample.o: mainSample.cpp Node.h ListData.h Hash.h ListsFunctions.cpp NodeFunctions.cpp VectorHammingListManagement.cpp DBListManagement.cpp HammingListManagement.cpp DBHManagement.cpp HashFunctions.cpp HammingLSHManagement.cpp EuclideanList.cpp TrickFunctions.cpp CosineList.cpp MathFunctions.cpp
+mainSample.o: mainSample.cpp Node.h ListData.h Hash.h ListsFunctions.cpp NodeFunctions.cpp HashFunctions.cpp VectorHammingListManagement.cpp DBListManagement.cpp HammingListManagement.cpp DBHManagement.cpp HashFunctions.cpp HammingLSHManagement.cpp EuclideanList.cpp TrickFunctions.cpp CosineList.cpp MathFunctions.cpp
 	$(CC) $(FLAGS) mainSample.cpp
 
 
@@ -27,6 +27,12 @@ MainFunctions.o: MainFunctions.cpp
 
 DistanceMatrixFunctions.o: DistanceMatrixFunctions.cpp
 	$(CC) $(FLAGS) DistanceMatrixFunctions.cpp
+
+ClusterNodeFunctions.o: ClusterNodeFunctions.cpp
+	$(CC) $(FLAGS) ClusterNodeFunctions.cpp		
+
+ClusterTableFunctions.o: ClusterTableFunctions.cpp
+	$(CC) $(FLAGS) ClusterTableFunctions.cpp	
 
 
 CLI.o: CLI.cpp

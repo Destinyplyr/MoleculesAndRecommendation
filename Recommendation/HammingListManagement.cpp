@@ -8,7 +8,8 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 	string genericStr;
 	string pointStr;
 	string itemNos;
-	bitset<64> currentPoint;
+	boost::dynamic_bitset<> currentPoint;
+	//bitset<64> currentPoint;
 	int point_number = 0;
 	int index;
 	double* point;

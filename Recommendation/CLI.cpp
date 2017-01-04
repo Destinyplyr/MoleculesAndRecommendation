@@ -34,11 +34,14 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	myMetric->metric_space = "hamming";
 	cout << "test" <<endl;
+	Init_Metrics(myMetric, inputFile);
+	cin >> GARBAGE;
 
 	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
-		ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
-		hammingList->ListInsertionHamming(inputFile, myMetric);
+		ListData<boost::dynamic_bitset<> >* hammingList = new ListData<boost::dynamic_bitset<> >();
+		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
+		//hammingList->ListInsertionHamming(inputFile, myMetric);
 
 		// clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
 		// SetClaransFraction(myConf, myMetric);
