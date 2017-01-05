@@ -42,10 +42,11 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
 		hammingList->ListInsertionHamming(inputFile, myMetric);
 		//cout << "ended" <<endl;
-		// clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
+		clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
 		// SetClaransFraction(myConf, myMetric);
 
-		// hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
+		hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
+		cout << "omorfi" <<endl;
 		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		// delete hammingList;
 	}

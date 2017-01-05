@@ -43,6 +43,7 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 	string GARBAGE;
 	string genericStr;
 	string pointStr;
+	int current_user;
 	int point_dimension = 0;
 	int point_number = 0;
 	int item_max = 0;
@@ -84,9 +85,10 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
    		stringstream linestream(genericStr);
    		getline(linestream, pointStr, '\t');
    		//cout << pointStr <<endl;
-   		if (stoi(pointStr) != point_number)
+   		if (stoi(pointStr) != current_user)
    		{
-   			point_number = stoi(pointStr);
+   			point_number++;
+   			current_user = stoi(pointStr);
    		}
    		getline(linestream, pointStr, '\t');
    		if (stoi(pointStr) > item_max)
