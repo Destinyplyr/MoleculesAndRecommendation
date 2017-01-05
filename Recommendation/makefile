@@ -1,7 +1,7 @@
 # In order to execute this "makefile" just type "make"
 
-OBJS 	=  mainSample.o CLI.o ClusterNodeFunctions.o ClusterTableFunctions.o DistanceMatrixFunctions.o Utilities.o 
-SOURCE	=  mainSample.cpp CLI.cpp ClusterNodeFunctions.cpp ClusterTableFunctions.cpp DistanceMatrixFunctions.cpp Utilities.cpp
+OBJS 	=  mainSample.o CLI.o ClusterNodeFunctions.o ClusterTableFunctions.o DistanceMatrixFunctions.o Utilities.o InitializationMedoids.o AssignmentPAM.o UpdateALaLoyds.o InitializationConcentrate.o
+SOURCE	=  mainSample.cpp CLI.cpp ClusterNodeFunctions.cpp ClusterTableFunctions.cpp DistanceMatrixFunctions.cpp Utilities.cpp InitializationMedoids.cpp AssignmentPAM.cpp UpdateALaLoyds.cpp InitializationConcentrate.cpp
 HEADER  = mainSample.h Headers.h UtilsH.h Algorithms.h ClusterNode.h ClusterTable.h DistanceMatrixFunctions.h ListData.h MathFunctions.h Returns.h TrickList.h
 OUT  	= recommendation
 CC	= g++
@@ -15,6 +15,18 @@ all: $(OBJS)
 mainSample.o: mainSample.cpp Node.h ListData.h Hash.h ListsFunctions.cpp NodeFunctions.cpp HashFunctions.cpp VectorHammingListManagement.cpp DBListManagement.cpp HammingListManagement.cpp DBHManagement.cpp HashFunctions.cpp HammingLSHManagement.cpp EuclideanList.cpp TrickFunctions.cpp CosineList.cpp MathFunctions.cpp
 	$(CC) $(FLAGS) mainSample.cpp
 
+
+InitializationMedoids.o: InitializationMedoids.cpp
+	$(CC) $(FLAGS) InitializationMedoids.cpp
+
+InitializationConcentrate.o: InitializationConcentrate.cpp
+	$(CC) $(FLAGS) InitializationConcentrate.cpp	
+
+AssignmentPAM.o: AssignmentPAM.cpp
+	$(CC) $(FLAGS) AssignmentPAM.cpp	
+
+UpdateALaLoyds.o: UpdateALaLoyds.cpp
+	$(CC) $(FLAGS) UpdateALaLoyds.cpp
 
 Utilities.o: Utilities.cpp
 	$(CC) $(FLAGS) Utilities.cpp	

@@ -374,6 +374,24 @@ double ClusterTable::PrintingSilhouette(ofstream& outputFile, Conf* myConf, doub
     outputFile << s_total / myConf->number_of_clusters << "]" <<endl;
 }
 
+double ClusterTable::ReturnSilhouette(ofstream& outputFile, Conf* myConf, double** distanceMatrix, int* centroids, int** clusterAssign)
+{
+    double* s_i = new double[myConf->number_of_clusters];
+    double s_total = 0;
+    
+
+    //outputFile << "Silhouette: [";
+    for (int i = 0; i < myConf->number_of_clusters; ++i)
+    {
+        s_i[i] = this->ClusterSilhouette(myConf, distanceMatrix, centroids,  i, clusterAssign);
+        //outputFile << s_i[i] << ", ";
+        s_total += s_i[i];
+    }
+    delete[] s_i;
+    //outputFile << s_total / myConf->number_of_clusters << "]" <<endl;
+    return s_total / myConf->number_of_clusters;
+}
+
 int ClusterTable::CreateClusterTableFromClusterAssign(Conf* myConf, Metrics* myMetric,int** clusterAssign, int* centroids)
 {
     int cluster_no;

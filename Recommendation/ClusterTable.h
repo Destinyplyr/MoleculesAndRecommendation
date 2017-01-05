@@ -31,6 +31,7 @@ class ClusterTable
 		double ClusterSilhouette(Conf* myConf, double** distanceMatrix, int* centroids,  int cluster_no, int** clusterAssign);
 		void Init_Tables(double*** distanceMatrix, Metrics* myMetric, Conf* myConf, int** centroids, ClusterTable** clusterTable, int*** clusterAssign);
 		double PrintingSilhouette(ofstream& outputFile, Conf* myConf, double** distanceMatrix, int* centroids, int** clusterAssign);
+		double ReturnSilhouette(ofstream& outputFile, Conf* myConf, double** distanceMatrix, int* centroids, int** clusterAssign);
 		int ReturnClusterSize(int cluster_no);
 		int* PrintClusterDataForList(int cluster_no, int* size_of_cluster);
 		int CreateClusterTableFromClusterAssign(Conf* myConf, Metrics* myMetric,int** clusterAssign, int* centroids);

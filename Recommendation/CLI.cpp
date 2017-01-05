@@ -47,6 +47,9 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 		hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
 		cout << "omorfi" <<endl;
+
+		hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+
 		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		// delete hammingList;
 	}

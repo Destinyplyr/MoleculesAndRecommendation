@@ -33,7 +33,7 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 				{
 					//cout << "Inserting: " << currentPoint <<endl;
 					//cin >> GARBAGE;
-					this->Insert(currentPoint, point_number, to_string(point_number));
+					this->Insert(currentPoint, count_ins, to_string(point_number));
 					count_ins++;
 				}
 				point_number = stoi(pointStr);
@@ -64,7 +64,7 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
     		point_number++;*/
 
    		}while(getline(inputFile, genericStr));
-   		this->Insert(currentPoint, point_number, to_string(point_number));
+   		this->Insert(currentPoint, count_ins, to_string(point_number));
    		count_ins++;
    		//cout << "inserted: " << count_ins <<endl;
    		//cin >> GARBAGE;
@@ -99,11 +99,16 @@ void ListData<T>::DistanceMatrixComputationHamming(Metrics* myMetric, double** d
 					//cin >> GARBAGE;
 					//cout << "item: " << current_node->getKey() <<endl;
 					distance_matrix[i][j] = this->DistanceB2BHamming(current_node->getKey(), driver_node->getKey());
-					//cout << "dham: " <<distance_matrix[i][j] <<endl;					//cout << distance_matrix[i][j] << "\t";
+					if (i == 0)
+					{
+						cout <<distance_matrix[i][j] << " ";					//cout << distance_matrix[i][j] << "\t";
+					}
+					
 					current_node = current_node->getNext();
 				}
 			}
 		}
+		//cout << endl;
 		driver_node = driver_node->getNext();
 	}
 }
