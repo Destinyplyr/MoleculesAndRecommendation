@@ -9,7 +9,7 @@ class Node
 	public:
 		Node();
 		Node(T key);
-		Node(T key, int g, int itemno, std::string itemName);
+		Node(T key, int g, int itemno, std::string itemName, double* ratings);
 		~Node();
 		Node<T>* getNext();
 		void setNext(Node<T>* next);
@@ -19,6 +19,7 @@ class Node
 		int getG();
 		int getItemNo();
 		T getKey();
+		double* getRatings();
 		std::string getItemName();
 		int getFlagForAssignment();
 		void setFlagForAssignment(int flagged_for_assignment);
@@ -44,6 +45,7 @@ class Node
 		int second_best_distance;
 	    int itemno;
 		int g;
+		double* ratings;
 		T key;
 		std::string itemName;
 		Node<T>* next;

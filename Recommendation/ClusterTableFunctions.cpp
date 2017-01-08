@@ -198,6 +198,10 @@ void ClusterTable::Init_Tables(double*** distance_matrix, Metrics* myMetric, Con
         (*distance_matrix)[i] = new double[myMetric->point_number];
     }
     (*centroids) = new int[myMetric->point_number];
+    for (int i = 0; i < myMetric->point_number; ++i)
+    {
+        (*centroids)[i] = 0;
+    }
 
     (*clusterTable) = new ClusterTable(myConf->number_of_clusters);
     (*clusterAssign)= new int*[myMetric->point_number];
@@ -313,12 +317,14 @@ double ClusterTable::ClusterSilhouette(Conf* myConf, double** distanceMatrix, in
 
     if (currentNode == NULL)
     {
+        cout << "cluster empty" <<endl;
+        return 1;
         //cout << "exiting..." << endl;
     }
 
     ClusterNode* secondNode = NULL;
     number_in_cluster = ReturnClusterSize(cluster_no);
-    //cout << "current cluster size: " << number_in_cluster <<endl;
+    cout << "current cluster size: " << number_in_cluster <<endl;
     if(number_in_cluster > 0)
     {
         currentNode = clusterTable[cluster_no];
@@ -326,33 +332,38 @@ double ClusterTable::ClusterSilhouette(Conf* myConf, double** distanceMatrix, in
     while (currentNode != NULL) {
         ++times;
         number_of_scnd_cluster = ReturnCluster(myConf, centroids, clusterAssign[currentNode->getItemNo()][1]);
-        /*cout << "THIS CENTROID : " << clusterAssign[currentNode->getItemNo()][1] << endl;
+        cout << "number_of_scnd_cluster : " << number_of_scnd_cluster <<endl;
+        cout << "THIS CENTROID : " << clusterAssign[currentNode->getItemNo()][1] << endl;
             cout << "==================" << endl << "PRINTING CLUSTERS IN PrintingSilhouette fucntion : " <<endl;
             for (int w = 0; w <myConf->number_of_clusters; w++) {
                 cout << centroids[w] << " ";
             }
-            cout << endl;*/
+            cout << endl;
         secondNode = clusterTable[number_of_scnd_cluster];
         number_in_scnd_cluster = ReturnClusterSize(number_of_scnd_cluster);
+        cout << "number_in_scnd_cluster : " <<number_in_scnd_cluster <<endl;
         a_i = (double)ClusterDistanceFromCentroid(distanceMatrix, cluster_no, currentNode->getItemNo()) / (double) number_in_cluster;
-        //cout << "   ----> Silhouette: a_i of " << currentNode->getItemNo() << " : " << a_i <<endl;
+        cout << "   ----> Silhouette: a_i of " << currentNode->getItemNo() << " : " << a_i <<endl;
         b_i = (double) ClusterDistanceFromCentroid(distanceMatrix, number_of_scnd_cluster, currentNode->getItemNo()) / (double)number_in_scnd_cluster;
-        //cout << "   ----> Silhouette: b_i of " << currentNode->getItemNo() << " : " << b_i <<endl;
+        cout << "   ----> Silhouette: b_i of " << currentNode->getItemNo() << " : " << b_i <<endl;
+        if (number_in_scnd_cluster == 0) {
+            b_i = 1;
+        }
         if (a_i >= b_i) 
         {
-            //cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) a_i <<endl;
+            cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) a_i <<endl;
             avg_silh += (double)(b_i - a_i) / (double) a_i;
             //cout << "   ----> Silhouette: current avg_silh : " <<avg_silh <<endl;
         }
         else
         {
-            //cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) b_i <<endl;
+            cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) b_i <<endl;
             avg_silh += (double)(b_i - a_i) / (double) b_i;
-            //cout << "   ----> Silhouette: current avg_silh " << currentNode->getItemNo() << " : " << avg_silh <<endl;
+            cout << "   ----> Silhouette: current avg_silh " << currentNode->getItemNo() << " : " << avg_silh <<endl;
         }
         currentNode = currentNode->getNext();
     }
-    //cout << "   ----> Silhouette: return silhouette :" << ((double)avg_silh/(double) number_in_cluster) << endl;
+    cout << "   ----> Silhouette: return silhouette :" << ((double)avg_silh/(double) number_in_cluster) << endl;
     return ((double)avg_silh/(double) number_in_cluster);
 }
 
@@ -432,5 +443,40 @@ bool ClusterTable::ClusterDuplicate(int point_no,int cluster_no)    //returns tr
         currentNode = currentNode->getNext();
     }
     return false;
+}
+
+
+//returns the next point_no - if point_no_before == -1, then return the first point_no -- returns -1 if no more items could be found
+int ClusterTable::ClusterItemNumberNext(int point_no_before,int cluster_no)    
+{
+    ClusterNode* currentNode = clusterTable[cluster_no];
+    if (point_no_before == -1)
+    {
+        if (currentNode != NULL)
+        {
+           return currentNode->getItemNo();     //return the first items itemNumber
+        }
+        else 
+        {
+            return -1;
+        }
+    }
+    else    //if we have more items in the cluster and the before element is on them
+    {
+        while (currentNode != NULL && currentNode->getItemNo() != point_no_before)
+        {
+            currentNode = currentNode->getNext();
+        }
+        if (currentNode!= NULL && currentNode->getNext() != NULL)
+        {
+            return (currentNode->getNext())->getItemNo();       //return the next items itemNumber
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
 }
 

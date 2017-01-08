@@ -32,7 +32,7 @@ Node<T>::Node(T key)
 
 
 template <typename T>
-Node<T>::Node(T key, int g, int itemno, string itemName)
+Node<T>::Node(T key, int g, int itemno, string itemName, double* ratings)
 {
 	this->flagged_for_assignment = -1;
 	this->flagged_as_assigned = -1;
@@ -43,6 +43,7 @@ Node<T>::Node(T key, int g, int itemno, string itemName)
 	this->next = NULL;
 	this->g = g;
 	this->itemName = itemName;
+	this->ratings = ratings;
 	//cout << "Node created successfully!" << endl;
 }
 
@@ -88,6 +89,12 @@ template <typename T>
 void Node<T>::setKey(T key)
 {
 	this->key = key;
+}
+
+template <typename T>
+double* Node<T>::getRatings()
+{
+	return ratings;
 }
 
 

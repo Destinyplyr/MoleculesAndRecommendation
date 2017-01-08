@@ -38,6 +38,7 @@ class ClusterTable
 		void PrintClusterUsingNames(ofstream& outputFile, string* items_in_cluster_itemName, int size_of_cluster, int cluster_no);
 		void PrintClusterNo(int cluster_no);
 		bool ClusterDuplicate(int point_no,int cluster_no);
+		int ClusterItemNumberNext(int point_no_before,int cluster_no);
 		// void PrintData();;
 		// void Insert(T item, int itemno, std::string itemName);;
 		// void initEuclideanList(std::ifstream& inputFile, std::ifstream& queryFile, int k, int L, std::ofstream& outputfile, int* dataLength);;

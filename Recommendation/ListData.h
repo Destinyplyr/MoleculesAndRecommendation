@@ -19,7 +19,7 @@ class ListData
         Node<T>* ReturnHead();
         Node<T>* getNode();
 		void PrintData();
-		void Insert(T item, int itemno, std::string itemName);
+		void Insert(T item, int itemno, std::string itemName, double* ratings);
 		void initEuclideanList(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 		void initCosineList(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 		void initDBHManagement(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
@@ -41,6 +41,7 @@ class ListData
 		string* ItemNamesFromItemNos(int* items_in_cluster_itemNo, int size_of_cluster);
 		void Printer(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
 		void ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
+		double ReturnUserGeneralRating(Metrics* myMetric, int itemno);
 		
 	private:
 		Node<T>* header;

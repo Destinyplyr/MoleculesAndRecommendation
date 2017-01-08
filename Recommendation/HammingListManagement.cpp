@@ -14,13 +14,19 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 	int point_number = 0;
 	int index;
 	double* point;
+	double* ratings;
 
 
 	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
 		//inputFile >> itemNos;  				//Read "item1"
-		cout << 1 <<endl;
+		//cout << 1 <<endl;
 		getline(inputFile, genericStr);
+		ratings = new double[myMetric->point_dimension];
+		for (int i = 0; i < myMetric->point_dimension; ++i)
+		{
+			ratings[i] = 0;
+		}
 		do {
 			//index = 0;
 
@@ -29,15 +35,25 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 			//cout << pointStr <<endl;
 			if (stoi(pointStr) != point_number)	//if we are changing user
 			{
+				
 				if (point_number != 0)		//we are changing user
 				{
-					//cout << "Inserting: " << currentPoint <<endl;
+					/*cout << "Inserting: " << currentPoint <<endl;
+					for (int i = 0; i < myMetric->point_dimension; ++i)
+					{
+						cout << "ratings[" <<i<<"] : " << ratings[i] <<endl;
+					}*/
 					//cin >> GARBAGE;
-					this->Insert(currentPoint, count_ins, to_string(point_number));
+					this->Insert(currentPoint, count_ins, to_string(point_number), ratings);
 					count_ins++;
 				}
 				point_number = stoi(pointStr);
 				currentPoint.reset();		//reset the bitset
+				ratings = new double[myMetric->point_dimension];
+				for (int i = 0; i < myMetric->point_dimension; ++i)
+				{
+					ratings[i] = 0;
+				}
 			}
 			getline(linestream, pointStr, '\t');
 			index = stoi(pointStr);
@@ -46,6 +62,7 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 				item_max = stoi(pointStr);
 			}*/
 			getline(linestream, pointStr, '\t');
+			ratings[index-1] = stoi(pointStr);
 			if (stoi(pointStr) > 2)			//if it has a positive rating mark it
 			{
 				currentPoint[index-1] = 1;
@@ -64,7 +81,7 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
     		point_number++;*/
 
    		}while(getline(inputFile, genericStr));
-   		this->Insert(currentPoint, count_ins, to_string(point_number));
+   		this->Insert(currentPoint, count_ins, to_string(point_number), ratings);
    		count_ins++;
    		//cout << "inserted: " << count_ins <<endl;
    		//cin >> GARBAGE;
@@ -99,10 +116,10 @@ void ListData<T>::DistanceMatrixComputationHamming(Metrics* myMetric, double** d
 					//cin >> GARBAGE;
 					//cout << "item: " << current_node->getKey() <<endl;
 					distance_matrix[i][j] = this->DistanceB2BHamming(current_node->getKey(), driver_node->getKey());
-					if (i == 0)
+					/*if (i == 0)
 					{
 						cout <<distance_matrix[i][j] << " ";					//cout << distance_matrix[i][j] << "\t";
-					}
+					}*/
 					
 					current_node = current_node->getNext();
 				}

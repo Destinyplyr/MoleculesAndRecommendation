@@ -58,9 +58,9 @@ void ListData<T>::PrintData()
 
 
 template <typename T>
-void ListData<T>::Insert(T newItem, int itemno, string itemName)
+void ListData<T>::Insert(T newItem, int itemno, string itemName, double* ratings)
 {
- 	Node<T>* node = new Node<T>(newItem, 0, itemno, itemName);
+ 	Node<T>* node = new Node<T>(newItem, 0, itemno, itemName, ratings);
 	if (header == NULL)
     {
 		header = node;
@@ -534,7 +534,10 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	double CLARA_elapsed;
 	double best_silh = -INT_MAX;
 	double current_silh;
+	double* current_ratings;
 	int best_cluster_num;
+	int current_point_no_in_cluster = 0;
+	double current_user_general_rating = 0;
 
 
 	for (int cluster_num = 4; cluster_num < 10; cluster_num++)		//test cluster size
@@ -549,112 +552,141 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 
 		//delete[] centroids;		THESE TWO SHOULD HAPPEN BUT: (*centroids) = new int[myMetric->point_number];
 		//centroids = new int  		so we have enough space
-		for(int init_iter = 0; init_iter < 2; init_iter++)
+		/*if (init_iter == 0) //case KMedoids++
+		{*/
+			cout << "before kmpp" << cluster_num << endl;
+			KMPP_start = clock();
+			KMedoidsPP(myConf, myMetric, distance_matrix, centroids);
+			KMPP_finish = clock();
+			Initialization_elapsed = (double)(KMPP_finish - KMPP_start)/CLOCKS_PER_SEC;
+		//}
+		/*else if (init_iter == 1)//case Concentrate
+		{*/
+			/*Concentrate_start = clock();
+			Concentrate(myConf, myMetric, distance_matrix, centroids);
+			Concentrate_finish = clock();
+			Initialization_elapsed = (double)(Concentrate_finish - Concentrate_start)/CLOCKS_PER_SEC;*/
+		//}
+		centroids[0] = 432;
+		//centroids[1] = 10;
+		//centroids[2] = 20;
+		//centroids[3] = 30;
+		cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+		for (int w = 0; w <myConf->number_of_clusters; w++) {
+			cout << centroids[w] << " ";
+		}
+		cout <<endl;
+
+		for (int assign_iter = 0; assign_iter < 2; assign_iter++)
 		{
-			if (init_iter == 0) //case KMedoids++
+			if (assign_iter == 0)		//case PAM
 			{
-				cout << "before kmpp" << cluster_num << endl;
-				KMPP_start = clock();
-				KMedoidsPP(myConf, myMetric, distance_matrix, centroids);
-				KMPP_finish = clock();
-				Initialization_elapsed = (double)(KMPP_finish - KMPP_start)/CLOCKS_PER_SEC;
-			}
-			/*else if (init_iter == 1)//case Concentrate
-			{
-				Concentrate_start = clock();
-				Concentrate(myConf, myMetric, distance_matrix, centroids);
-				Concentrate_finish = clock();
-				Initialization_elapsed = (double)(Concentrate_finish - Concentrate_start)/CLOCKS_PER_SEC;
-			}*/
-			centroids[0] = 0;
-			centroids[1] = 10;
-			centroids[2] = 20;
-			centroids[3] = 30;
-			/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
-			for (int w = 0; w <myConf->number_of_clusters; w++) {
-				cout << centroids[w] << " ";
-			}*/
-
-			for (int assign_iter = 0; assign_iter < 2; assign_iter++)
-			{
-				if (assign_iter == 0)		//case PAM
+				//clear clusterassign
+				for (int i = 0; i < myMetric->point_number; ++i)
 				{
-					//clear clusterassign
-					for (int i = 0; i < myMetric->point_number; ++i)
-					{
-						delete clusterAssign[i];
-					}
-					delete[] clusterAssign;
-					clusterAssign= new int*[myMetric->point_number];
-					for (int i = 0; i < myMetric->point_number; ++i)
-					{
-					    clusterAssign[i] = new int[3];
-					    clusterAssign[i][0] = -1;
-					    clusterAssign[i][1] = -1;
-					    clusterAssign[i][2] = -1;
-					}
-					delete clusterTable;
-					clusterTable = new ClusterTable(myConf->number_of_clusters);
-					//cout << "starting pam - alaloyds" <<endl;
-					Assign_Update_start = clock();
-					for (int assign_update_times =0; assign_update_times < 5; assign_update_times++)
-					{
-						cout << "before pam" <<endl;
-						PAM(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);		//assignment
-						cout << "after pam" <<endl;
-						if (!ALaLoyds(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign)) {		//update
-						 	cout << "done!" << endl;
-						}	
-					}
-					Assign_Update_finish = clock();
-					Assign_Update_elapsed = (double)(Assign_Update_finish - Assign_Update_start)/CLOCKS_PER_SEC;
-					/*for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
-					{
-						clusterTable->PrintClusterNo(cluster_iter);
-					}*/
-
-					//PRINTING SEGMENT
-					//outputFile << "Algorithm: I" << init_iter+1 << "x" << assign_iter+1 << "x" << 1 <<endl;
-					// for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
-					// {
-					// 	clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);		//used to get size
-					// 	outputFile << "CLUSTER-" << cluster_iter << " {"<<size_of_cluster << ", " << clusterTable->ClusterDistance( myMetric, distance_matrix, cluster_iter, clusterAssign) <<"}" <<endl;
-					// }
-					//outputFile << "Clustering Time: " << Assign_Update_elapsed + Initialization_elapsed <<endl;
-					current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
-					if (current_silh > best_silh)
-					{
-						best_silh = current_silh;
-						best_cluster_num = cluster_num;
-					}
-
-					/*if (complete_printing == 1)
-					{
-						for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
-						{
-							//ClusterTable::PrintClusterDataForList(int cluster_no int* size_of_cluster)
-							items_in_cluster_itemNo = clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);
-							if (items_in_cluster_itemNo == NULL)
-							{
-								continue;
-							}
-							items_in_cluster_itemName = ItemNamesFromItemNos(items_in_cluster_itemNo, size_of_cluster);
-							clusterTable->PrintClusterUsingNames(outputFile, items_in_cluster_itemName, size_of_cluster, cluster_iter);
-							delete[] items_in_cluster_itemNo;		//initialized inside PrintClusterDataForList
-							delete[] items_in_cluster_itemName;		//initilaized inside ItemNamesFromItemNos
-						}
-					}*/
-					//cout << "finished pam - alaloyds" <<endl;
-
+					delete clusterAssign[i];
 				}
-				
+				delete[] clusterAssign;
+				clusterAssign= new int*[myMetric->point_number];
+				for (int i = 0; i < myMetric->point_number; ++i)
+				{
+				    clusterAssign[i] = new int[3];
+				    clusterAssign[i][0] = -1;
+				    clusterAssign[i][1] = -1;
+				    clusterAssign[i][2] = -1;
+				}
+				delete clusterTable;
+				clusterTable = new ClusterTable(myConf->number_of_clusters);
+				//cout << "starting pam - alaloyds" <<endl;
+				Assign_Update_start = clock();
+				for (int assign_update_times =0; assign_update_times < 5; assign_update_times++)
+				{
+					cout << "before pam" <<endl;
+					PAM(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);		//assignment
+					cout << "after pam" <<endl;
+					if (!ALaLoyds(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign)) {		//update
+					 	cout << "done!" << endl;
+					}	
+				}
+				Assign_Update_finish = clock();
+				Assign_Update_elapsed = (double)(Assign_Update_finish - Assign_Update_start)/CLOCKS_PER_SEC;
+
+
+
+
+
+				/*for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
+				{
+					clusterTable->PrintClusterNo(cluster_iter);
+				}*/
+
+				//PRINTING SEGMENT
+				//outputFile << "Algorithm: I" << init_iter+1 << "x" << assign_iter+1 << "x" << 1 <<endl;
+				// for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
+				// {
+				// 	clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);		//used to get size
+				// 	outputFile << "CLUSTER-" << cluster_iter << " {"<<size_of_cluster << ", " << clusterTable->ClusterDistance( myMetric, distance_matrix, cluster_iter, clusterAssign) <<"}" <<endl;
+				// }
+				//outputFile << "Clustering Time: " << Assign_Update_elapsed + Initialization_elapsed <<endl;
+
+
+
+
+
+				current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
+				cout << "RET SILH " << cluster_num << " : " << current_silh <<endl;
+				if (current_silh > best_silh)
+				{
+					best_silh = current_silh;
+					best_cluster_num = cluster_num;
+				}
+
+
+
+
+
+
+
+				/*if (complete_printing == 1)
+				{
+					for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
+					{
+						//ClusterTable::PrintClusterDataForList(int cluster_no int* size_of_cluster)
+						items_in_cluster_itemNo = clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);
+						if (items_in_cluster_itemNo == NULL)
+						{
+							continue;
+						}
+						items_in_cluster_itemName = ItemNamesFromItemNos(items_in_cluster_itemNo, size_of_cluster);
+						clusterTable->PrintClusterUsingNames(outputFile, items_in_cluster_itemName, size_of_cluster, cluster_iter);
+						delete[] items_in_cluster_itemNo;		//initialized inside PrintClusterDataForList
+						delete[] items_in_cluster_itemName;		//initilaized inside ItemNamesFromItemNos
+					}
+				}*/
+				//cout << "finished pam - alaloyds" <<endl;
+
 			}
 			
-			//cout << "finished CLARANS" <<endl;
 		}
+
+		/*CLARANS(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);
+		current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
+		cout << "RET SILH " << cluster_num << " : " << current_silh <<endl;*/
+		
+		//cout << "finished CLARANS" <<endl;
 	}
 
+	cout << "best_cluster_num: " <<best_cluster_num <<endl;
+
 	myConf->number_of_clusters = best_cluster_num;
+
+	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	for (int w = 0; w <myConf->number_of_clusters; w++) {
+		cout << "a" << centroids[w] << " ";
+	}
+	cout << endl <<endl;
+
+	cout << "OPER 1" <<endl;
 
 
 	//CLUSTER AGAIN with optimized k
@@ -662,6 +694,14 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	KMedoidsPP(myConf, myMetric, distance_matrix, centroids);
 	KMPP_finish = clock();
 	Initialization_elapsed = (double)(KMPP_finish - KMPP_start)/CLOCKS_PER_SEC;
+
+	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	for (int w = 0; w <myConf->number_of_clusters; w++) {
+		cout << centroids[w] << " ";
+	}
+	cout << endl <<endl;
+
+	cout << "OPER 2" <<endl;
 
 	//clear clusterassign
 	for (int i = 0; i < myMetric->point_number; ++i)
@@ -677,14 +717,18 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	    clusterAssign[i][1] = -1;
 	    clusterAssign[i][2] = -1;
 	}
-	delete clusterTable;
-	clusterTable = new ClusterTable(myConf->number_of_clusters);
+	//delete clusterTable;
+	//clusterTable = new ClusterTable(myConf->number_of_clusters);
 	//cout << "starting pam - alaloyds" <<endl;
 	Assign_Update_start = clock();
 	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
+	cout << endl <<endl;
+
+	cout << "OPER 3" <<endl;
+
 	for (int assign_update_times =0; assign_update_times < 5; assign_update_times++)
 	{
 		PAM(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);		//assignment
@@ -709,10 +753,32 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//outputFile << "Clustering Time: " << Assign_Update_elapsed + Initialization_elapsed <<endl;
 	current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
 
-	for (int user = 0; user < myMetric->point_number; user++)		//gia kathe user
+	cout << "END SILH : " << current_silh <<endl;
+
+	current_point_no_in_cluster = -1;		//give me the first item
+	for (int cluster = 0; cluster < myConf->number_of_clusters ; ++cluster)
+	{
+		do 
+		{
+			current_point_no_in_cluster = clusterTable->ClusterItemNumberNext(current_point_no_in_cluster,cluster);
+			cout << "current_point_no_in_cluster : " << current_point_no_in_cluster <<endl;
+			if (current_point_no_in_cluster != -1)
+			{
+				current_user_general_rating = this->ReturnUserGeneralRating(myMetric, current_point_no_in_cluster);
+				cout << "current_user_general_rating: " << current_user_general_rating <<endl;
+
+			}
+		}while (current_point_no_in_cluster != -1);		//ClusterItemNumberNext returned -1, means no more items in cluster
+
+		
+	}
+
+
+
+	/*for (int user = 0; user < myMetric->point_number; user++)		//gia kathe user
 	{
 		cout << clusterAssign[user][2] <<endl;
-	}
+	}*/
 
 	/*if (complete_printing == 1)
 	{
@@ -793,5 +859,47 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	}
 	delete[] clusterAssign;
 }
+
+/*template <typename T>
+double* ListData<T>::ReturnUserAllRating(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing)
+{
+
+
+
+}*/
+
+template <typename T>
+double ListData<T>::ReturnUserGeneralRating(Metrics* myMetric, int itemno)
+{
+	double* ratings;
+	int items_rated = 0;
+	double total_rating = 0;
+	Node<T>* currentNode = header;
+	while (currentNode != NULL && currentNode->getItemNo() != itemno)
+	{
+		currentNode = currentNode->getNext();
+	}
+
+	if (currentNode!= NULL)
+	{
+		ratings = currentNode->getRatings();
+		for (int i = 0; i < myMetric->point_dimension; ++i)
+		{
+			if (ratings[i] != 0)
+			{
+				items_rated++;
+				total_rating += ratings[i];
+			}
+		}
+	}
+	else 
+	{
+		cout << "haven't found this item on listdata" <<endl;
+		return -1;
+	}
+
+	return (double)(total_rating / items_rated);
+}
+
 
 
