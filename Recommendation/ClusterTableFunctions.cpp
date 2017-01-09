@@ -480,6 +480,38 @@ int ClusterTable::ClusterItemNumberNext(int point_no_before,int cluster_no)
 
 }
 
+int ClusterTable::ClusterItemNumberRandom(int* all_user_table, int cluster_no)       //returns a random user from the cluster    
+{
+    int cluster_size = ReturnClusterSize(cluster_no);
+
+    if (cluster_size ==  0 )
+    {
+        return -1;
+    }
+    else if (cluster_size == 1)
+    {
+        return 0;
+    }
+    int random_user = (int)(rand()%(cluster_size-1));      //is a random user (the random_user-th user)
+    //cout << "current random user: " <<random_user << "th of cluster" << endl;
+    /*ClusterNode* currentNode = clusterTable[cluster_no];
+    while (currentNode != NULL && random_user > 0)
+    {
+        currentNode = currentNode->getNext();
+        random_user--;
+    }
+    if (currentNode!= NULL)
+    {
+        return currentNode->getItemNo();       //return the next items itemNumber
+    }
+    else
+    {
+        return -1;
+    }*/
+        return all_user_table[random_user];
+
+}
+
 int* ClusterTable::ClusterReturnNNForUser(double** distanceMatrix, int neighborhood_size, int driver_point_number, int cluster_no) 
 {
     double** NN_distance_user_table;            //NN_distance_user_table[a][b] - a is the point_number of a best neighbor, b is distance from driver user
@@ -519,5 +551,31 @@ int* ClusterTable::ClusterReturnNNForUser(double** distanceMatrix, int neighborh
     }
 
 
+}
+
+int* ClusterTable::ClusterReturnAllUsersItemNo( int cluster_no) 
+{
+    /*double** NN_distance_user_table;            //NN_distance_user_table[a][b] - a is the point_number of a best neighbor, b is distance from driver user
+    NN_distance_user_table = new double*[this->ReturnClusterSize(cluster_no)];*/
+
+    int iterator = 0;
+
+    /*for (int neighbor = 0; neighbor < this->ReturnClusterSize(cluster_no); neighbor++)
+    {
+        NN_distance_user_table[neighbor] = new double[2];
+        NN_distance_user_table[neighbor][1] = INT_MAX;      //distance of all items is INT_MAX by default
+    }*/
+    int* all_cluster_users;          //to be returned
+    all_cluster_users = new int[this->ReturnClusterSize(cluster_no)];
+
+    ClusterNode* currentNode = clusterTable[cluster_no];
+    while (currentNode != NULL)
+    {
+        all_cluster_users[iterator] = currentNode->getItemNo();
+        currentNode = currentNode->getNext();
+        iterator++;
+    }
+    return all_cluster_users;
 }    
+
 
