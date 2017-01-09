@@ -53,6 +53,46 @@ void swap(int& a, int& b){
     b = temp;
 }
 
+
+
+void quickSort_twolist(double** myArray, int first, int last ){
+    int pivot;
+    if(first < last){
+        pivot = parition_twolist(myArray, first, last);
+        quickSort_twolist(myArray, first, pivot-1);
+        quickSort_twolist(myArray, pivot+1, last);
+    }
+}
+
+
+int parition_twolist(double** myArray, int first, int last){
+    int  piv = first;
+    int pivot = myArray[first][1];
+
+    for(int i = first+1 ; i <= last ; i++){
+        if(myArray[i][1] <= pivot)
+        {
+            piv++;
+            swap_twolist(myArray[i], myArray[piv]);
+            
+        }
+    }
+    swap_twolist(myArray[piv], myArray[first]);
+    return piv;
+}
+
+
+void swap_twolist(double* a, double* b){
+    double* temp = new double[2];
+    temp[0] = a[0];
+    temp[1] = a[1];
+    a[0] = b[0];
+    a[1] = b[1];
+    b[0] = temp[0];
+    b[1] = temp[1];
+}
+
+
 double FindRadiusForAssignment(Conf* myConf,double** distanceMatrix, int* centroids)
 {
     double minDistance = INT_MAX;

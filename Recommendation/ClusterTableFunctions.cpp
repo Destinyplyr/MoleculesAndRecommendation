@@ -324,7 +324,7 @@ double ClusterTable::ClusterSilhouette(Conf* myConf, double** distanceMatrix, in
 
     ClusterNode* secondNode = NULL;
     number_in_cluster = ReturnClusterSize(cluster_no);
-    cout << "current cluster size: " << number_in_cluster <<endl;
+    //cout << "current cluster size: " << number_in_cluster <<endl;
     if(number_in_cluster > 0)
     {
         currentNode = clusterTable[cluster_no];
@@ -332,38 +332,38 @@ double ClusterTable::ClusterSilhouette(Conf* myConf, double** distanceMatrix, in
     while (currentNode != NULL) {
         ++times;
         number_of_scnd_cluster = ReturnCluster(myConf, centroids, clusterAssign[currentNode->getItemNo()][1]);
-        cout << "number_of_scnd_cluster : " << number_of_scnd_cluster <<endl;
-        cout << "THIS CENTROID : " << clusterAssign[currentNode->getItemNo()][1] << endl;
+        //cout << "number_of_scnd_cluster : " << number_of_scnd_cluster <<endl;
+        /*cout << "THIS CENTROID : " << clusterAssign[currentNode->getItemNo()][1] << endl;
             cout << "==================" << endl << "PRINTING CLUSTERS IN PrintingSilhouette fucntion : " <<endl;
             for (int w = 0; w <myConf->number_of_clusters; w++) {
                 cout << centroids[w] << " ";
             }
-            cout << endl;
+        cout << endl;*/
         secondNode = clusterTable[number_of_scnd_cluster];
         number_in_scnd_cluster = ReturnClusterSize(number_of_scnd_cluster);
-        cout << "number_in_scnd_cluster : " <<number_in_scnd_cluster <<endl;
+        //cout << "number_in_scnd_cluster : " <<number_in_scnd_cluster <<endl;
         a_i = (double)ClusterDistanceFromCentroid(distanceMatrix, cluster_no, currentNode->getItemNo()) / (double) number_in_cluster;
-        cout << "   ----> Silhouette: a_i of " << currentNode->getItemNo() << " : " << a_i <<endl;
+        //cout << "   ----> Silhouette: a_i of " << currentNode->getItemNo() << " : " << a_i <<endl;
         b_i = (double) ClusterDistanceFromCentroid(distanceMatrix, number_of_scnd_cluster, currentNode->getItemNo()) / (double)number_in_scnd_cluster;
-        cout << "   ----> Silhouette: b_i of " << currentNode->getItemNo() << " : " << b_i <<endl;
+        //cout << "   ----> Silhouette: b_i of " << currentNode->getItemNo() << " : " << b_i <<endl;
         if (number_in_scnd_cluster == 0) {
             b_i = 1;
         }
         if (a_i >= b_i) 
         {
-            cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) a_i <<endl;
+            //cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) a_i <<endl;
             avg_silh += (double)(b_i - a_i) / (double) a_i;
             //cout << "   ----> Silhouette: current avg_silh : " <<avg_silh <<endl;
         }
         else
         {
-            cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) b_i <<endl;
+            //cout << "   ----> Silhouette: adding in avg: " << (double)(b_i - a_i) / (double) b_i <<endl;
             avg_silh += (double)(b_i - a_i) / (double) b_i;
-            cout << "   ----> Silhouette: current avg_silh " << currentNode->getItemNo() << " : " << avg_silh <<endl;
+            //cout << "   ----> Silhouette: current avg_silh " << currentNode->getItemNo() << " : " << avg_silh <<endl;
         }
         currentNode = currentNode->getNext();
     }
-    cout << "   ----> Silhouette: return silhouette :" << ((double)avg_silh/(double) number_in_cluster) << endl;
+    //cout << "   ----> Silhouette: return silhouette :" << ((double)avg_silh/(double) number_in_cluster) << endl;
     return ((double)avg_silh/(double) number_in_cluster);
 }
 
@@ -479,4 +479,45 @@ int ClusterTable::ClusterItemNumberNext(int point_no_before,int cluster_no)
     }
 
 }
+
+int* ClusterTable::ClusterReturnNNForUser(double** distanceMatrix, int neighborhood_size, int driver_point_number, int cluster_no) 
+{
+    double** NN_distance_user_table;            //NN_distance_user_table[a][b] - a is the point_number of a best neighbor, b is distance from driver user
+    NN_distance_user_table = new double*[this->ReturnClusterSize(cluster_no)];
+
+    int iterator = 0;
+
+    for (int neighbor = 0; neighbor < this->ReturnClusterSize(cluster_no); neighbor++)
+    {
+        NN_distance_user_table[neighbor] = new double[2];
+        NN_distance_user_table[neighbor][1] = INT_MAX;      //distance of all items is INT_MAX by default
+    }
+    int* NN_table_for_user;          //to be returned
+    NN_table_for_user = new int[neighborhood_size];
+
+    ClusterNode* currentNode = clusterTable[cluster_no];
+    while (currentNode != NULL)
+    {
+        if (currentNode->getItemNo() != driver_point_number)
+        {
+            NN_distance_user_table[iterator][0] = currentNode->getItemNo();
+            NN_distance_user_table[iterator][1] = DistanceMatrixDistance(distanceMatrix, driver_point_number, currentNode->getItemNo());
+            iterator++;
+        }
+        else
+        {
+            iterator++;
+        }
+        currentNode = currentNode->getNext();
+    }
+    quickSort_twolist(NN_distance_user_table, 0, this->ReturnClusterSize(cluster_no)-1 );
+
+    for (int neighbor = 0; neighbor < neighborhood_size; neighbor++)
+    {
+        NN_table_for_user[neighbor] = NN_distance_user_table[neighbor][0];
+        cout << "neighbor " << neighbor << " : " << NN_distance_user_table[neighbor][0] << " dist : " << NN_distance_user_table[neighbor][1] <<endl;
+    }
+
+
+}    
 

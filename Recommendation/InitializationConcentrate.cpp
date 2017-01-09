@@ -63,7 +63,7 @@ void Concentrate(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* 
     delete divisor;
 }
 
-void swap_twolist(double& a, double& b){
+/*void swap_twolist(double& a, double& b){
     double temp = a;
     a = b;
     b = temp;
@@ -95,4 +95,4 @@ int parition_twolist(double** myArray, int first, int last){        //appied QS 
     swap_twolist(myArray[piv][0], myArray[first][0]);
     swap_twolist(myArray[piv][1], myArray[first][1]);
     return piv;
-}
+}*/

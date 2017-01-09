@@ -129,3 +129,9 @@ void ListData<T>::DistanceMatrixComputationHamming(Metrics* myMetric, double** d
 		driver_node = driver_node->getNext();
 	}
 }
+
+template <typename T>
+double ListData<T>::SimilarityHamming(Metrics* myMetric, double** distance_matrix, double item1, double item2)
+{
+	return myMetric->point_dimension - DistanceMatrixDistance(distance_matrix, item1, item2);
+}

@@ -42,7 +42,10 @@ class ListData
 		void Printer(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
 		void ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
 		double ReturnUserGeneralRating(Metrics* myMetric, int itemno);
-		
+		double SimilarityHamming(Metrics* myMetric, double** distance_matrix, double item1, double item2);
+		double ReturnUserSpecificRating (int itemno, int item_no_rating);
+		double** ReturnUserRatingTable (Metrics* myMetric);
+		double* ReturnUserGeneralRatingTable (Metrics* myMetric);
 	private:
 		Node<T>* header;
 };
