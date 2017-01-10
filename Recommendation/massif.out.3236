@@ -1,0 +1,1093 @@
+desc: (none)
+cmd: ./recommendation -d yahoo_music_xs.dat -o out.txt
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=104786307
+mem_heap_B=11772968
+mem_heap_extra_B=45160
+mem_stacks_B=0
+heap_tree=peak
+n3: 11772968 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 6400000 0x402FCB: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ListInsertionHamming(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (HammingListManagement.cpp:52)
+  n1: 6400000 0x40289D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:43)
+   n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 5120000 0x407AE6: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:198)
+  n1: 5120000 0x4028C8: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:45)
+   n0: 5120000 0x4024E1: main (mainSample.cpp:90)
+ n0: 252968 in 15 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=2
+#-----------
+time=224572161
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=311015229
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=436133580
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=534566460
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=672213891
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=781808481
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=913344672
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=1091290799
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=1255338090
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=1405711144
+mem_heap_B=11772968
+mem_heap_extra_B=45160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=1501402146
+mem_heap_B=11772968
+mem_heap_extra_B=45160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=1610772582
+mem_heap_B=11772840
+mem_heap_extra_B=45152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=1779927492
+mem_heap_B=11785668
+mem_heap_extra_B=51556
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=1970677373
+mem_heap_B=11785716
+mem_heap_extra_B=51572
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=2124342572
+mem_heap_B=11785708
+mem_heap_extra_B=51572
+mem_stacks_B=0
+heap_tree=detailed
+n3: 11785708 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 6400000 0x402FCB: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ListInsertionHamming(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (HammingListManagement.cpp:52)
+  n1: 6400000 0x40289D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:43)
+   n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 5120000 0x407AE6: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:198)
+  n1: 5120000 0x4028C8: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:45)
+   n0: 5120000 0x4024E1: main (mainSample.cpp:90)
+ n0: 265708 in 23 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=17
+#-----------
+time=2316158189
+mem_heap_B=11785764
+mem_heap_extra_B=51596
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=2467251422
+mem_heap_B=11785756
+mem_heap_extra_B=51580
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=2564484474
+mem_heap_B=11785756
+mem_heap_extra_B=51580
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=2747817880
+mem_heap_B=11785772
+mem_heap_extra_B=51588
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=2848967330
+mem_heap_B=11785812
+mem_heap_extra_B=51596
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=3007589560
+mem_heap_B=11785884
+mem_heap_extra_B=51620
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=3158285361
+mem_heap_B=11785876
+mem_heap_extra_B=51604
+mem_stacks_B=0
+heap_tree=detailed
+n3: 11785876 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 6400000 0x402FCB: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ListInsertionHamming(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (HammingListManagement.cpp:52)
+  n1: 6400000 0x40289D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:43)
+   n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 5120000 0x407AE6: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:198)
+  n1: 5120000 0x4028C8: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:45)
+   n0: 5120000 0x4024E1: main (mainSample.cpp:90)
+ n0: 265876 in 23 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=24
+#-----------
+time=3255065049
+mem_heap_B=11785876
+mem_heap_extra_B=51604
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=3438422293
+mem_heap_B=11785892
+mem_heap_extra_B=51612
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=3538592710
+mem_heap_B=11785948
+mem_heap_extra_B=51620
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=3697552515
+mem_heap_B=11786036
+mem_heap_extra_B=51644
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=3867195568
+mem_heap_B=11785948
+mem_heap_extra_B=51620
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=3963308101
+mem_heap_B=11785948
+mem_heap_extra_B=51620
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=4148333834
+mem_heap_B=11785964
+mem_heap_extra_B=51628
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=4248346686
+mem_heap_B=21162552
+mem_heap_extra_B=1534360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=4346776579
+mem_heap_B=28495304
+mem_heap_extra_B=5200736
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=4494410064
+mem_heap_B=29228456
+mem_heap_extra_B=5567312
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=4593963293
+mem_heap_B=29801272
+mem_heap_extra_B=5853720
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=4790810426
+mem_heap_B=54533464
+mem_heap_extra_B=18219816
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=4939385092
+mem_heap_B=64508568
+mem_heap_extra_B=23207368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=5136233043
+mem_heap_B=71933816
+mem_heap_extra_B=26919992
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=5235295561
+mem_heap_B=80351288
+mem_heap_extra_B=31128728
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=5333729112
+mem_heap_B=85805832
+mem_heap_extra_B=33856000
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=5481474727
+mem_heap_B=100502888
+mem_heap_extra_B=41204528
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=5579900147
+mem_heap_B=110480088
+mem_heap_extra_B=46193128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=5728127522
+mem_heap_B=120899688
+mem_heap_extra_B=51402928
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=5924974256
+mem_heap_B=140130376
+mem_heap_extra_B=61018272
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=6024584798
+mem_heap_B=146323592
+mem_heap_extra_B=64114880
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=6172273968
+mem_heap_B=156284488
+mem_heap_extra_B=69095328
+mem_stacks_B=0
+heap_tree=detailed
+n5: 156284488 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 138058528 0x408EFB: swap_twolist(double*, double*) (DistanceMatrixFunctions.cpp:86)
+  n1: 135161632 0x408E97: parition_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:76)
+   n3: 135161632 0x408DB4: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:61)
+    n3: 108892304 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+     n3: 89749872 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+      n3: 74028736 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n3: 60876816 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n3: 50055824 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n3: 41201456 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n3: 33973232 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n3: 28084736 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n3: 23184144 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n3: 19074656 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n3: 15688352 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n3: 12915296 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n2: 10551232 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n2: 8612032 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                  n2: 7017776 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                   n2: 5682368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                    n2: 4547696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                     n2: 3679296 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                      n2: 2972800 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                       n1: 2419776 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                        n0: 2419776 in 2 places, all below massif's threshold (01.00%)
+                       n0: 553024 in 1 place, below massif's threshold (01.00%)
+                      n0: 706496 in 2 places, all below massif's threshold (01.00%)
+                     n0: 868400 in 2 places, all below massif's threshold (01.00%)
+                    n0: 1134672 in 2 places, all below massif's threshold (01.00%)
+                   n0: 1335408 in 2 places, all below massif's threshold (01.00%)
+                  n0: 1594256 in 2 places, all below massif's threshold (01.00%)
+                 n0: 1939200 in 2 places, all below massif's threshold (01.00%)
+                n1: 2336352 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                 n0: 2336352 in 2 places, all below massif's threshold (01.00%)
+                n0: 27712 in 1 place, below massif's threshold (01.00%)
+               n1: 2731568 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                n0: 2731568 in 2 places, all below massif's threshold (01.00%)
+               n0: 41488 in 1 place, below massif's threshold (01.00%)
+              n2: 3330944 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+               n1: 2735744 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n0: 2735744 in 2 places, all below massif's threshold (01.00%)
+               n0: 595200 in 1 place, below massif's threshold (01.00%)
+              n0: 55360 in 1 place, below massif's threshold (01.00%)
+             n2: 4054000 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+              n2: 3366736 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n1: 2701024 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n0: 2701024 in 2 places, all below massif's threshold (01.00%)
+               n0: 665712 in 1 place, below massif's threshold (01.00%)
+              n0: 687264 in 1 place, below massif's threshold (01.00%)
+             n0: 55488 in 1 place, below massif's threshold (01.00%)
+            n2: 4844880 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+             n2: 4028896 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3268480 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2703552 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2341936 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2341936 in 3 places, all below massif's threshold (01.00%)
+                n0: 361616 in 2 places, all below massif's threshold (01.00%)
+               n0: 564928 in 1 place, below massif's threshold (01.00%)
+              n0: 760416 in 1 place, below massif's threshold (01.00%)
+             n0: 815984 in 1 place, below massif's threshold (01.00%)
+            n0: 55712 in 1 place, below massif's threshold (01.00%)
+           n2: 5819040 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+            n2: 4864544 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 3986512 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3225584 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2748368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2314416 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2314416 in 2 places, all below massif's threshold (01.00%)
+                n0: 433952 in 2 places, all below massif's threshold (01.00%)
+               n0: 477216 in 2 places, all below massif's threshold (01.00%)
+              n0: 760928 in 1 place, below massif's threshold (01.00%)
+             n0: 878032 in 2 places, all below massif's threshold (01.00%)
+            n0: 954496 in 1 place, below massif's threshold (01.00%)
+           n0: 69456 in 1 place, below massif's threshold (01.00%)
+          n2: 7104192 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+           n2: 5881392 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4868752 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 3958960 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3359184 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2825696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2392496 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2392496 in 3 places, all below massif's threshold (01.00%)
+                n0: 433200 in 1 place, below massif's threshold (01.00%)
+               n0: 533488 in 2 places, all below massif's threshold (01.00%)
+              n0: 599776 in 2 places, all below massif's threshold (01.00%)
+             n0: 909792 in 2 places, all below massif's threshold (01.00%)
+            n0: 1012640 in 2 places, all below massif's threshold (01.00%)
+           n0: 1222800 in 1 place, below massif's threshold (01.00%)
+          n0: 124032 in 1 place, below massif's threshold (01.00%)
+         n2: 8716720 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+          n2: 7194240 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 5939440 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4845488 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 4082608 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3371200 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2835024 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2340672 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2340672 in 2 places, all below massif's threshold (01.00%)
+                n0: 494352 in 2 places, all below massif's threshold (01.00%)
+               n0: 536176 in 1 place, below massif's threshold (01.00%)
+              n0: 711408 in 2 places, all below massif's threshold (01.00%)
+             n0: 762880 in 2 places, all below massif's threshold (01.00%)
+            n0: 1093952 in 2 places, all below massif's threshold (01.00%)
+           n0: 1254800 in 2 places, all below massif's threshold (01.00%)
+          n0: 1522480 in 2 places, all below massif's threshold (01.00%)
+         n0: 137648 in 1 place, below massif's threshold (01.00%)
+        n2: 10669632 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n2: 8857360 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 7364144 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 6043280 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 5077120 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 4166000 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3447264 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2797072 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2347504 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2347504 in 2 places, all below massif's threshold (01.00%)
+                n0: 449568 in 1 place, below massif's threshold (01.00%)
+               n0: 650192 in 2 places, all below massif's threshold (01.00%)
+              n0: 718736 in 2 places, all below massif's threshold (01.00%)
+             n0: 911120 in 2 places, all below massif's threshold (01.00%)
+            n0: 966160 in 2 places, all below massif's threshold (01.00%)
+           n0: 1320864 in 2 places, all below massif's threshold (01.00%)
+          n0: 1493216 in 2 places, all below massif's threshold (01.00%)
+         n0: 1812272 in 2 places, all below massif's threshold (01.00%)
+        n0: 151360 in 1 place, below massif's threshold (01.00%)
+       n3: 12973552 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n2: 10576368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 8784016 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 7177408 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 5981696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4864208 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 4019984 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3319696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2743888 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2335216 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2335216 in 2 places, all below massif's threshold (01.00%)
+                n0: 408672 in 1 place, below massif's threshold (01.00%)
+               n0: 575808 in 1 place, below massif's threshold (01.00%)
+              n0: 700288 in 2 places, all below massif's threshold (01.00%)
+             n0: 844224 in 2 places, all below massif's threshold (01.00%)
+            n0: 1117488 in 2 places, all below massif's threshold (01.00%)
+           n0: 1195712 in 2 places, all below massif's threshold (01.00%)
+          n0: 1606608 in 2 places, all below massif's threshold (01.00%)
+         n0: 1792352 in 2 places, all below massif's threshold (01.00%)
+        n1: 2383216 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n0: 2383216 in 2 places, all below massif's threshold (01.00%)
+        n0: 13968 in 1 place, below massif's threshold (01.00%)
+       n0: 178368 in 1 place, below massif's threshold (01.00%)
+      n3: 15474112 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 12702352 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 10615664 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 8703872 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 7233696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 5873088 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4816016 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 4013120 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3252256 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2799344 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2422560 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2422560 in 2 places, all below massif's threshold (01.00%)
+                n0: 376784 in 1 place, below massif's threshold (01.00%)
+               n0: 452912 in 1 place, below massif's threshold (01.00%)
+              n0: 760864 in 2 places, all below massif's threshold (01.00%)
+             n0: 802896 in 2 places, all below massif's threshold (01.00%)
+            n0: 1057072 in 2 places, all below massif's threshold (01.00%)
+           n0: 1360608 in 2 places, all below massif's threshold (01.00%)
+          n0: 1470176 in 2 places, all below massif's threshold (01.00%)
+         n0: 1911792 in 2 places, all below massif's threshold (01.00%)
+        n0: 2086688 in 2 places, all below massif's threshold (01.00%)
+       n2: 2757776 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n1: 2263600 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n0: 2263600 in 2 places, all below massif's threshold (01.00%)
+        n0: 494176 in 1 place, below massif's threshold (01.00%)
+       n0: 13984 in 1 place, below massif's threshold (01.00%)
+      n0: 247024 in 1 place, below massif's threshold (01.00%)
+     n3: 18809840 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n3: 15357440 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n2: 12865696 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 10656768 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 8966384 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 7331168 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 6006416 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4912976 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 3998800 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3382816 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2915920 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2432352 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2432352 in 3 places, all below massif's threshold (01.00%)
+                n0: 483568 in 1 place, below massif's threshold (01.00%)
+               n0: 466896 in 1 place, below massif's threshold (01.00%)
+              n0: 615984 in 1 place, below massif's threshold (01.00%)
+             n0: 914176 in 2 places, all below massif's threshold (01.00%)
+            n0: 1093440 in 2 places, all below massif's threshold (01.00%)
+           n0: 1324752 in 2 places, all below massif's threshold (01.00%)
+          n0: 1635216 in 2 places, all below massif's threshold (01.00%)
+         n0: 1690384 in 2 places, all below massif's threshold (01.00%)
+        n0: 2208928 in 2 places, all below massif's threshold (01.00%)
+       n1: 2436160 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n0: 2436160 in 2 places, all below massif's threshold (01.00%)
+       n0: 55584 in 1 place, below massif's threshold (01.00%)
+      n2: 3421104 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 2807328 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n1: 2256256 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n0: 2256256 in 2 places, all below massif's threshold (01.00%)
+        n0: 551072 in 1 place, below massif's threshold (01.00%)
+       n0: 613776 in 1 place, below massif's threshold (01.00%)
+      n0: 31296 in 1 place, below massif's threshold (01.00%)
+     n0: 332592 in 1 place, below massif's threshold (01.00%)
+    n3: 25360624 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+     n3: 18508352 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+      n3: 15435552 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n2: 12738928 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 10668672 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 8763584 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 7119008 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 5836800 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 4731664 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 3989504 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 3389968 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 2855584 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 2353008 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 2353008 in 3 places, all below massif's threshold (01.00%)
+                n0: 502576 in 2 places, all below massif's threshold (01.00%)
+               n0: 534384 in 1 place, below massif's threshold (01.00%)
+              n0: 599536 in 1 place, below massif's threshold (01.00%)
+             n0: 742160 in 2 places, all below massif's threshold (01.00%)
+            n0: 1105136 in 2 places, all below massif's threshold (01.00%)
+           n0: 1282208 in 2 places, all below massif's threshold (01.00%)
+          n0: 1644576 in 2 places, all below massif's threshold (01.00%)
+         n0: 1905088 in 2 places, all below massif's threshold (01.00%)
+        n0: 2070256 in 2 places, all below massif's threshold (01.00%)
+       n1: 2668880 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n0: 2668880 in 2 places, all below massif's threshold (01.00%)
+       n0: 27744 in 1 place, below massif's threshold (01.00%)
+      n2: 2984256 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n1: 2372464 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n0: 2372464 in 3 places, all below massif's threshold (01.00%)
+       n0: 611792 in 2 places, all below massif's threshold (01.00%)
+      n0: 88544 in 1 place, below massif's threshold (01.00%)
+     n3: 6503728 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n2: 3415392 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n1: 2683344 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n0: 2683344 in 3 places, all below massif's threshold (01.00%)
+       n0: 732048 in 2 places, all below massif's threshold (01.00%)
+      n1: 2890992 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n0: 2890992 in 3 places, all below massif's threshold (01.00%)
+      n0: 197344 in 1 place, below massif's threshold (01.00%)
+     n0: 348544 in 1 place, below massif's threshold (01.00%)
+    n0: 908704 in 1 place, below massif's threshold (01.00%)
+  n1: 2896896 0x408EDC: parition_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:80)
+   n2: 2896896 0x408DB4: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:61)
+    n2: 2575808 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+     n2: 2508560 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n2: 2484512 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 2468320 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n2: 2453744 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n2: 2439552 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+          n2: 2425648 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+           n2: 2411872 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+            n2: 2398400 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+             n2: 2385248 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+              n2: 2372592 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+               n2: 2360240 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                n2: 2348304 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                 n2: 2336640 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                  n2: 2325360 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                   n2: 2314384 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                    n2: 2303808 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                     n2: 2293488 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                      n2: 2283408 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                       n2: 2273600 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                        n2: 2263888 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                         n1: 2254320 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                          n0: 2254320 in 3 places, all below massif's threshold (01.00%)
+                         n0: 9568 in 2 places, all below massif's threshold (01.00%)
+                        n0: 9712 in 2 places, all below massif's threshold (01.00%)
+                       n0: 9808 in 2 places, all below massif's threshold (01.00%)
+                      n0: 10080 in 2 places, all below massif's threshold (01.00%)
+                     n0: 10320 in 2 places, all below massif's threshold (01.00%)
+                    n0: 10576 in 2 places, all below massif's threshold (01.00%)
+                   n0: 10976 in 2 places, all below massif's threshold (01.00%)
+                  n0: 11280 in 2 places, all below massif's threshold (01.00%)
+                 n0: 11664 in 2 places, all below massif's threshold (01.00%)
+                n0: 11936 in 2 places, all below massif's threshold (01.00%)
+               n0: 12352 in 2 places, all below massif's threshold (01.00%)
+              n0: 12656 in 2 places, all below massif's threshold (01.00%)
+             n0: 13152 in 2 places, all below massif's threshold (01.00%)
+            n0: 13472 in 2 places, all below massif's threshold (01.00%)
+           n0: 13776 in 2 places, all below massif's threshold (01.00%)
+          n0: 13904 in 2 places, all below massif's threshold (01.00%)
+         n0: 14192 in 2 places, all below massif's threshold (01.00%)
+        n0: 14576 in 2 places, all below massif's threshold (01.00%)
+       n0: 16192 in 2 places, all below massif's threshold (01.00%)
+      n0: 24048 in 2 places, all below massif's threshold (01.00%)
+     n0: 67248 in 2 places, all below massif's threshold (01.00%)
+    n0: 321088 in 2 places, all below massif's threshold (01.00%)
+ n1: 6400000 0x402FCB: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ListInsertionHamming(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (HammingListManagement.cpp:52)
+  n1: 6400000 0x40289D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:43)
+   n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 6400000 0x404DEF: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ReturnUserRatingTable(Metrics*) (ListsFunctions.cpp:1081)
+  n1: 6400000 0x404153: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (ListsFunctions.cpp:785)
+   n1: 6400000 0x402957: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:51)
+    n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 5120000 0x407AE6: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:198)
+  n1: 5120000 0x4028C8: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:45)
+   n0: 5120000 0x4024E1: main (mainSample.cpp:90)
+ n0: 305960 in 30 places, all below massif's threshold (01.00%)
+#-----------
+snapshot=46
+#-----------
+time=6270697867
+mem_heap_B=159114312
+mem_heap_extra_B=70510240
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=6419264038
+mem_heap_B=171926680
+mem_heap_extra_B=76916424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=6567514743
+mem_heap_B=181933576
+mem_heap_extra_B=81919872
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=6715144268
+mem_heap_B=199544168
+mem_heap_extra_B=90725168
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=6801587356
+mem_heap_B=207956136
+mem_heap_extra_B=94931152
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=6888030499
+mem_heap_B=220540552
+mem_heap_extra_B=101223360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=6974481656
+mem_heap_B=222105880
+mem_heap_extra_B=102006024
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=7060924745
+mem_heap_B=225436152
+mem_heap_extra_B=103671160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=7147376346
+mem_heap_B=227892776
+mem_heap_extra_B=104899472
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=7233825082
+mem_heap_B=237693688
+mem_heap_extra_B=109799928
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=7320270453
+mem_heap_B=243007096
+mem_heap_extra_B=112456632
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=7406713530
+mem_heap_B=252184552
+mem_heap_extra_B=117045360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=7493156667
+mem_heap_B=261825224
+mem_heap_extra_B=121865696
+mem_stacks_B=0
+heap_tree=detailed
+n5: 261825224 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 243599264 0x408EFB: swap_twolist(double*, double*) (DistanceMatrixFunctions.cpp:86)
+  n1: 238959440 0x408E97: parition_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:76)
+   n3: 238959440 0x408DB4: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:61)
+    n3: 192833856 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+     n3: 159040624 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+      n3: 131187616 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n3: 108179280 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n3: 89126224 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n3: 73607104 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n3: 60873952 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n3: 50262864 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n3: 41463648 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n3: 34218800 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n3: 28294128 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n3: 23449088 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n2: 19416672 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n2: 16102656 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                  n2: 13415840 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                   n2: 11132000 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                    n2: 9168896 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                     n2: 7575840 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                      n2: 6219136 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                       n2: 5150336 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                        n1: 4235200 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                         n0: 4235200 in 3 places, all below massif's threshold (01.00%)
+                        n0: 915136 in 2 places, all below massif's threshold (01.00%)
+                       n0: 1068800 in 2 places, all below massif's threshold (01.00%)
+                      n0: 1356704 in 2 places, all below massif's threshold (01.00%)
+                     n0: 1593056 in 2 places, all below massif's threshold (01.00%)
+                    n0: 1963104 in 2 places, all below massif's threshold (01.00%)
+                   n0: 2283840 in 2 places, all below massif's threshold (01.00%)
+                  n0: 2686816 in 2 places, all below massif's threshold (01.00%)
+                 n0: 3314016 in 2 places, all below massif's threshold (01.00%)
+                n1: 3963904 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                 n0: 3963904 in 2 places, all below massif's threshold (01.00%)
+                n0: 68512 in 1 place, below massif's threshold (01.00%)
+               n2: 4762672 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+                n1: 3906096 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 3906096 in 3 places, all below massif's threshold (01.00%)
+                n0: 856576 in 1 place, below massif's threshold (01.00%)
+               n0: 82368 in 1 place, below massif's threshold (01.00%)
+              n2: 5828352 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+               n2: 4796016 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 3913424 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 3913424 in 2 places, all below massif's threshold (01.00%)
+                n0: 882592 in 2 places, all below massif's threshold (01.00%)
+               n0: 1032336 in 1 place, below massif's threshold (01.00%)
+              n0: 96320 in 1 place, below massif's threshold (01.00%)
+             n2: 7148320 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+              n2: 5953184 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4830416 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 3984864 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 3984864 in 3 places, all below massif's threshold (01.00%)
+                n0: 845552 in 2 places, all below massif's threshold (01.00%)
+               n0: 1122768 in 2 places, all below massif's threshold (01.00%)
+              n0: 1195136 in 1 place, below massif's threshold (01.00%)
+             n0: 96528 in 1 place, below massif's threshold (01.00%)
+            n2: 8702368 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+             n2: 7214048 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5895728 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4889024 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4123680 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4123680 in 3 places, all below massif's threshold (01.00%)
+                n0: 765344 in 2 places, all below massif's threshold (01.00%)
+               n0: 1006704 in 2 places, all below massif's threshold (01.00%)
+              n0: 1318320 in 2 places, all below massif's threshold (01.00%)
+             n0: 1488320 in 1 place, below massif's threshold (01.00%)
+            n0: 96848 in 1 place, below massif's threshold (01.00%)
+           n2: 10500384 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+            n2: 8770608 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7208688 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5911360 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4920368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4149376 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4149376 in 2 places, all below massif's threshold (01.00%)
+                n0: 770992 in 2 places, all below massif's threshold (01.00%)
+               n0: 990992 in 2 places, all below massif's threshold (01.00%)
+              n0: 1297328 in 2 places, all below massif's threshold (01.00%)
+             n0: 1561920 in 2 places, all below massif's threshold (01.00%)
+            n0: 1729776 in 1 place, below massif's threshold (01.00%)
+           n0: 110704 in 1 place, below massif's threshold (01.00%)
+          n2: 12553936 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+           n2: 10420048 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8605088 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7089472 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5903680 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4970032 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4121952 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4121952 in 3 places, all below massif's threshold (01.00%)
+                n0: 848080 in 1 place, below massif's threshold (01.00%)
+               n0: 933648 in 2 places, all below massif's threshold (01.00%)
+              n0: 1185792 in 2 places, all below massif's threshold (01.00%)
+             n0: 1515616 in 2 places, all below massif's threshold (01.00%)
+            n0: 1814960 in 2 places, all below massif's threshold (01.00%)
+           n0: 2133888 in 1 place, below massif's threshold (01.00%)
+          n0: 179216 in 1 place, below massif's threshold (01.00%)
+         n2: 15326144 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+          n2: 12697536 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10443120 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8581280 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7137440 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5936128 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4930608 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4072816 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4072816 in 2 places, all below massif's threshold (01.00%)
+                n0: 857792 in 2 places, all below massif's threshold (01.00%)
+               n0: 1005520 in 1 place, below massif's threshold (01.00%)
+              n0: 1201312 in 2 places, all below massif's threshold (01.00%)
+             n0: 1443840 in 2 places, all below massif's threshold (01.00%)
+            n0: 1861840 in 2 places, all below massif's threshold (01.00%)
+           n0: 2254416 in 2 places, all below massif's threshold (01.00%)
+          n0: 2628608 in 2 places, all below massif's threshold (01.00%)
+         n0: 192976 in 1 place, below massif's threshold (01.00%)
+        n2: 18846160 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n2: 15705744 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 12976832 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10694176 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8886560 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7349536 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 6023376 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4952096 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4234688 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4234688 in 2 places, all below massif's threshold (01.00%)
+                n0: 717408 in 1 place, below massif's threshold (01.00%)
+               n0: 1071280 in 2 places, all below massif's threshold (01.00%)
+              n0: 1326160 in 2 places, all below massif's threshold (01.00%)
+             n0: 1537024 in 2 places, all below massif's threshold (01.00%)
+            n0: 1807616 in 2 places, all below massif's threshold (01.00%)
+           n0: 2282656 in 2 places, all below massif's threshold (01.00%)
+          n0: 2728912 in 2 places, all below massif's threshold (01.00%)
+         n0: 3140416 in 2 places, all below massif's threshold (01.00%)
+        n0: 206896 in 1 place, below massif's threshold (01.00%)
+       n3: 22760592 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n2: 18770640 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 15533584 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 12746080 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10494416 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8569648 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7016960 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5829616 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4925552 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4151728 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4151728 in 2 places, all below massif's threshold (01.00%)
+                n0: 773824 in 1 place, below massif's threshold (01.00%)
+               n0: 904064 in 1 place, below massif's threshold (01.00%)
+              n0: 1187344 in 2 places, all below massif's threshold (01.00%)
+             n0: 1552688 in 2 places, all below massif's threshold (01.00%)
+            n0: 1924768 in 2 places, all below massif's threshold (01.00%)
+           n0: 2251664 in 2 places, all below massif's threshold (01.00%)
+          n0: 2787504 in 2 places, all below massif's threshold (01.00%)
+         n0: 3237056 in 2 places, all below massif's threshold (01.00%)
+        n1: 3962720 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n0: 3962720 in 2 places, all below massif's threshold (01.00%)
+        n0: 27232 in 1 place, below massif's threshold (01.00%)
+       n0: 247744 in 1 place, below massif's threshold (01.00%)
+      n3: 27481408 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 22711984 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 18806048 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 15554368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 12770112 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10399280 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8498000 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7107968 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5931376 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 5025232 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4224816 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4224816 in 2 places, all below massif's threshold (01.00%)
+                n0: 800416 in 1 place, below massif's threshold (01.00%)
+               n0: 906144 in 1 place, below massif's threshold (01.00%)
+              n0: 1176592 in 2 places, all below massif's threshold (01.00%)
+             n0: 1390032 in 2 places, all below massif's threshold (01.00%)
+            n0: 1901280 in 2 places, all below massif's threshold (01.00%)
+           n0: 2370832 in 2 places, all below massif's threshold (01.00%)
+          n0: 2784256 in 2 places, all below massif's threshold (01.00%)
+         n0: 3251680 in 2 places, all below massif's threshold (01.00%)
+        n0: 3905936 in 2 places, all below massif's threshold (01.00%)
+       n2: 4742160 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n1: 3935088 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n0: 3935088 in 2 places, all below massif's threshold (01.00%)
+        n0: 807072 in 1 place, below massif's threshold (01.00%)
+       n0: 27264 in 1 place, below massif's threshold (01.00%)
+      n0: 371600 in 1 place, below massif's threshold (01.00%)
+     n3: 33262736 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n3: 27340096 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n2: 22615888 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 18786080 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 15562768 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 12750960 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10400656 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8578400 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7124672 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5952192 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4971024 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 4087952 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 4087952 in 3 places, all below massif's threshold (01.00%)
+                n0: 883072 in 1 place, below massif's threshold (01.00%)
+               n0: 981168 in 1 place, below massif's threshold (01.00%)
+              n0: 1172480 in 1 place, below massif's threshold (01.00%)
+             n0: 1453728 in 2 places, all below massif's threshold (01.00%)
+            n0: 1822256 in 2 places, all below massif's threshold (01.00%)
+           n0: 2350304 in 2 places, all below massif's threshold (01.00%)
+          n0: 2811808 in 2 places, all below massif's threshold (01.00%)
+         n0: 3223312 in 2 places, all below massif's threshold (01.00%)
+        n0: 3829808 in 2 places, all below massif's threshold (01.00%)
+       n1: 4586528 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n0: 4586528 in 2 places, all below massif's threshold (01.00%)
+       n0: 137680 in 1 place, below massif's threshold (01.00%)
+      n2: 5864464 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 4793072 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n1: 3866528 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n0: 3866528 in 2 places, all below massif's threshold (01.00%)
+        n0: 926544 in 1 place, below massif's threshold (01.00%)
+       n0: 1071392 in 2 places, all below massif's threshold (01.00%)
+      n0: 58176 in 1 place, below massif's threshold (01.00%)
+     n0: 530496 in 1 place, below massif's threshold (01.00%)
+    n3: 44541040 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+     n3: 33211008 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+      n3: 27358368 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n3: 22628144 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n2: 18622832 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n2: 15358640 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+          n2: 12463920 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+           n2: 10256352 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+            n2: 8499584 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+             n2: 7047616 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+              n2: 5834864 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+               n2: 4813200 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                n1: 3940704 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+                 n0: 3940704 in 3 places, all below massif's threshold (01.00%)
+                n0: 872496 in 2 places, all below massif's threshold (01.00%)
+               n0: 1021664 in 1 place, below massif's threshold (01.00%)
+              n0: 1212752 in 1 place, below massif's threshold (01.00%)
+             n0: 1451968 in 2 places, all below massif's threshold (01.00%)
+            n0: 1756768 in 2 places, all below massif's threshold (01.00%)
+           n0: 2207568 in 2 places, all below massif's threshold (01.00%)
+          n0: 2894720 in 2 places, all below massif's threshold (01.00%)
+         n0: 3264192 in 2 places, all below massif's threshold (01.00%)
+        n1: 3896384 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n0: 3896384 in 2 places, all below massif's threshold (01.00%)
+        n0: 108928 in 1 place, below massif's threshold (01.00%)
+       n1: 4660624 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n0: 4660624 in 3 places, all below massif's threshold (01.00%)
+       n0: 69600 in 1 place, below massif's threshold (01.00%)
+      n2: 5646752 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n1: 4554496 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n0: 4554496 in 3 places, all below massif's threshold (01.00%)
+       n0: 1092256 in 2 places, all below massif's threshold (01.00%)
+      n0: 205888 in 1 place, below massif's threshold (01.00%)
+     n3: 10819968 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n2: 5827232 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+       n2: 4632032 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+        n1: 3844720 0x408DCE: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:62)
+         n0: 3844720 in 3 places, all below massif's threshold (01.00%)
+        n0: 787312 in 2 places, all below massif's threshold (01.00%)
+       n0: 1195200 in 2 places, all below massif's threshold (01.00%)
+      n1: 4683456 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n0: 4683456 in 3 places, all below massif's threshold (01.00%)
+      n0: 309280 in 1 place, below massif's threshold (01.00%)
+     n0: 510064 in 1 place, below massif's threshold (01.00%)
+    n0: 1584544 in 1 place, below massif's threshold (01.00%)
+  n1: 4639824 0x408EDC: parition_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:80)
+   n2: 4639824 0x408DB4: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:61)
+    n2: 4076432 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+     n2: 3959600 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+      n2: 3920240 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+       n2: 3894240 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+        n2: 3871072 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+         n1: 3848640 0x408DE5: quickSort_twolist(double**, int, int) (DistanceMatrixFunctions.cpp:63)
+          n0: 3848640 in 3 places, all below massif's threshold (01.00%)
+         n0: 22432 in 2 places, all below massif's threshold (01.00%)
+        n0: 23168 in 2 places, all below massif's threshold (01.00%)
+       n0: 26000 in 2 places, all below massif's threshold (01.00%)
+      n0: 39360 in 2 places, all below massif's threshold (01.00%)
+     n0: 116832 in 2 places, all below massif's threshold (01.00%)
+    n0: 563392 in 2 places, all below massif's threshold (01.00%)
+ n1: 6400000 0x402FCB: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ListInsertionHamming(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (HammingListManagement.cpp:52)
+  n1: 6400000 0x40289D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:43)
+   n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 6400000 0x404DEF: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ReturnUserRatingTable(Metrics*) (ListsFunctions.cpp:1081)
+  n1: 6400000 0x404153: ListData<boost::dynamic_bitset<unsigned long, std::allocator<unsigned long> > >::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (ListsFunctions.cpp:785)
+   n1: 6400000 0x402957: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:51)
+    n0: 6400000 0x4024E1: main (mainSample.cpp:90)
+ n1: 5120000 0x407AE6: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:198)
+  n1: 5120000 0x4028C8: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:45)
+   n0: 5120000 0x4024E1: main (mainSample.cpp:90)
+ n0: 305960 in 30 places, all below massif's threshold (01.00%)

@@ -9,12 +9,20 @@ void ListData<T>::ListInsertionHamming(std::ifstream& inputFile, Metrics* myMetr
 	string pointStr;
 	string itemNos;
 	boost::dynamic_bitset<> currentPoint(myMetric->point_dimension);
+	// boost::dynamic_bitset<> secondPoint;
 	//bitset<64> currentPoint;
 	int count_ins = 0;
 	int point_number = 0;
 	int index;
 	double* point;
 	double* ratings;
+
+	/*currentPoint[0] = 1;
+	secondPoint = currentPoint;
+	cout << "secondPoint[0] = " << secondPoint[0]<<endl;
+	currentPoint[0] = 0;
+	cout << "secondPoint[0] = " << secondPoint[0]<<endl;
+	cin >> GARBAGE;*/
 
 
 	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)

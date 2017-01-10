@@ -67,7 +67,7 @@ void quickSort_twolist(double** myArray, int first, int last ){
 
 int parition_twolist(double** myArray, int first, int last){
     int  piv = first;
-    int pivot = myArray[first][1];
+    double pivot = myArray[first][1];
 
     for(int i = first+1 ; i <= last ; i++){
         if(myArray[i][1] <= pivot)
@@ -90,6 +90,7 @@ void swap_twolist(double* a, double* b){
     a[1] = b[1];
     b[0] = temp[0];
     b[1] = temp[1];
+    delete[] temp;
 }
 
 

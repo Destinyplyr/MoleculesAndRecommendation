@@ -36,7 +36,9 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
-	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+
+
+	/*if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
 		ListData<boost::dynamic_bitset<> >* hammingList = new ListData<boost::dynamic_bitset<> >();
 		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
@@ -53,33 +55,82 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		// delete hammingList;
 	}
+*/
+	myMetric->metric_space = "vector";
 
 
 	if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
 	{
+		ListData<double*>* vectorList = new ListData<double*>();
+		myMetric->metric = "euclidean";
 		if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
 		{
-			// ListData<double*>* euclideanList = new ListData<double*>();
-			// euclideanList->ListInsertionVector(inputFile, myMetric);
 
-			// clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
+			ListData<double*>* euclideanList = vectorList;//= new ListData<double*>();
+			euclideanList->ListInsertionVector(inputFile, myMetric);
+
+			// //DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
+			// for (int i = 0; i < myMetric->point_number; i++) {
+			//     delete[] distance_matrix[i];
+			// }
+			// delete[] distance_matrix;       //distance matrix deletion
+			// //cout << "ekana to distance" << endl;
+			// delete[] centroids;
+			// //cout << "ekana to insertion" << endl;
+
+			// /*delete clusterTable;
+			// //cout << "list: " << (*clusterTable)->getArray() <<endl;
+			// for (int i = 0; i < myMetric->point_number; ++i)
+			// {
+			//     delete[] clusterAssign[i];
+			// }
+			// delete[] clusterAssign;*/
+
+
+			clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
 			// SetClaransFraction(myConf, myMetric);
 
-			// euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix);
+			euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix);
+
+			euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// euclideanList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// delete euclideanList;
 		}
-		
+		myMetric->metric = "cosine";
 		if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
 		{
-			// ListData<double*>* cosineList = new ListData<double*>();
-			// cosineList->ListInsertionVector(inputFile, myMetric);
+			ListData<double*>* cosineList =  vectorList;//= new ListData<double*>();
+			//cosineList->ListInsertionVector(inputFile, myMetric);
 
-			// clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
+			cout << "new list" <<endl;
+
+			//DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
+			for (int i = 0; i < myMetric->point_number; i++) {
+			    delete[] distance_matrix[i];
+			}
+			delete[] distance_matrix;       //distance matrix deletion
+			//cout << "ekana to distance" << endl;
+			delete[] centroids;
+			//cout << "ekana to insertion" << endl;
+
+			//delete clusterTable;
+			//cout << "list: " << (*clusterTable)->getArray() <<endl;
+			/*for (int i = 0; i < myMetric->point_number; ++i)
+			{
+			    delete[] clusterAssign[i];
+			}
+			delete[] clusterAssign;*/
+
+			cout << "deleted" <<endl;
+
+
+			clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
 			// SetClaransFraction(myConf, myMetric);
 
-			// cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
+			cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
+			
+			cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// cosineList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// delete cosineList;
 		}

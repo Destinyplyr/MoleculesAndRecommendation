@@ -87,18 +87,19 @@ void PAM(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* centroid
 					break;
 				}
 			}
-			//cout << "InsertAtCluster DONE!!!!!!!!!!!!!!!!!" << endl;
+			//cout << i << " InsertAtCluster DONE!!!!!!!!!!!!!!!!!" << endl;
 		
 			clusterAssign[i][2] = clusterAssign[i][0];
 		}
 		/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 		for (int w = 0; w <myConf->number_of_clusters; w++) {
 			cout << centroids[w] << " ";
-		}*/
+		}
 	}
 	/*cout << "==================" << endl << "PRINTING CLUSTERS IN AssignmentPAM : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
 	cout <<endl;*/
+	}
 }
