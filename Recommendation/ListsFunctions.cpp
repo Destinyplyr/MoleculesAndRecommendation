@@ -784,6 +784,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 	{
 		current_ratings[current_item_rated] = new double[2];
+		current_ratings[current_item_rated][0] = current_item_rated;		//last change moved from bottom
 	}
 
 	current_point_no_in_cluster = -1;		//give me the first item
@@ -824,7 +825,6 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				//reset the current ratings
 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 				{
-					current_ratings[current_item_rated][0] = current_item_rated;
 					current_ratings[current_item_rated][1] = 0;
 				}
 				current_user_general_rating = this->ReturnUserGeneralRating(myMetric, current_point_no_in_cluster);

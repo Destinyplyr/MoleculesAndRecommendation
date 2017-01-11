@@ -151,12 +151,12 @@ headHashNode<T>* Hash<T>::getHashTable()
 
 
 template <typename T>
-void Hash<T>::Insert(int hashResult, T newItem, int g, int itemno, string itemName) {
+void Hash<T>::Insert(int hashResult, T newItem, int g, int itemno, string itemName, double* ratings) {
     if (this->hashTable[hashResult].getBucketKey() == -1) {       //First item on this bucket
         this->hashTable[hashResult].setBucketKey(hashResult);
     }
 
-    Node<T>* newNode = new Node<T>(newItem, g, itemno, itemName);
+    Node<T>* newNode = new Node<T>(newItem, g, itemno, itemName, ratings);
 
     this->hashTable[hashResult].Insert(hashResult, newNode, g);
     //cout << "Printing in Hash<T>::Insert just insert: " << hashTable[hashResult].getBucket()->getItemNo()<<endl;

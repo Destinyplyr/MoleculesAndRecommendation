@@ -38,7 +38,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 
 
-	/*if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
 		ListData<boost::dynamic_bitset<> >* hammingList = new ListData<boost::dynamic_bitset<> >();
 		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
@@ -50,12 +50,15 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
 		cout << "omorfi" <<endl;
 
-		hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+		//hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+		int hashCreationDone = 0;
+		Hash<boost::dynamic_bitset<> >* hashTableList = new Hash<boost::dynamic_bitset<> >[L]();
+		hammingList->initHammingLSHManagement(myConf, myMetric, inputFile, distance_matrix,  k,  L, &myMetric->point_number, &hashCreationDone, hashTableList, centroids, clusterAssign);
 
 		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		// delete hammingList;
 	}
-*/
+	exit(1);
 	myMetric->metric_space = "vector";
 
 
@@ -129,7 +132,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 			cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
-			
+
 			cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// cosineList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// delete cosineList;
