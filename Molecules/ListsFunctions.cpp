@@ -1093,12 +1093,14 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		}
 	}*/
 	//cout << "finished CLARA" <<endl;
-	delete clusterTable;
+
+		
+	/*delete clusterTable;
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
 		delete clusterAssign[i];
 	}
-	delete[] clusterAssign;
+	delete[] clusterAssign;*/
 }
 
 /*template <typename T>
@@ -1360,15 +1362,5 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 	//cin >> GARBAGE;
 	return MAE_sum/(double)fold_size;
 }
-
-
-
-
-
-
-
-
-
-
 
 

@@ -289,7 +289,130 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 	delete stat;
 
 	return Frobenius_norm/(sqrt(myMetric->point_number));
-}	
+}
+
+
+template <typename T>
+void ListData<T>::DistanceConformationVectorHandle(ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, double*** all_conformation_table)
+{
+	int r = 0;
+	double* current_distances = NULL;		//current distances will be used as key vector
+	double* first_conf_distances = NULL;
+	double** distance_pairs = NULL;			//distance pairs will be chosen from the first conformation each time
+
+	int all_pairs_num = ((myMetric->point_dimension)*(myMetric->point_dimension - 1))/2;
+
+
+	double** all_first_conf_distances = new double*[all_pairs_num];
+	for (int array_iter = 0; array_iter < all_pairs_num; array_iter++)
+	{
+		all_first_conf_distances[array_iter] = new double[2];
+	}
+
+	AllFirstConfDistances(myMetric, all_conformation_table, all_first_conf_distances);
+	cout << "r all" <<endl;
+	for (int r_iter = 0; r_iter < all_pairs_num; r_iter++)
+	{
+		cout << "best item : pair_no : " << all_first_conf_distances[r_iter][0] << " pair dis: " << all_first_conf_distances[r_iter][1] <<endl;
+	}
+	cout << "######################################" <<endl;
+	cout << "all_pairs_num : " << all_pairs_num <<endl;
+	quickSort_twolist(all_first_conf_distances, 0, all_pairs_num-1);
+
+
+
+	ListData<double**>* euclideanList = NULL;// = new ListData<double**>();
+
+	for(int r_select = 0; r_select < 3; r_select++)
+	{
+		if (r_select == 0)
+		{	//N
+			r = myMetric->point_dimension;
+		}
+		else if (r_select == 1)
+		{	//N^1.5
+			r = pow(myMetric->point_dimension, 1.5);
+			for (int r_delete = 0; r_delete < r; r_delete++)
+			{
+				delete distance_pairs[r_delete];
+			}
+			delete[] distance_pairs;
+
+			delete first_conf_distances;
+		}
+		else if (r_select == 2)
+		{	//(N*(N-1))/2
+			r = all_pairs_num;
+			for (int r_delete = 0; r_delete < r; r_delete++)
+			{
+				delete distance_pairs[r_delete];
+			}
+			delete[] distance_pairs;
+
+			delete first_conf_distances;
+		}
+
+		first_conf_distances = new double[r];
+
+
+
+
+		distance_pairs = new double*[r];		//distance pairs will be chosen from the first conformation
+		for (int r_new = 0; r_new < r; r_new++)
+		{
+			distance_pairs[r] = new double[2];
+		}
+
+		for (int T_select = 0; T_select < 3; T_select++)
+		{		//T_select == 0 -> r smallest, T_select == 0 -> r biggest, T_select == 0 -> r random
+			if (euclideanList != NULL)
+			{
+				delete euclideanList;
+			}
+			euclideanList = new ListData<double**>();
+			if (T_select == 0)		//r smallest
+			{
+				cout << "r smallest" <<endl;
+				for (int r_iter = 0; r_iter < all_pairs_num; r_iter++)
+				{
+					cout << "best item : pair_no : " << all_first_conf_distances[r_iter][0] << " pair dis: " << all_first_conf_distances[r_iter][1] <<endl;
+				}
+				cout << "######################################" <<endl;
+			}
+			if (T_select == 1)		//r smallest
+			{
+				cout << "r highest" <<endl;
+				for (int r_iter = 0; r_iter < r; r_iter++)
+				{
+					cout << "best item : pair_no : " << all_first_conf_distances[all_pairs_num - 1 - r_iter][0] << " pair dis: " << all_first_conf_distances[all_pairs_num - 1 - r_iter][1] <<endl;
+				}
+				cout << "######################################" <<endl;
+			}
+
+		}
+
+	}
+}
+
+template <typename T>
+void ListData<T>::AllFirstConfDistances(Metrics* myMetric, double*** all_conformation_table, double** all_first_conf_distances)
+{
+	int distance_pair_counter = 0;
+	int current_conformation_no = 0;		//for first conformation
+	//for every backbone atom
+	for(int current_backbone_atom_no = 0; current_backbone_atom_no < myMetric->point_dimension; current_backbone_atom_no++)
+	{
+		//for every next backbone atom
+		for (int next_backbone_atom_no = current_backbone_atom_no + 1; next_backbone_atom_no < myMetric->point_dimension; next_backbone_atom_no++)
+		{
+			all_first_conf_distances[distance_pair_counter][0] = distance_pair_counter;
+			all_first_conf_distances[distance_pair_counter][1] = DistanceEuclid(all_conformation_table[0][current_backbone_atom_no],all_conformation_table[0][next_backbone_atom_no] , 3);
+			cout << "Distance of pair " << all_first_conf_distances[distance_pair_counter][0] << " : " << all_first_conf_distances[distance_pair_counter][1] <<endl;
+			distance_pair_counter++;		//first backbone atom with second have pair_no = 0, first with third pair_no = 1 etc.
+		}
+	}
+}
+
 
 
 

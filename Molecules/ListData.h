@@ -59,6 +59,8 @@ class ListData
 		void print_matrix(const char* desc, lapack_int m, lapack_int n, double* a, lapack_int lda );
 		double ThreebyThreeDeterminant(double* three_x_three_table);
 		double* MxN_MatrixMinusMatrix(Metrics* myMetric, double* matrix1, double* matrix2, double* result_matrix, int m, int n );
+		void DistanceConformationVectorHandle(ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, double*** all_conformation_table);
+		void AllFirstConfDistances(Metrics* myMetric, double*** all_conformation_table, double** all_first_conf_distances);
 
 		double TenFoldCrossValidation(Metrics* myMetric,double** distanceMatrix,  double** user_rating_table, double* user_general_rating_table);
 	private:
