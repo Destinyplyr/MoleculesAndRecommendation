@@ -20,8 +20,8 @@ class ListData
         Node<T>* getNode();
 		void PrintData();
 		void Insert(T item, int itemno, std::string itemName, double* ratings);
-		void initEuclideanList(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
-		void initCosineList(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
+		void initEuclideanList(Conf* myConf,Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
+		void initCosineList(Conf* myConf,Metrics* myMetric,  ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 		void initDBHManagement(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 		void initHammingLSHManagement(Conf* myConf,Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 
@@ -50,6 +50,8 @@ class ListData
 		double** ReturnUserRatingTable (Metrics* myMetric);
 		double* ReturnUserGeneralRatingTable (Metrics* myMetric);
 		double* ReturnUserRatings(int itemno, double** ratings_table);
+
+		double TenFoldCrossValidation(Metrics* myMetric,double** distanceMatrix,  double** user_rating_table, double* user_general_rating_table);
 	private:
 		Node<T>* header;
 };

@@ -61,6 +61,9 @@ void ListData<T>::ListInsertionVector(std::ifstream& inputFile, Metrics* myMetri
    		double total_rating = 0;
    		double R_u = 0;
 
+         inputFile.clear();          //Restart
+         inputFile.seekg(0, ios::beg);   //Data file back from start
+
 
    		if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
    		{
@@ -107,7 +110,8 @@ void ListData<T>::ListInsertionVector(std::ifstream& inputFile, Metrics* myMetri
    							cout << ratings[i] << " ";
    						}
    						cout << endl;
-   						cout << "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" <<endl;*/
+   						cout << "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" <<endl;
+                     cin >> GARBAGE;*/
 
    						this->Insert(currentPoint, count_ins, to_string(point_number), ratings);
 
@@ -199,7 +203,7 @@ void ListData<T>::DistanceMatrixComputationVector(Metrics* myMetric, double** di
 					
 					if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
 					{
-						distance_matrix[i][j] = this->CosineDistance(current_node->getKey(), driver_node->getKey(), myMetric->point_dimension);
+						distance_matrix[i][j] = this->CosineDistance(current_node->getRatings(), driver_node->getRatings(), myMetric->point_dimension);
 						//cout << distance_matrix[i][j] << "\t";
 						current_node = current_node->getNext();
 					}

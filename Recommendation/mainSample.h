@@ -5,6 +5,8 @@
 #include "HammingListManagement.cpp"
 #include "HammingLSHManagement.cpp"
 #include "HashFunctions.cpp"
+#include "EuclideanList.cpp"
+#include "CosineList.cpp"
 // #include "DBListManagement.cpp"
 // #include "DBHManagement.cpp"
 #include "Headers.h"

@@ -32,7 +32,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	}*/
 
-	myMetric->metric_space = "hamming";
+	//myMetric->metric_space = "hamming";
 	cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
@@ -50,7 +50,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
 		cout << "omorfi" <<endl;
 
-		//hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+		hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		int hashCreationDone = 0;
 		Hash<boost::dynamic_bitset<> >* hashTableList = new Hash<boost::dynamic_bitset<> >[L]();
 		hammingList->initHammingLSHManagement(myConf, myMetric, inputFile, distance_matrix,  k,  L, &myMetric->point_number, &hashCreationDone, hashTableList, centroids, clusterAssign);
@@ -58,19 +58,23 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 		// delete hammingList;
 	}
-	exit(1);
+	
+	//exit(1);
+
 	myMetric->metric_space = "vector";
 
 
 	if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
 	{
 		ListData<double*>* vectorList = new ListData<double*>();
-		myMetric->metric = "euclidean";
+		vectorList->ListInsertionVector(inputFile, myMetric);
+		//myMetric->metric = "euclidean";
 		if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
 		{
 
 			ListData<double*>* euclideanList = vectorList;//= new ListData<double*>();
-			euclideanList->ListInsertionVector(inputFile, myMetric);
+			//euclideanList->ListInsertionVector(inputFile, myMetric);
+			//cin >> GARBAGE;
 
 			// //DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
 			// for (int i = 0; i < myMetric->point_number; i++) {
@@ -96,6 +100,10 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
 			euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+
+			int hashCreationDone = 0;
+			Hash<double*>* hashTableList = new Hash<double*>[L]();
+			euclideanList->initEuclideanList(myConf ,myMetric, inputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign);
 			// euclideanList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// delete euclideanList;
 		}
@@ -108,13 +116,13 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			cout << "new list" <<endl;
 
 			//DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
-			for (int i = 0; i < myMetric->point_number; i++) {
+			/*for (int i = 0; i < myMetric->point_number; i++) {
 			    delete[] distance_matrix[i];
 			}
 			delete[] distance_matrix;       //distance matrix deletion
 			//cout << "ekana to distance" << endl;
 			delete[] centroids;
-			//cout << "ekana to insertion" << endl;
+			//cout << "ekana to insertion" << endl;*/
 
 			//delete clusterTable;
 			//cout << "list: " << (*clusterTable)->getArray() <<endl;
@@ -132,8 +140,12 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 			cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
+			//cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 
-			cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+
+			int hashCreationDone = 0;
+			Hash<double*>* hashTableList = new Hash<double*>[L]();
+			cosineList->initCosineList(myConf, myMetric, inputFile,distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign);
 			// cosineList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 			// delete cosineList;
 		}

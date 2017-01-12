@@ -883,7 +883,10 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 								}
 							}
 						}
-
+						if (normalizing_factor == 0) 
+						{
+							normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
+						}
 						//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
 						// same as
 						//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
@@ -950,7 +953,10 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 								}
 							}
 						}
-
+						if (normalizing_factor == 0) 
+						{
+							normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
+						}
 						//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
 						// same as
 						//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
@@ -976,9 +982,12 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 			
 
 		}while (current_point_no_in_cluster != -1);		//ClusterItemNumberNext returned -1, means no more items in cluster
-
+		//cin >>GARBAGE;
 		
 	}
+	cout << "10-fold-cross validation on clustering " << myMetric->metric<< endl;
+	ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table);
+	cin >> GARBAGE;
 
 
 
@@ -1101,7 +1110,7 @@ double ListData<T>::ReturnUserGeneralRating(Metrics* myMetric, int itemno)
 	}
 	else 
 	{
-		cout << "haven't found this item on listdata" <<endl;
+		cout << itemno << " haven't found this item on listdata" <<endl;
 		return -1;
 	}
 
@@ -1218,6 +1227,119 @@ double* ListData<T>::ReturnUserRatings(int itemno, double** ratings_table)
 	}
 	return ratings;*/
 }
+
+
+template <typename T>			
+double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceMatrix, double** user_rating_table, double* user_general_rating_table)
+{
+	string GARBAGE;
+	int fold_size = 10;
+	int fold_step = myMetric->point_number / fold_size;
+
+	double others_rated = 0;
+
+	double total_user_sum = 0;		//is Σ(Σ|R(j) - P(j)|) - the first sum for all test users
+	double current_user_sum = 0;
+	double similarity_sum = 0;
+	double normalizing_factor = 0;
+	double added_similarity = 0;
+	double MAE_sum = 0;
+	double item_rating_from_current_user_train_set = 0;
+
+	double R_u = 0;
+
+	double* other_user_ratings = NULL;
+	double* current_user_test_set_ratings = NULL;
+
+
+	//for every fold
+	for (int first_user_test_set = 0; first_user_test_set < myMetric->point_number-1; first_user_test_set += fold_step)
+	{
+		//cout << "first_user_test_set : " <<first_user_test_set <<endl;
+		total_user_sum = 0;
+		//for every user on this fold
+		for (int current_user_test_set = first_user_test_set; current_user_test_set < first_user_test_set + fold_step; current_user_test_set++)
+		{
+			current_user_sum = 0;
+			//for every rating
+			//cout << "current_user_test_set + fold_step : " <<current_user_test_set + fold_step <<endl;
+			R_u = this->ReturnUserGeneralRating(myMetric, current_user_test_set);
+			current_user_test_set_ratings = this->ReturnUserRatings(current_user_test_set, user_rating_table);
+			
+			for (int current_item = 0; current_item < myMetric->point_dimension; current_item++)
+			{
+				if (user_rating_table[current_user_test_set][current_item] != 0 )		//if current item is rated
+				{
+					//others_rated = 0;		//reset others rating of this item
+					similarity_sum = 0;
+					normalizing_factor = 0;
+					added_similarity = 0;
+					//for every user
+					//others_rated += R_u;	//added R(u)
+
+					for (int current_user_train_set = 0; current_user_train_set < myMetric->point_number; current_user_train_set++)
+					{
+						//if this user is not on test set - it belongs on train set
+						if (current_user_train_set < first_user_test_set || current_user_train_set > first_user_test_set + fold_step)
+						{
+							//if other user has rated the item
+							if (user_rating_table[current_user_train_set][current_item] != 0)
+							{
+								other_user_ratings = this->ReturnUserRatings(current_user_train_set, user_rating_table);
+								//cout << 1 <<endl;
+								item_rating_from_current_user_train_set = user_rating_table[current_user_train_set][current_item];
+								//cout << 2 <<endl;
+								if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+								{
+									added_similarity = this->SimilarityHamming(myMetric, distanceMatrix, current_user_test_set, current_user_train_set);
+								}
+								if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
+								{
+									if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
+									{
+										added_similarity = this->SimilarityEuclidean(myMetric, distanceMatrix, current_user_test_set, current_user_train_set);
+									}
+									else if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
+									{
+										added_similarity = this->SimilarityCosine(myMetric, current_user_test_set_ratings, other_user_ratings);
+									}
+
+								}
+								//similarity_sum += ( this->SimilarityHamming(myMetric, distanceMatrix, current_user_test_set, current_user_train_set)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, current_user_test_set)) ;
+								// similarity_sum += (added_similarity) * (item_rating_from_current_user_train_set - this->ReturnUserGeneralRating(myMetric, current_user_test_set)) ;
+								similarity_sum += (added_similarity) * (item_rating_from_current_user_train_set - user_general_rating_table[current_user_train_set]);
+								//cout << 3 <<endl;
+								normalizing_factor += added_similarity;
+								//cout << 4 <<endl;
+							}
+						}
+					}
+					if (normalizing_factor == 0) 
+					{
+						normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
+					}
+					//cout << "user_rating_table[current_user_test_set][current_item] : " << user_rating_table[current_user_test_set][current_item] << " 1/normalizing_factor : " << 1/normalizing_factor << " similarity_sum : " << similarity_sum <<endl;
+					current_user_sum += abs(user_rating_table[current_user_test_set][current_item] - (R_u + ((1/normalizing_factor) * (similarity_sum))));
+					//current_ratings[current_item_rated][1] = current_user_general_rating + ((1/normalizing_factor) * (similarity_sum));
+				}
+			}
+			//cout << "current_user_sum : " << current_user_sum <<endl;
+			total_user_sum +=current_user_sum;
+		}
+		//cout << "total_user_sum before mul: " << total_user_sum <<endl;
+		total_user_sum /= fold_step;
+		//cout << "total_user_sum : " << total_user_sum <<endl;
+		MAE_sum += total_user_sum;
+	}
+	cout << "MAE_sum/(double)fold_size : " << MAE_sum/(double)fold_size <<endl;
+	//cin >> GARBAGE;
+	return MAE_sum/(double)fold_size;
+
+	
+
+}
+
+
 
 
 
