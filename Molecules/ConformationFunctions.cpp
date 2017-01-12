@@ -114,6 +114,6 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 	returned_table = new double[3*myMetric->point_dimension];
 
 //	cblas_dgemm(row/col major, 	A/A^T, 		B/B^T, 		  A/C rows,	B cols, A cols/B rows, scalar alpha, , conformation_X, A rows, conformation_Y, B rows, scalar beta,		C return table, C rows 						 )
-	cblas_dgemm (CblasRowMajor, CblasTrans, CblasNoTrans, 3, 3, myMetric->point_number , 1, comformation_X_consec, 3 , comformation_Y_consec, myMetric->point_dimension, 0, returned_table, 3);
+	cblas_dgemm (CblasRowMajor, CblasTrans, CblasNoTrans, 3, 3, myMetric->point_number , 1, comformation_X_consec, 3 , comformation_Y_consec, 3, 0, returned_table, 3);
 }
 

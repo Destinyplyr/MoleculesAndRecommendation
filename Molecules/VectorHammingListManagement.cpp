@@ -228,7 +228,7 @@ void ListData<T>::DistanceMatrixComputationVector(Metrics* myMetric, double** di
 			}
 			else 
             {
-                cout << "YOOHOOOooooooooooooooOOOOOOOOOOOOOOOoOOOOOOOOOOOOOOOOOOoOoooOO" <<endl;
+                //cout << "YOOHOOOooooooooooooooOOOOOOOOOOOOOOOoOOOOOOOOOOOOOOOOOOoOoooOO" <<endl;
                 distance_matrix[i][j] = this->cRMSD(myMetric, all_conformation_table[i], all_conformation_table[j]);
 
 				/*if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
