@@ -1,7 +1,5 @@
 #include "Headers.h"
 #include "ListData.h"
-#include <cblas.h>
-#include <lapacke.h>
 //#include <lapack.h>
 
 
@@ -88,8 +86,19 @@ void ListData<T>::ConformationTableMove(Metrics* myMetric, double*** all_conform
 }
 
 template <typename T>
+void ListData<T>::print_matrix(const char* desc, lapack_int m, lapack_int n, double* a, lapack_int lda ) {
+	lapack_int i, j;
+    printf( "\n %s\n", desc );
+    for( i = 0; i < m; i++ ) {
+        for( j = 0; j < n; j++ ) printf( " %6.2f", a[i*lda+j] );
+    	printf( "\n" );
+	}
+}
+
+template <typename T>
 double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** conformation_Y)
 {
+	string GARBAGE;
 	double* comformation_X_consec = NULL;
 	comformation_X_consec = new double[3*myMetric->point_dimension];
 	for (int current_backbone_atom = 0; current_backbone_atom < myMetric->point_dimension; current_backbone_atom++)
@@ -113,7 +122,32 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 	double* returned_table = NULL;
 	returned_table = new double[3*myMetric->point_dimension];
 
+	double* u_table = new double[3*3];
+	double* singular = new double[3];
+	double* v_t_table = new double[3*3];
+	double* stat = new double[2*3];
+
+	//double* stat = new double[6];
+
+//	calculate X^T * Y = C
 //	cblas_dgemm(row/col major, 	A/A^T, 		B/B^T, 		  A/C rows,	B cols, A cols/B rows, scalar alpha, , conformation_X, A rows, conformation_Y, B rows, scalar beta,		C return table, C rows 						 )
 	cblas_dgemm (CblasRowMajor, CblasTrans, CblasNoTrans, 3, 3, myMetric->point_number , 1, comformation_X_consec, 3 , comformation_Y_consec, 3, 0, returned_table, 3);
+
+
+	//LAPACKE_dgesvd( LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda,s, u, ldu, vt, ldvt, superb );
+	cout << "SVD Matrix : " <<endl;
+	for (int i = 0; i < 3; ++i)
+	{
+		cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+	}
+	LAPACKE_dgesvd(LAPACK_ROW_MAJOR, 'A', 'A', 3, 3, returned_table, 3, singular, u_table, 3, v_t_table, 3, stat );
+	//LAPACKE_dgesvj(LAPACK_ROW_MAJOR, 'G', 'U', 'V', 3, 3, returned_table , 3, singular, 3, v_t_table, 3, stat);
+	u_table = returned_table;
+	string desc = "Singular values";
+	print_matrix( desc.c_str(), 1, 3, singular, 1 );
+	cin >>GARBAGE;
+
 }
+
+
 

@@ -1244,6 +1244,7 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 	double normalizing_factor = 0;
 	double added_similarity = 0;
 	double MAE_sum = 0;
+	double pairs_on_user = 0;
 	double item_rating_from_current_user_train_set = 0;
 
 	double R_u = 0;
@@ -1265,11 +1266,12 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 			//cout << "current_user_test_set + fold_step : " <<current_user_test_set + fold_step <<endl;
 			R_u = this->ReturnUserGeneralRating(myMetric, current_user_test_set);
 			current_user_test_set_ratings = this->ReturnUserRatings(current_user_test_set, user_rating_table);
-			
+			pairs_on_user = 0;
 			for (int current_item = 0; current_item < myMetric->point_dimension; current_item++)
 			{
 				if (user_rating_table[current_user_test_set][current_item] != 0 )		//if current item is rated
 				{
+					pairs_on_user++;
 					//others_rated = 0;		//reset others rating of this item
 					similarity_sum = 0;
 					normalizing_factor = 0;
@@ -1282,6 +1284,7 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 						//if this user is not on test set - it belongs on train set
 						if (current_user_train_set < first_user_test_set || current_user_train_set > first_user_test_set + fold_step)
 						{
+
 							//if other user has rated the item
 							if (user_rating_table[current_user_train_set][current_item] != 0)
 							{
@@ -1324,7 +1327,7 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 				}
 			}
 			//cout << "current_user_sum : " << current_user_sum <<endl;
-			total_user_sum +=current_user_sum;
+			total_user_sum +=current_user_sum/pairs_on_user;
 		}
 		//cout << "total_user_sum before mul: " << total_user_sum <<endl;
 		total_user_sum /= fold_step;

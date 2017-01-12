@@ -32,7 +32,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	}*/
 
-	//myMetric->metric_space = "hamming";
+	myMetric->metric_space = "hamming";
 	cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
@@ -68,7 +68,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	{
 		ListData<double*>* vectorList = new ListData<double*>();
 		vectorList->ListInsertionVector(inputFile, myMetric);
-		//myMetric->metric = "euclidean";
+		myMetric->metric = "euclidean";
 		if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
 		{
 
@@ -140,7 +140,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 			cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
-			//cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+			cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 
 
 			int hashCreationDone = 0;
