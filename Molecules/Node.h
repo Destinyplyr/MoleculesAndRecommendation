@@ -19,7 +19,7 @@ class Node
 		int getG();
 		int getItemNo();
 		T getKey();
-		double* getRatings();
+		double** getRatings();
 		std::string getItemName();
 		int getFlagForAssignment();
 		void setFlagForAssignment(int flagged_for_assignment);

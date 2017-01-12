@@ -739,8 +739,8 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	    clusterAssign[i][1] = -1;
 	    clusterAssign[i][2] = -1;
 	}
-	//delete clusterTable;
-	//clusterTable = new ClusterTable(myConf->number_of_clusters);
+	delete clusterTable;
+	clusterTable = new ClusterTable(myConf->number_of_clusters);
 	//cout << "starting pam - alaloyds" <<endl;
 	Assign_Update_start = clock();
 	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
@@ -777,217 +777,242 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 
 	cout << "END SILH : " << current_silh <<endl;
 
-
-
-
-	current_ratings = new double*[myMetric->point_dimension];	//current_ratings[0] holds item_no [1] holds its rating
-	for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	int total_on_clusters = 0;
+	for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
 	{
-		current_ratings[current_item_rated] = new double[2];
-		current_ratings[current_item_rated][0] = current_item_rated;		//last change moved from bottom
+		clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);		//used to get size
+		total_on_clusters += size_of_cluster;
+		outputFile << "CLUSTER-" << cluster_iter << " {"<<size_of_cluster << ", " << clusterTable->ClusterDistance( myMetric, distance_matrix, cluster_iter, clusterAssign) <<"}" <<endl;
+	}
+	outputFile << "Total on clusters: " <<total_on_clusters <<endl;
+	for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
+	{
+		//ClusterTable::PrintClusterDataForList(int cluster_no int* size_of_cluster)
+		//delete clusterTable->PrintClusterDataForList(ofstream& outputFile, cluster_iter, &size_of_cluster);
+		clusterTable->PrintClusterItemPointNo(outputFile, cluster_iter);
+		// if (items_in_cluster_itemNo == NULL)
+		// {
+		// 	continue;
+		// }
+		// items_in_cluster_itemName = ItemNamesFromItemNos(items_in_cluster_itemNo, size_of_cluster);
+		// clusterTable->PrintClusterUsingNames(outputFile, items_in_cluster_itemName, size_of_cluster, cluster_iter);
+		// delete[] items_in_cluster_itemNo;		//initialized inside PrintClusterDataForList
+		// delete[] items_in_cluster_itemName;		//initilaized inside ItemNamesFromItemNos
 	}
 
-	current_point_no_in_cluster = -1;		//give me the first item
-
-	user_rating_table = ReturnUserRatingTable(myMetric);
-	user_general_rating_table = ReturnUserGeneralRatingTable(myMetric);
 
 
-	for (int cluster = 0; cluster < myConf->number_of_clusters ; ++cluster)
-	{
-		if (all_user_table != NULL)
-		{
-			delete[] all_user_table;
-		}
 
-		all_user_table = clusterTable->ClusterReturnAllUsersItemNo(cluster);
-		//cout << "cin now after ClusterReturnAllUsersItemNo -- start" <<endl;
-		//cin >> GARBAGE;
+	// current_ratings = new double*[myMetric->point_dimension];	//current_ratings[0] holds item_no [1] holds its rating
+	// for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	// {
+	// 	current_ratings[current_item_rated] = new double[2];
+	// 	current_ratings[current_item_rated][0] = current_item_rated;		//last change moved from bottom
+	// }
 
-		do 
-		{
+	// current_point_no_in_cluster = -1;		//give me the first item
 
-			//choose 35 other random users for every user
-			for (int random_neighbor_for_current_user = 0; random_neighbor_for_current_user < neighborhood_size; random_neighbor_for_current_user++)
-			{
-				random_users_for_driver_user[random_neighbor_for_current_user] = clusterTable->ClusterItemNumberRandom(all_user_table, cluster);
-			}
-			current_point_no_in_cluster = clusterTable->ClusterItemNumberNext(current_point_no_in_cluster,cluster);
+	// user_rating_table = ReturnUserRatingTable(myMetric);
+	// user_general_rating_table = ReturnUserGeneralRatingTable(myMetric);
 
-			//cout << "cin now after ClusterItemNumberNext - new user" <<endl;
-			//cin >> GARBAGE;
 
-			cout << "current_point_no_in_cluster : " << current_point_no_in_cluster <<endl;
-			if (current_point_no_in_cluster != -1)		//if non-empty cluster
-			{
+	// for (int cluster = 0; cluster < myConf->number_of_clusters ; ++cluster)
+	// {
+	// 	if (all_user_table != NULL)
+	// 	{
+	// 		delete[] all_user_table;
+	// 	}
 
-				driver_user_ratings = this->ReturnUserRatings(current_point_no_in_cluster, user_rating_table);
-				//reset the current ratings
-				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
-				{
-					current_ratings[current_item_rated][1] = 0;
-				}
-				current_user_general_rating = this->ReturnUserGeneralRating(myMetric, current_point_no_in_cluster);
+	// 	all_user_table = clusterTable->ClusterReturnAllUsersItemNo(cluster);
+	// 	//cout << "cin now after ClusterReturnAllUsersItemNo -- start" <<endl;
+	// 	//cin >> GARBAGE;
 
-				//cout << "cin after ReturnUserGeneralRating" <<endl;
-				//cin >> GARBAGE;
+	// 	do 
+	// 	{
 
-				cout << "current_user_general_rating: " << current_user_general_rating <<endl;
-				if (neighborhood_size >= clusterTable->ReturnClusterSize(cluster))	//if a really small cluster
-				{
-					//for every item on the cluster
-					/*for(int driver_cluster_item = 0; driver_cluster_item < clusterTable->ReturnClusterSize(cluster); driver_cluster_item++)
-					{*/
+	// 		//choose 35 other random users for every user
+	// 		for (int random_neighbor_for_current_user = 0; random_neighbor_for_current_user < neighborhood_size; random_neighbor_for_current_user++)
+	// 		{
+	// 			random_users_for_driver_user[random_neighbor_for_current_user] = clusterTable->ClusterItemNumberRandom(all_user_table, cluster);
+	// 		}
+	// 		current_point_no_in_cluster = clusterTable->ClusterItemNumberNext(current_point_no_in_cluster,cluster);
 
-					//for every item to be rated
+	// 		//cout << "cin now after ClusterItemNumberNext - new user" <<endl;
+	// 		//cin >> GARBAGE;
 
-					for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
-					{
-						similarity_sum = 0;
-						normalizing_factor = 1;
-						other_point_no_in_cluster = -1;
-						for(int other_cluster_item = 0; other_cluster_item < clusterTable->ReturnClusterSize(cluster); other_cluster_item++)
-						{
-							other_point_no_in_cluster = clusterTable->ClusterItemNumberNext(other_point_no_in_cluster,cluster);
-							other_user_ratings = this->ReturnUserRatings(other_point_no_in_cluster, user_rating_table);
-							//cout << 1 <<endl;
-							if (other_point_no_in_cluster != current_point_no_in_cluster)		//if not same item in cluster
-							{
-								//item_rating_from_other_user = ReturnUserSpecificRating (other_point_no_in_cluster, current_item_rated);
-								item_rating_from_other_user = user_rating_table[other_point_no_in_cluster][current_item_rated];
-								//cout << 2 <<endl;
-								if (item_rating_from_other_user != 0)
-								{
-									if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
-									{
-										added_similarity = this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
-									}
-									if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
-									{
-										if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
-										{
-											added_similarity = this->SimilarityEuclidean(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
-										}
-										else if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
-										{
-											added_similarity = this->SimilarityCosine(myMetric, driver_user_ratings, other_user_ratings);
-										}
+	// 		cout << "current_point_no_in_cluster : " << current_point_no_in_cluster <<endl;
+	// 		if (current_point_no_in_cluster != -1)		//if non-empty cluster
+	// 		{
 
-									}
-									//similarity_sum += ( this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
-									// similarity_sum += (added_similarity) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
-									similarity_sum += (added_similarity) * (item_rating_from_other_user - user_general_rating_table[other_point_no_in_cluster]);
-									//cout << 3 <<endl;
-									normalizing_factor += added_similarity;
-									//cout << 4 <<endl;
-								}
-							}
-						}
-						if (normalizing_factor == 0) 
-						{
-							normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
-						}
-						//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
-						// same as
-						//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
-						current_ratings[current_item_rated][1] = current_user_general_rating + ((1/normalizing_factor) * (similarity_sum));
+	// 			driver_user_ratings = this->ReturnUserRatings(current_point_no_in_cluster, user_rating_table);
+	// 			//reset the current ratings
+	// 			for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	// 			{
+	// 				current_ratings[current_item_rated][1] = 0;
+	// 			}
+	// 			current_user_general_rating = this->ReturnUserGeneralRating(myMetric, current_point_no_in_cluster);
 
-						//cout << "cin after ratings finished this round" <<endl;
-						//cin >> GARBAGE;
+	// 			//cout << "cin after ReturnUserGeneralRating" <<endl;
+	// 			//cin >> GARBAGE;
 
-						//cout << "current_ratings[" << current_item_rated <<"] : " << current_ratings[current_item_rated] <<endl;
-					}
+	// 			cout << "current_user_general_rating: " << current_user_general_rating <<endl;
+	// 			if (neighborhood_size >= clusterTable->ReturnClusterSize(cluster))	//if a really small cluster
+	// 			{
+	// 				//for every item on the cluster
+	// 				/*for(int driver_cluster_item = 0; driver_cluster_item < clusterTable->ReturnClusterSize(cluster); driver_cluster_item++)
+	// 				{*/
 
-					/*}*/
-				}
-				else 	//if we have a good cluster
-				{
+	// 				//for every item to be rated
 
-					//for every item to be rated
+	// 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	// 				{
+	// 					similarity_sum = 0;
+	// 					normalizing_factor = 1;
+	// 					other_point_no_in_cluster = -1;
+	// 					for(int other_cluster_item = 0; other_cluster_item < clusterTable->ReturnClusterSize(cluster); other_cluster_item++)
+	// 					{
+	// 						other_point_no_in_cluster = clusterTable->ClusterItemNumberNext(other_point_no_in_cluster,cluster);
+	// 						other_user_ratings = this->ReturnUserRatings(other_point_no_in_cluster, user_rating_table);
+	// 						//cout << 1 <<endl;
+	// 						if (other_point_no_in_cluster != current_point_no_in_cluster)		//if not same item in cluster
+	// 						{
+	// 							//item_rating_from_other_user = ReturnUserSpecificRating (other_point_no_in_cluster, current_item_rated);
+	// 							item_rating_from_other_user = user_rating_table[other_point_no_in_cluster][current_item_rated];
+	// 							//cout << 2 <<endl;
+	// 							if (item_rating_from_other_user != 0)
+	// 							{
+	// 								if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+	// 								{
+	// 									added_similarity = this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
+	// 								}
+	// 								if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
+	// 								{
+	// 									if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
+	// 									{
+	// 										added_similarity = this->SimilarityEuclidean(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
+	// 									}
+	// 									else if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
+	// 									{
+	// 										added_similarity = this->SimilarityCosine(myMetric, driver_user_ratings, other_user_ratings);
+	// 									}
 
-					//NN_table = clusterTable->ClusterReturnNNForUser(distance_matrix, neighborhood_size, current_point_no_in_cluster, cluster);
+	// 								}
+	// 								//similarity_sum += ( this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
+	// 								// similarity_sum += (added_similarity) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
+	// 								similarity_sum += (added_similarity) * (item_rating_from_other_user - user_general_rating_table[other_point_no_in_cluster]);
+	// 								//cout << 3 <<endl;
+	// 								normalizing_factor += added_similarity;
+	// 								//cout << 4 <<endl;
+	// 							}
+	// 						}
+	// 					}
+	// 					if (normalizing_factor == 0) 
+	// 					{
+	// 						normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
+	// 					}
+	// 					//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
+	// 					// same as
+	// 					//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
+	// 					current_ratings[current_item_rated][1] = current_user_general_rating + ((1/normalizing_factor) * (similarity_sum));
 
-					for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
-					{
-						similarity_sum = 0;
-						normalizing_factor = 1;
-						other_point_no_in_cluster = -1;
+	// 					//cout << "cin after ratings finished this round" <<endl;
+	// 					//cin >> GARBAGE;
 
-						for(int other_cluster_item = 0; other_cluster_item < neighborhood_size; other_cluster_item++)
-						{
+	// 					//cout << "current_ratings[" << current_item_rated <<"] : " << current_ratings[current_item_rated] <<endl;
+	// 				}
 
-							//other_point_no_in_cluster = clusterTable->ClusterItemNumberNext(other_point_no_in_cluster,cluster);
-							other_point_no_in_cluster =  random_users_for_driver_user[other_cluster_item]; 
-							other_user_ratings = this->ReturnUserRatings(other_point_no_in_cluster, user_rating_table);
-							//cout << 1 <<endl;
-							if (other_point_no_in_cluster != current_point_no_in_cluster)		//if not same item in cluster
-							{
-								//item_rating_from_other_user = ReturnUserSpecificRating (other_point_no_in_cluster, current_item_rated);
-								//cout << "other_point_no_in_cluster: " << other_point_no_in_cluster << " current_item_rated : " << current_item_rated <<endl;
-								item_rating_from_other_user = user_rating_table[other_point_no_in_cluster][current_item_rated];
-								//cout << 2 <<endl;
-								if (item_rating_from_other_user != 0)
-								{
-									if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
-									{
-										added_similarity = this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
-									}
-									if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
-									{
-										if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
-										{
-											added_similarity = this->SimilarityEuclidean(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
-										}
-										else if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
-										{
-											added_similarity = this->SimilarityCosine(myMetric, driver_user_ratings, other_user_ratings);
-										}
+	// 				/*}*/
+	// 			}
+	// 			else 	//if we have a good cluster
+	// 			{
 
-									}
-									//similarity_sum += ( this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
-									// similarity_sum += (added_similarity) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
-									similarity_sum += (added_similarity) * (item_rating_from_other_user - user_general_rating_table[other_point_no_in_cluster]);
-									//cout << 3 <<endl;
-									normalizing_factor += added_similarity;
-									//cout << 4 <<endl;
-								}
-							}
-						}
-						if (normalizing_factor == 0) 
-						{
-							normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
-						}
-						//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
-						// same as
-						//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
-						current_ratings[current_item_rated][1] = current_user_general_rating + ((1/normalizing_factor) * (similarity_sum));
+	// 				//for every item to be rated
 
-						//cout << "cin after ratings finished this round" <<endl;
-						//cin >> GARBAGE;
+	// 				//NN_table = clusterTable->ClusterReturnNNForUser(distance_matrix, neighborhood_size, current_point_no_in_cluster, cluster);
 
-						//cout << "current_ratings[" << current_item_rated <<"] : " << current_ratings[current_item_rated][1] <<endl;
-					}
+	// 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	// 				{
+	// 					similarity_sum = 0;
+	// 					normalizing_factor = 1;
+	// 					other_point_no_in_cluster = -1;
 
-				}
-				quickSort_twolist(current_ratings, 0, myMetric->point_dimension-1);
+	// 					for(int other_cluster_item = 0; other_cluster_item < neighborhood_size; other_cluster_item++)
+	// 					{
 
-				//cout << "cin after qs" <<endl;
-				//cin >> GARBAGE;
+	// 						//other_point_no_in_cluster = clusterTable->ClusterItemNumberNext(other_point_no_in_cluster,cluster);
+	// 						other_point_no_in_cluster =  random_users_for_driver_user[other_cluster_item]; 
+	// 						other_user_ratings = this->ReturnUserRatings(other_point_no_in_cluster, user_rating_table);
+	// 						//cout << 1 <<endl;
+	// 						if (other_point_no_in_cluster != current_point_no_in_cluster)		//if not same item in cluster
+	// 						{
+	// 							//item_rating_from_other_user = ReturnUserSpecificRating (other_point_no_in_cluster, current_item_rated);
+	// 							//cout << "other_point_no_in_cluster: " << other_point_no_in_cluster << " current_item_rated : " << current_item_rated <<endl;
+	// 							item_rating_from_other_user = user_rating_table[other_point_no_in_cluster][current_item_rated];
+	// 							//cout << 2 <<endl;
+	// 							if (item_rating_from_other_user != 0)
+	// 							{
+	// 								if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
+	// 								{
+	// 									added_similarity = this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
+	// 								}
+	// 								if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
+	// 								{
+	// 									if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
+	// 									{
+	// 										added_similarity = this->SimilarityEuclidean(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster);
+	// 									}
+	// 									else if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
+	// 									{
+	// 										added_similarity = this->SimilarityCosine(myMetric, driver_user_ratings, other_user_ratings);
+	// 									}
 
-				for (int best_recommendation = myMetric->point_dimension-1; best_recommendation > myMetric->point_dimension-6; best_recommendation-- )
-				{
-					cout << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
-				}
-			}
+	// 								}
+	// 								//similarity_sum += ( this->SimilarityHamming(myMetric, distance_matrix, current_point_no_in_cluster, other_point_no_in_cluster)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
+	// 								// similarity_sum += (added_similarity) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_cluster)) ;
+	// 								similarity_sum += (added_similarity) * (item_rating_from_other_user - user_general_rating_table[other_point_no_in_cluster]);
+	// 								//cout << 3 <<endl;
+	// 								normalizing_factor += added_similarity;
+	// 								//cout << 4 <<endl;
+	// 							}
+	// 						}
+	// 					}
+	// 					if (normalizing_factor == 0) 
+	// 					{
+	// 						normalizing_factor = 1;		//but similarity sum is 0 so it will go to 0
+	// 					}
+	// 					//R(u,i) = R(u) + (1/(Σsim(u,v))) * (Σ(sum(u,v) *(R(v,i) - R(v)))
+	// 					// same as
+	// 					//R(u,i) = R(u) + (1/normalizing_factor) * (Σ(sum(u,v) *(R(v,i) - R(v)))
+	// 					current_ratings[current_item_rated][1] = current_user_general_rating + ((1/normalizing_factor) * (similarity_sum));
+
+	// 					//cout << "cin after ratings finished this round" <<endl;
+	// 					//cin >> GARBAGE;
+
+	// 					//cout << "current_ratings[" << current_item_rated <<"] : " << current_ratings[current_item_rated][1] <<endl;
+	// 				}
+
+	// 			}
+	// 			quickSort_twolist(current_ratings, 0, myMetric->point_dimension-1);
+
+	// 			//cout << "cin after qs" <<endl;
+	// 			//cin >> GARBAGE;
+
+	// 			for (int best_recommendation = myMetric->point_dimension-1; best_recommendation > myMetric->point_dimension-6; best_recommendation-- )
+	// 			{
+	// 				cout << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
+	// 			}
+	// 		}
 			
 
-		}while (current_point_no_in_cluster != -1);		//ClusterItemNumberNext returned -1, means no more items in cluster
-		//cin >>GARBAGE;
+	// 	}while (current_point_no_in_cluster != -1);		//ClusterItemNumberNext returned -1, means no more items in cluster
+	// 	//cin >>GARBAGE;
 		
-	}
-	cout << "10-fold-cross validation on clustering " << myMetric->metric<< endl;
-	ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table);
-	cin >> GARBAGE;
+	// }
+
+
+	//cout << "10-fold-cross validation on clustering " << myMetric->metric<< endl;
+	//ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table);
+	//cin >> GARBAGE;
 
 
 
@@ -1087,7 +1112,7 @@ double* ListData<T>::ReturnUserAllRating(ifstream& inputFile, ofstream& outputFi
 template <typename T>
 double ListData<T>::ReturnUserGeneralRating(Metrics* myMetric, int itemno)
 {
-	double* ratings;
+	double** ratings;
 	int items_rated = 0;
 	double total_rating = 0;
 	Node<T>* currentNode = header;
@@ -1104,7 +1129,7 @@ double ListData<T>::ReturnUserGeneralRating(Metrics* myMetric, int itemno)
 			if (ratings[i] != 0)
 			{
 				items_rated++;
-				total_rating += ratings[i];
+				//total_rating += ratings[i][0];	//unworkable with [0] - just for compilation
 			}
 		}
 	}
@@ -1157,7 +1182,7 @@ double** ListData<T>::ReturnUserRatingTable (Metrics* myMetric)
 	{
 		for(int item_to_rate = 0; item_to_rate < myMetric->point_dimension ; item_to_rate++ )
 		{
-			ratings[iterator][item_to_rate] = (currentNode->getRatings())[item_to_rate];
+			//ratings[iterator][item_to_rate] = (currentNode->getRatings())[item_to_rate];
 		}
 		iterator++;
 		currentNode = currentNode->getNext();
@@ -1169,7 +1194,7 @@ template <typename T>			//itemno is the user number == ItemNo(), item_no_rating 
 double* ListData<T>::ReturnUserGeneralRatingTable (Metrics* myMetric)
 {
 	Node<T>* currentNode = header;
-	double* current_ratings;
+	double** current_ratings;
 	double* ratings;
 	int items_rated = 0;
 	double total_rating = 0;
@@ -1185,7 +1210,7 @@ double* ListData<T>::ReturnUserGeneralRatingTable (Metrics* myMetric)
 			if (current_ratings[i] != 0)
 			{
 				items_rated++;
-				total_rating += current_ratings[i];
+				//total_rating += current_ratings[i][0];		//unworkable with[0] -- just for compilation
 			}
 		}
 

@@ -92,7 +92,7 @@ void Node<T>::setKey(T key)
 }
 
 template <typename T>
-double* Node<T>::getRatings()
+double** Node<T>::getRatings()
 {
 	return ratings;
 }

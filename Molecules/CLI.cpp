@@ -73,7 +73,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix, all_conformation_table);
 
-	//euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+	euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 
 	int hashCreationDone = 0;
 	Hash<double**>* hashTableList = new Hash<double**>[L]();

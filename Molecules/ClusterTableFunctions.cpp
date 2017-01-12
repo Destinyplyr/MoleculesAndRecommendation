@@ -231,6 +231,61 @@ int ClusterTable::ReturnClusterSize(int cluster_no)
     return count_items;
 }
 
+void ClusterTable::PrintClusterItemPointNo(ofstream& outputFile, int cluster_no)      //sends a list of item numbers to be processed on ListData
+{
+    int index = 0;
+    //*size_of_cluster = 0;
+    ClusterNode* currentNode = clusterTable[cluster_no];
+    int* items_in_cluster;
+
+    outputFile << "CLUSTER-" << cluster_no +1 << " {";
+    /*for (int item_iter = 0; item_iter <= size_of_cluster; item_iter++)
+    {
+        outputFile << items_in_cluster_itemName[item_iter];
+        if (item_iter == size_of_cluster || items_in_cluster_itemName[item_iter].compare("") == 0)
+        {
+            break;
+        }
+        if (item_iter < size_of_cluster && items_in_cluster_itemName[item_iter+1].compare("") != 0) 
+        {
+            outputFile << ", ";
+        }
+        
+    }
+    outputFile << "}" <<endl;*/
+
+    while (currentNode != NULL)
+    {
+        // (*size_of_cluster) = (*size_of_cluster) + 1;
+        outputFile << currentNode->getItemNo();
+        if (currentNode->getNext() == NULL) {
+            break;
+        }
+        else 
+        {
+            outputFile << ", ";
+        }
+        currentNode = currentNode->getNext();
+    }
+    outputFile << "}" <<endl;
+
+    // if ((*size_of_cluster) == 0) 
+    // {
+    //     return NULL;
+    // }
+    // items_in_cluster = new int[*size_of_cluster];
+
+    // currentNode = clusterTable[cluster_no];
+    // while (currentNode != NULL)
+    // {
+    //     items_in_cluster[index] = currentNode->getItemNo();
+    //     currentNode = currentNode->getNext();
+    //     index++;
+    // }
+    //return items_in_cluster;
+    //return NULL;
+}
+
 
 int* ClusterTable::PrintClusterDataForList(int cluster_no, int* size_of_cluster)      //sends a list of item numbers to be processed on ListData
 {
