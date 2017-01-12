@@ -13,3 +13,5 @@ template <typename T>
 bool SameArray(T array1, T array2, int size);
 template <typename T>
 double DistanceEuclid(T item1[], T item2[], int size);
+/*template <typename T>
+double ThreebyThreeDeterminant(double* 3_x_3_table);*/

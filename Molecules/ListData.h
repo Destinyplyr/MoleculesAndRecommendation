@@ -57,6 +57,8 @@ class ListData
 		void ConformationTableMove(Metrics* myMetric, double*** all_conformation_table);
 		double cRMSD(Metrics* myMetric, double** conformation_X, double** conformation_Y);
 		void print_matrix(const char* desc, lapack_int m, lapack_int n, double* a, lapack_int lda );
+		double ThreebyThreeDeterminant(double* three_x_three_table);
+		double* MxN_MatrixMinusMatrix(Metrics* myMetric, double* matrix1, double* matrix2, double* result_matrix, int m, int n );
 
 		double TenFoldCrossValidation(Metrics* myMetric,double** distanceMatrix,  double** user_rating_table, double* user_general_rating_table);
 	private:

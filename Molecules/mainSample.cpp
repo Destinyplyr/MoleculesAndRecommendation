@@ -27,8 +27,8 @@ int main(int argc, char const *argv[])
 	int hashCreationDone;
 	bool outParameter = false, inParameter = false, confParameter = false;
 
-	std::cout.setf(std::ios_base::fixed, std::ios_base::floatfield);
-	std::cout.precision(20);
+	//std::cout.setf(std::ios_base::fixed, std::ios_base::floatfield);
+	//std::cout.precision(20);
 	srand (time(NULL));
 
 	inputFile.open("input.dat");

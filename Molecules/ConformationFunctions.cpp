@@ -96,6 +96,34 @@ void ListData<T>::print_matrix(const char* desc, lapack_int m, lapack_int n, dou
 }
 
 template <typename T>
+//tables are on consecutive form
+double ListData<T>::ThreebyThreeDeterminant(double* three_x_three_table)
+{ //following: https://wikimedia.org/api/rest_v1/media/math/render/svg/4633ab870e238995bc59acfccf5d5e8f1efe1984
+    double det = 0;
+    det += three_x_three_table[0] * three_x_three_table[4] * three_x_three_table[8];
+    det += three_x_three_table[1] * three_x_three_table[5] * three_x_three_table[6];
+    det += three_x_three_table[2] * three_x_three_table[3] * three_x_three_table[7];
+    det -= three_x_three_table[2] * three_x_three_table[4] * three_x_three_table[6];
+    det -= three_x_three_table[1] * three_x_three_table[3] * three_x_three_table[8];
+    det -= three_x_three_table[0] * three_x_three_table[5] * three_x_three_table[7];
+    return det;
+}
+
+template <typename T>
+double* ListData<T>::MxN_MatrixMinusMatrix(Metrics* myMetric, double* matrix1, double* matrix2, double* result_matrix, int m, int n )
+{
+	for (int row = 0; row < m; ++row)
+	{
+		for (int column = 0; column < n; column++)
+		{
+			result_matrix[3*row + column] = matrix1[3*row + column] - matrix2[3*row + column];
+		}
+		
+		//cout << returned_table[3*i+0] << "\t" << returned_table[3*i+1] << "\t" << returned_table[3*i+2] << endl;
+	}
+}
+
+template <typename T>
 double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** conformation_Y)
 {
 	string GARBAGE;
@@ -109,6 +137,9 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 		}
 	}
 
+	double* comformation_X_consec_rotated = NULL;
+	comformation_X_consec_rotated = new double[3*myMetric->point_dimension];
+
 	double* comformation_Y_consec = NULL;
 	comformation_Y_consec = new double[3*myMetric->point_dimension];
 	for (int current_backbone_atom = 0; current_backbone_atom < myMetric->point_dimension; current_backbone_atom++)
@@ -121,6 +152,11 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 
 	double* returned_table = NULL;
 	returned_table = new double[3*myMetric->point_dimension];
+
+	double* x_q_minus_y = NULL;
+	x_q_minus_y = new double[3*myMetric->point_dimension];
+
+	double* q_rotation_table = new double[3*3];
 
 	double* u_table = new double[3*3];
 	double* singular = new double[3];
@@ -138,15 +174,73 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 	cout << "SVD Matrix : " <<endl;
 	for (int i = 0; i < 3; ++i)
 	{
-		cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+		cout << returned_table[3*i+0] << "\t" << returned_table[3*i+1] << "\t" << returned_table[3*i+2] << endl;
 	}
 	LAPACKE_dgesvd(LAPACK_ROW_MAJOR, 'A', 'A', 3, 3, returned_table, 3, singular, u_table, 3, v_t_table, 3, stat );
+	cout << "U - SVD Matrix : " <<endl;
+	for (int i = 0; i < 3; ++i)
+	{
+		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+		cout << u_table[3*i+0] << "\t" << u_table[3*i+1] << "\t" << u_table[3*i+2] << endl;
+	}
+
+	cout << "VT - SVD Matrix : " <<endl;
+	for (int i = 0; i < 3; ++i)
+	{
+		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+		cout << v_t_table[3*i+0] << "\t" << v_t_table[3*i+1] << "\t" << v_t_table[3*i+2] << endl;
+	}
 	//LAPACKE_dgesvj(LAPACK_ROW_MAJOR, 'G', 'U', 'V', 3, 3, returned_table , 3, singular, 3, v_t_table, 3, stat);
 	u_table = returned_table;
+
 	string desc = "Singular values";
 	print_matrix( desc.c_str(), 1, 3, singular, 1 );
-	cin >>GARBAGE;
+	//CHECK σ3 is >0
+	if (singular[2] <= 0)
+	{
+		cout << "SVD check failed : returning dist INT_MAX" <<endl;
+		return INT_MAX;
+	}
 
+	//Q is U*V^T
+	cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, 3, 3, 3 , 1, u_table, 3 , v_t_table, 3, 0, q_rotation_table, 3);
+
+	/*//cout << "Q rotation Matrix : " <<endl;
+	for (int i = 0; i < 3; ++i)
+	{
+		q_rotation_table[3*i+0] = 1;
+		q_rotation_table[3*i+1] = -1;
+		q_rotation_table[3*i+2] = 0;
+		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+		//cout << q_rotation_table[i+0] << "\t" << q_rotation_table[i+1] << "\t" << q_rotation_table[i+2] << endl;
+	}
+*/
+	cout << "Q rotation Matrix : " <<endl;
+	for (int i = 0; i < 3; ++i)
+	{
+		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
+		cout << q_rotation_table[3*i+0] << "\t" << q_rotation_table[3*i+1] << "\t" << q_rotation_table[3*i+2] << endl;
+	}
+
+
+	cout << "det of Q: " << ThreebyThreeDeterminant(q_rotation_table) <<endl;
+	cin >>GARBAGE;
+	if (ThreebyThreeDeterminant(q_rotation_table) < 0)
+	{	//negate 3rd column of U
+		for (int i = 0; i < 3; ++i)
+		{
+			u_table[3*i+3] = -u_table[3*i+3];
+			//recalculate Q
+			cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, 3, 3, 3 , 1, u_table, 3 , v_t_table, 3, 0, q_rotation_table, 3);
+		}
+	}
+
+	//X_rotated = X * Q
+	cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, myMetric->point_number, 3, 3 , 1, comformation_X_consec, 3 , q_rotation_table, 3, 0, comformation_X_consec_rotated, 3);
+
+	this->MxN_MatrixMinusMatrix(myMetric, comformation_X_consec_rotated, comformation_Y_consec , x_q_minus_y, myMetric->point_number, 3);
+
+	LAPACKE_dlange(LAPACK_ROW_MAJOR, 'F', myMetric->point_number, 3, x_q_minus_y, 3);
 }
 
 
