@@ -83,6 +83,8 @@ void ListData<T>::ConformationTableMove(Metrics* myMetric, double*** all_conform
 
 		//all_conformation_table[conformation_no] = currentNode->getKey();
 	}
+
+	delete[] x_c;
 }
 
 template <typename T>
@@ -280,9 +282,9 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 
 	delete[] q_rotation_table;
 
-	//delete u_table;
+	delete[] u_table;
 
-	//delete singular;
+	delete[] singular;
 
 	delete[] v_t_table;
 
@@ -343,11 +345,11 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 		else if (r_select == 1)
 		{	//N^1.5
 			
-			for (int r_delete = 0; r_delete < r; r_delete++)
+/*			for (int r_delete = 0; r_delete < r; r_delete++)
 			{
 				delete[] distance_pairs[r_delete];
 			}
-			delete[] distance_pairs;
+			delete[] distance_pairs;*/
 
 			//delete first_conf_distances;
 			r = pow(myMetric->point_dimension, 1.5);
@@ -355,13 +357,13 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 		else if (r_select == 2)
 		{	//(N*(N-1))/2
 			
-			for (int r_delete = 0; r_delete < r; r_delete++)
+/*			for (int r_delete = 0; r_delete < r; r_delete++)
 			{
 				delete[] distance_pairs[r_delete];
 			}
 			delete[] distance_pairs;
 
-			delete[] first_conf_distances;
+			delete[] first_conf_distances;*/
 			r = all_pairs_num;
 		}
 
@@ -452,7 +454,7 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 			}
 			clusterTable = new ClusterTable(myConf->number_of_clusters);
 
-			
+
 			currentData[0] = r_select;		//current r
 			currentData[1] = T_select; // current T
 			for(int data_iter = 0; data_iter < 5; data_iter++)
@@ -507,12 +509,48 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 				T_select = 3;
 			}
 			cout << "above is r_select: " <<r_select << " T_select: " << T_select <<endl;
-			cin >> GARBAGE;
+			//cin >> GARBAGE;
 
 		}
+
+		for (int r_new = 0; r_new < r; r_new++)
+		{
+			delete[] distance_pairs[r_new];
+		}
+		delete[] distance_pairs;		//distance pairs will be chosen from the first conformation
+
+		delete[] first_conf_distances;
 		//cin >> GARBAGE;
 
 	}
+
+	delete euclideanList;
+
+	for (int array_iter = 0; array_iter < all_pairs_num; array_iter++)
+	{
+		delete[] all_first_conf_distances[array_iter];
+	}
+
+	delete[] all_first_conf_distances;
+	
+
+	for (int data_iter = 0; data_iter < 7; data_iter++)
+	{
+		delete[] clusteringData[data_iter];
+	}
+
+	delete[] clusteringData;
+	
+
+	delete[] currentData;
+
+	delete clusterTable;
+
+	for (int i = 0; i < myMetric->point_number; ++i)
+	{
+		delete[] clusterAssign[i];
+	}
+	delete[] clusterAssign;
 }
 
 template <typename T>

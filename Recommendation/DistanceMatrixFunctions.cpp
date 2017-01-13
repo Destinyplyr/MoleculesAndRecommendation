@@ -139,8 +139,14 @@ double FindNextRadius(double** min_max_thresh, double oldRadius, double oldInser
             min_max_thresh[0][1] = min_max_thresh[2][1];
             min_max_thresh[2][0] *=2;               //max doubles
             min_max_thresh[2][1] = -1;
+            return  min_max_thresh[2][0];
         }
-        return  min_max_thresh[2][0];
+        else
+        {
+            min_max_thresh[1][0] = (min_max_thresh[0][0] + min_max_thresh[2][0])/2;
+            return min_max_thresh[1][0];
+        }
+        
     }
 
     if (min_max_thresh[0][1] == -1)     //haven't used min_max min
@@ -152,7 +158,7 @@ double FindNextRadius(double** min_max_thresh, double oldRadius, double oldInser
     else if (min_max_thresh[2][1] == -1)     //haven't used min_max max
     {
         //cout << "fnr 4" <<endl;
-        return min_max_thresh[1][0];
+        return min_max_thresh[2][0];
     }
 
     if (min_max_thresh[1][0] == oldRadius)      //middle tried

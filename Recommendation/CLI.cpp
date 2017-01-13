@@ -32,7 +32,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	}*/
 
-	myMetric->metric_space = "hamming";
+	//myMetric->metric_space = "hamming";
 	cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
@@ -51,6 +51,14 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		cout << "omorfi" <<endl;
 
 		hammingList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+		clusterAssign= new int*[myMetric->point_number];
+		for (int i = 0; i < myMetric->point_number; ++i)
+		{
+		    clusterAssign[i] = new int[3];
+		    clusterAssign[i][0] = -1;
+		    clusterAssign[i][1] = -1;
+		    clusterAssign[i][2] = -1;
+		}
 		int hashCreationDone = 0;
 		Hash<boost::dynamic_bitset<> >* hashTableList = new Hash<boost::dynamic_bitset<> >[L]();
 		hammingList->initHammingLSHManagement(myConf, myMetric, inputFile, distance_matrix,  k,  L, &myMetric->point_number, &hashCreationDone, hashTableList, centroids, clusterAssign);
@@ -68,7 +76,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	{
 		ListData<double*>* vectorList = new ListData<double*>();
 		vectorList->ListInsertionVector(inputFile, myMetric);
-		myMetric->metric = "euclidean";
+		//myMetric->metric = "euclidean";
 		if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
 		{
 
@@ -100,6 +108,15 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
 			euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+
+			clusterAssign= new int*[myMetric->point_number];
+			for (int i = 0; i < myMetric->point_number; ++i)
+			{
+			    clusterAssign[i] = new int[3];
+			    clusterAssign[i][0] = -1;
+			    clusterAssign[i][1] = -1;
+			    clusterAssign[i][2] = -1;
+			}
 
 			int hashCreationDone = 0;
 			Hash<double*>* hashTableList = new Hash<double*>[L]();
@@ -142,6 +159,14 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 			cosineList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 
+			clusterAssign= new int*[myMetric->point_number];
+			for (int i = 0; i < myMetric->point_number; ++i)
+			{
+			    clusterAssign[i] = new int[3];
+			    clusterAssign[i][0] = -1;
+			    clusterAssign[i][1] = -1;
+			    clusterAssign[i][2] = -1;
+			}
 
 			int hashCreationDone = 0;
 			Hash<double*>* hashTableList = new Hash<double*>[L]();

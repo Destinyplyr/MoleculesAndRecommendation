@@ -40,7 +40,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 	int w = 4;
 	int inputFileSize = 0;
 	int queryCounter = 1;
-	int hashResult;
+	int hashResult = 0;
 	//int assigned_in_this_radius = 0;
 	int minimumCentroid = -1;
 	int secondBestCentroid = -1;
@@ -266,7 +266,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 				min_max_thresh[2][0] = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
 
 				Radius = FindNextRadius(min_max_thresh, -1, -1, neighborhood_size);
-				cout << "for Radius : " << Radius <<endl;
+				//cout << "for Radius : " << Radius <<endl;
 
 				do 		//do until we have as many points as we want or we have changed radius a number of times
 				{
@@ -286,12 +286,12 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 							//cout << "current_node_point_no : " << current_node_point_no << " other_node_point_no : " << endl;
 							if (DistanceMatrixDistance(distanceMatrix, current_node_point_no, other_node_point_no) <= Radius)
 							{
-								NN_table[assigned_in_this_radius] = other_node_point_no;
 								assigned_in_this_radius++;
-								if (assigned_in_this_radius > neighborhood_size)
+								if (assigned_in_this_radius == neighborhood_size + 1)
 								{
 									break;
 								}
+								NN_table[assigned_in_this_radius-1] = other_node_point_no;
 							}
 						}
 						otherBucketNodePtr = otherBucketNodePtr->getNext();
@@ -299,12 +299,17 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 					if (assigned_in_this_radius != neighborhood_size)		//more or less from neighborhood size
 					{
 						Radius = FindNextRadius(min_max_thresh, Radius, assigned_in_this_radius, neighborhood_size);
+						//cout << "for Radius : " << Radius <<endl;
 						if (Radius == -1)
 						{
 							break;
 						}
 						//cout << "next Radius: " << Radius << endl;
 						times_radius_changed++;
+					}
+					else
+					{
+						break;
 					}
 				}while(assigned_in_this_radius != neighborhood_size && times_radius_changed < 5);
 				
@@ -316,13 +321,17 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 
 				//RATING FROM OTHER USERS SEGMENT
 
+				if (assigned_in_this_radius == neighborhood_size + 1)
+				{
+					assigned_in_this_radius = neighborhood_size;
+				}
 
 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 				{
 					similarity_sum = 0;
 					normalizing_factor = 1;
 					other_point_no_in_bucket = -1;
-					for(int other_bucket_item = 0; other_bucket_item < neighborhood_size; other_bucket_item++)
+					for(int other_bucket_item = 0; other_bucket_item < assigned_in_this_radius; other_bucket_item++)
 					{
 						other_point_no_in_bucket = NN_table[other_bucket_item];
 						other_user_ratings = this->ReturnUserRatings(other_point_no_in_bucket, user_rating_table);
@@ -390,7 +399,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 		}
 		cout << "10-fold-cross validation on Cosine LSH" <<endl;
 		ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table);
-		cin >> GARBAGE;
+		//cin >> GARBAGE;
 		break;			//not using multiple tables
 
 
@@ -539,13 +548,13 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 		}
 		delete[] h[o];
 	}
-	delete h;
+	delete[] h;
 	
 	//delete dataLength;
 
 	for (int i = 0; i < *dataLengthPointNumber; ++i)
 	{
-		delete point_to_centroid_assignment[i];
+		delete[] point_to_centroid_assignment[i];
 	}
 	delete[] point_to_centroid_assignment;
 	return;

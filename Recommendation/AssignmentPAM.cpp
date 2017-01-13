@@ -41,7 +41,7 @@ void PAM(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* centroid
 				}*/
 
 				//already_centroid = find(begin(centroids), end(centroids), x) != end(centroids);
-
+				cout << "row: " << row << "column : " <<column <<endl;
 				if (distanceMatrix[row][column] < minDistance) //&& !already_centroid)
 				{
 					secondBest = minDistance;

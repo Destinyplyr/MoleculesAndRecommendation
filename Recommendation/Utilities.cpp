@@ -43,7 +43,7 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 	string GARBAGE;
 	string genericStr;
 	string pointStr;
-	int current_user;
+	int current_user = -1;
 	int point_dimension = 0;
 	int point_number = 0;
 	int item_max = 0;

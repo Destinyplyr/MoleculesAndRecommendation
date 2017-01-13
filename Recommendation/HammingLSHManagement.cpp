@@ -15,7 +15,8 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 	int queryCounter = 1;
 	int minBruteDistance = 9999;
 	int minLSHDistance = 9999;
-	int tableSize = (*dataLength) / 8;			// n/8
+	//int tableSize = (*dataLength) / 8;			// n/8
+	int tableSize = pow(2, k);
 	int minimumCentroid = -1;
 	int secondBestCentroid = -1;
 	double elapsed_secs_lsh, elapsed_secs_brute;
@@ -213,8 +214,6 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 				//cout << "for user " << nodePtr->getItemNo() <<endl;
 				current_node_point_no = nodePtr->getItemNo();		//this point
 				times_radius_changed = 0;
-				assigned_in_this_radius = 0;
-
 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 				{
 					current_ratings[current_item_rated][1] = 0;
@@ -227,13 +226,15 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 					min_max_thresh[i][1] = -1;
 				}
 				min_max_thresh[0][0] = 0;
-				min_max_thresh[2][0] = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
+				min_max_thresh[2][0] = 10;//FindRadiusForAssignment(myConf, distanceMatrix, centroids);
+				//cout << "min_max_thresh[2][0] :" << min_max_thresh[2][0] <<endl;
 
 				Radius = FindNextRadius(min_max_thresh, -1, -1, neighborhood_size);
 				cout << "for Radius : " << Radius <<endl;
 
 				do 		//do until we have as many points as we want or we have changed radius a number of times
 				{
+					assigned_in_this_radius = 0;
 					otherBucketNodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();
 					while (otherBucketNodePtr != NULL)		//take all other items of the bucket
 					{
@@ -250,12 +251,14 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 							//cout << "current_node_point_no : " << current_node_point_no << " other_node_point_no : " << endl;
 							if (DistanceMatrixDistance(distanceMatrix, current_node_point_no, other_node_point_no) <= Radius)
 							{
-								NN_table[assigned_in_this_radius] = other_node_point_no;
 								assigned_in_this_radius++;
-								if (assigned_in_this_radius > neighborhood_size)
+								if (assigned_in_this_radius == neighborhood_size + 1)
 								{
 									break;
 								}
+								NN_table[assigned_in_this_radius-1] = other_node_point_no;
+								
+
 							}
 						}
 						otherBucketNodePtr = otherBucketNodePtr->getNext();
@@ -263,12 +266,17 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 					if (assigned_in_this_radius != neighborhood_size)		//more or less from neighborhood size
 					{
 						Radius = FindNextRadius(min_max_thresh, Radius, assigned_in_this_radius, neighborhood_size);
+						cout << "for Radius : " << Radius <<endl;
 						if (Radius == -1)
 						{
 							break;
 						}
 						//cout << "next Radius: " << Radius << endl;
 						times_radius_changed++;
+					}
+					else
+					{
+						break;
 					}
 				}while(assigned_in_this_radius != neighborhood_size && times_radius_changed < 5);
 				
@@ -280,15 +288,26 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 
 				//RATING FROM OTHER USERS SEGMENT
 
+				if (assigned_in_this_radius == neighborhood_size + 1)
+				{
+					assigned_in_this_radius = neighborhood_size;
+				}
 
 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 				{
 					similarity_sum = 0;
 					normalizing_factor = 1;
 					other_point_no_in_bucket = -1;
-					for(int other_bucket_item = 0; other_bucket_item < neighborhood_size; other_bucket_item++)
+					for(int other_bucket_item = 0; other_bucket_item < assigned_in_this_radius; other_bucket_item++)
 					{
+						/*cout << "NN_table holds : " << assigned_in_this_radius <<endl;
+						for (int nn_table_iter = 0; nn_table_iter < assigned_in_this_radius; nn_table_iter++)
+						{
+							cout << "########################################" << NN_table[nn_table_iter] <<endl;
+						}*/
+
 						other_point_no_in_bucket = NN_table[other_bucket_item];
+						//cout << "other_point_no_in_bucket : " << other_point_no_in_bucket <<endl;
 						other_user_ratings = this->ReturnUserRatings(other_point_no_in_bucket, user_rating_table);
 						//cout << 1 <<endl;
 						if (other_point_no_in_bucket != current_node_point_no)		//if not same item in bucket
@@ -353,7 +372,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 		}
 		cout << "10-fold-cross validation on Hamming LSH" <<endl;
 		ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table);
-		cin >> GARBAGE;
+		//cin >> GARBAGE;
 		break;			//not using multiple tables
 
 
@@ -495,13 +514,13 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 	
 	for (int i = 0; i < *dataLength; ++i)
 	{
-		delete point_to_centroid_assignment[i];
+		delete[] point_to_centroid_assignment[i];
 	}
 	delete[] point_to_centroid_assignment;
 	
 	for (int i = 0; i < L; ++i)
 	{
-		delete miniHashIndexList[i];
+		delete[] miniHashIndexList[i];
 	}
 	delete[] miniHashIndexList;
 	return;

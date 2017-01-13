@@ -100,6 +100,14 @@ void KMedoidsPP(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* c
 			}
 		}
 	}
+	for (int i = 0; i < myConf->number_of_clusters; ++i)
+	{
+		if (centroids[i] >= myMetric->point_number)
+		{
+			centroids[i] = myMetric->point_number - 1;
+		}
+	}
+
 	delete[] probabilities;
 	delete[] minDistances;
 }

@@ -589,7 +589,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 			Concentrate_finish = clock();
 			Initialization_elapsed = (double)(Concentrate_finish - Concentrate_start)/CLOCKS_PER_SEC;*/
 		//}
-		centroids[0] = 432;
+		//centroids[0] = 432;
 		//centroids[1] = 10;
 		//centroids[2] = 20;
 		//centroids[3] = 30;
@@ -606,7 +606,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				//clear clusterassign
 				for (int i = 0; i < myMetric->point_number; ++i)
 				{
-					delete clusterAssign[i];
+					delete[] clusterAssign[i];
 				}
 				delete[] clusterAssign;
 				clusterAssign= new int*[myMetric->point_number];
@@ -726,11 +726,11 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	cout << "OPER 2" <<endl;
 
 	//clear clusterassign
-	for (int i = 0; i < myMetric->point_number; ++i)
+	/*for (int i = 0; i < myMetric->point_number; ++i)
 	{
-		delete clusterAssign[i];
+		delete[] clusterAssign[i];
 	}
-	delete[] clusterAssign;
+	delete[] clusterAssign;*/
 	clusterAssign= new int*[myMetric->point_number];
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
@@ -987,7 +987,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	}
 	cout << "10-fold-cross validation on clustering " << myMetric->metric<< endl;
 	ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table);
-	cin >> GARBAGE;
+	//cin >> GARBAGE;
 
 
 
@@ -1071,7 +1071,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	delete clusterTable;
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
-		delete clusterAssign[i];
+		delete[] clusterAssign[i];
 	}
 	delete[] clusterAssign;
 }

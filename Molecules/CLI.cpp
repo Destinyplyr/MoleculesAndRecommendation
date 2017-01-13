@@ -33,7 +33,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	}*/
 
 	//myMetric->metric_space = "hamming";
-	cout << "test" <<endl;
+	//cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
 	double*** all_conformation_table;
@@ -87,8 +87,8 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	euclideanList->DistanceConformationVectorHandle(inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L, k, all_conformation_table);
 
-	int hashCreationDone = 0;
-	Hash<double**>* hashTableList = new Hash<double**>[L]();
+	//int hashCreationDone = 0;
+	//Hash<double**>* hashTableList = new Hash<double**>[L]();
 	//euclideanList->initEuclideanList(myConf ,myMetric, inputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign);
 	// euclideanList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
 	// delete euclideanList;
@@ -230,12 +230,36 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	delete[] centroids;*/
 	//cout << "ekana to insertion" << endl;
 
+	delete vectorList;
+
+	for (int i = 0; i < myMetric->point_number; i++)
+	{
+
+		for (int current_backbone_atom = 0; current_backbone_atom < myMetric->point_dimension; current_backbone_atom++)
+		{
+			delete[] all_conformation_table[i][current_backbone_atom];
+		}
+		delete[] all_conformation_table[i];
+	}
+	delete[] all_conformation_table;
+
 	//delete clusterTable;
+
+	
+	//delete hashTableList;
 	//cout << "list: " << (*clusterTable)->getArray() <<endl;
 	/*for (int i = 0; i < myMetric->point_number; ++i)
 	{
 	    delete[] clusterAssign[i];
 	}
 	delete[] clusterAssign;*/
+	for (int i = 0; i < myMetric->point_number; i++) {
+	    delete[] distance_matrix[i];
+	}
+	delete[] distance_matrix;
+
+
+	delete[] centroids;
+	
 
 }

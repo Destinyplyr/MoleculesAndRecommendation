@@ -579,7 +579,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//centroids = new int  		so we have enough space
 		/*if (init_iter == 0) //case KMedoids++
 		{*/
-			cout << "before kmpp" << cluster_num << endl;
+			//cout << "before kmpp" << cluster_num << endl;
 			KMPP_start = clock();
 			KMedoidsPP(myConf, myMetric, distance_matrix, centroids);
 			KMPP_finish = clock();
@@ -596,7 +596,8 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//centroids[1] = 10;
 		//centroids[2] = 20;
 		//centroids[3] = 30;
-		cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+
+		cout << "==================" << endl << "PRINTING CENTROIDS for " << cluster_num <<" clusters: " <<endl;
 		for (int w = 0; w <myConf->number_of_clusters; w++) {
 			cout << centroids[w] << " ";
 		}
@@ -626,12 +627,12 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				Assign_Update_start = clock();
 				for (int assign_update_times =0; assign_update_times < 3; assign_update_times++)
 				{
-					cout << "before pam" <<endl;
+					//cout << "before pam" <<endl;
 					PAM(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);		//assignment
 					//cin >> GARBAGE;
-					cout << "after pam" <<endl;
+					//cout << "after pam" <<endl;
 					if (!ALaLoyds(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign)) {		//update
-					 	cout << "done!" << endl;
+					 	//cout << "done!" << endl;
 					}	
 				}
 				Assign_Update_finish = clock();
@@ -701,17 +702,17 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//cout << "finished CLARANS" <<endl;
 	}
 
-	cout << "best_cluster_num: " <<best_cluster_num <<endl;
+	//cout << "best_cluster_num: " <<best_cluster_num <<endl;
 
 	myConf->number_of_clusters = best_cluster_num;
 
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << "a" << centroids[w] << " ";
 	}
-	cout << endl <<endl;
+	cout << endl <<endl;*/
 
-	cout << "OPER 1" <<endl;
+	//cout << "OPER 1" <<endl;
 
 
 	//CLUSTER AGAIN with optimized k
@@ -720,13 +721,13 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	KMPP_finish = clock();
 	Initialization_elapsed = (double)(KMPP_finish - KMPP_start)/CLOCKS_PER_SEC;
 
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
-	cout << endl <<endl;
+	cout << endl <<endl;*/
 
-	cout << "OPER 2" <<endl;
+	//cout << "OPER 2" <<endl;
 
 	//clear clusterassign
 	for (int i = 0; i < myMetric->point_number; ++i)
@@ -746,13 +747,13 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	clusterTable = new ClusterTable(myConf->number_of_clusters);
 	//cout << "starting pam - alaloyds" <<endl;
 	Assign_Update_start = clock();
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	cout << "==================" << endl << "PRINTING CENTROIDS with best number of centroids : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
-	cout << endl <<endl;
+	cout << endl;
 
-	cout << "OPER 3" <<endl;
+	//cout << "OPER 3" <<endl;
 
 	for (int assign_update_times =0; assign_update_times < 3; assign_update_times++)
 	{
@@ -778,12 +779,12 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//outputFile << "Clustering Time: " << Assign_Update_elapsed + Initialization_elapsed <<endl;
 	current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
 
-	cout << "END SILH : " << current_silh <<endl;
+	cout << "END SILH : " << current_silh <<endl<<endl;
 
 	int total_on_clusters = 0;
 	for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
 	{
-		clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);		//used to get size
+		delete[] clusterTable->PrintClusterDataForList(cluster_iter, &size_of_cluster);		//used to get size
 		total_on_clusters += size_of_cluster;
 		outputFile << "CLUSTER-" << cluster_iter << " {"<<size_of_cluster << ", " << clusterTable->ClusterDistance( myMetric, distance_matrix, cluster_iter, clusterAssign) <<"}" <<endl;
 	}
@@ -1108,12 +1109,13 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//cout << "finished CLARA" <<endl;
 
 		
-	/*delete clusterTable;
+	delete clusterTable;
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
-		delete clusterAssign[i];
+		delete[] clusterAssign[i];
 	}
-	delete[] clusterAssign;*/
+	delete[] clusterAssign;
+	delete[] random_users_for_driver_user;
 }
 
 /*template <typename T>
