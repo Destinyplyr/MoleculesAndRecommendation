@@ -516,7 +516,7 @@ void ListData<T>::Printer(ifstream& inputFile, ofstream& outputFile, Conf* myCon
 }
 
 template <typename T>
-void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing)
+void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing, double* currentData, bool takeData)
 {
 	int total;
 	string GARBAGE;
@@ -525,6 +525,8 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	string*	items_in_cluster_itemName;
 	bool first_time_lsh = 1; 	
 	int hashCreationDone = 0;
+	clock_t total_start, total_finish;
+	double total_elapsed;
 	clock_t KMPP_start, KMPP_finish;
 	clock_t Concentrate_start, Concentrate_finish;
 	double Initialization_elapsed;
@@ -561,6 +563,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	int* random_users_for_driver_user = NULL;
 	random_users_for_driver_user = new int[neighborhood_size];
 
+	total_start = clock();
 
 	for (int cluster_num = 4; cluster_num < 10; cluster_num++)		//test cluster size
 	{
@@ -589,7 +592,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 			Concentrate_finish = clock();
 			Initialization_elapsed = (double)(Concentrate_finish - Concentrate_start)/CLOCKS_PER_SEC;*/
 		//}
-		centroids[0] = 432;
+		//centroids[0] = 432;
 		//centroids[1] = 10;
 		//centroids[2] = 20;
 		//centroids[3] = 30;
@@ -606,7 +609,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				//clear clusterassign
 				for (int i = 0; i < myMetric->point_number; ++i)
 				{
-					delete clusterAssign[i];
+					delete[] clusterAssign[i];
 				}
 				delete[] clusterAssign;
 				clusterAssign= new int*[myMetric->point_number];
@@ -728,7 +731,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//clear clusterassign
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
-		delete clusterAssign[i];
+		delete[] clusterAssign[i];
 	}
 	delete[] clusterAssign;
 	clusterAssign= new int*[myMetric->point_number];
@@ -798,6 +801,16 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		// clusterTable->PrintClusterUsingNames(outputFile, items_in_cluster_itemName, size_of_cluster, cluster_iter);
 		// delete[] items_in_cluster_itemNo;		//initialized inside PrintClusterDataForList
 		// delete[] items_in_cluster_itemName;		//initilaized inside ItemNamesFromItemNos
+	}
+
+	total_finish = clock();
+	total_elapsed = (double)(total_finish - total_start )/CLOCKS_PER_SEC;	//total clustering time
+
+	if (takeData == true)
+	{
+		currentData[2] = myConf->number_of_clusters;	//best k
+		currentData[3] = current_silh;					//best silh
+		currentData[4] = total_elapsed;					//total clustering time
 	}
 
 

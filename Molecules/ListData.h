@@ -43,7 +43,7 @@ class ListData
 		void DistanceMatrixComputationHamming(Metrics* myMetric, double** distance_matrix);
 		string* ItemNamesFromItemNos(int* items_in_cluster_itemNo, int size_of_cluster);
 		void Printer(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
-		void ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing);
+		void ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, bool complete_printing, double* currentData, bool takeData);
 		double ReturnUserGeneralRating(Metrics* myMetric, int itemno);
 		double SimilarityHamming(Metrics* myMetric, double** distance_matrix, double item1, double item2);
 		double SimilarityEuclidean(Metrics* myMetric, double** distance_matrix, double item1, double item2);
@@ -59,7 +59,7 @@ class ListData
 		void print_matrix(const char* desc, lapack_int m, lapack_int n, double* a, lapack_int lda );
 		double ThreebyThreeDeterminant(double* three_x_three_table);
 		double* MxN_MatrixMinusMatrix(Metrics* myMetric, double* matrix1, double* matrix2, double* result_matrix, int m, int n );
-		void DistanceConformationVectorHandle(ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, double*** all_conformation_table);
+		void DistanceConformationVectorHandle(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMetric, ClusterTable* clusterTable, double** distance_matrix, int* centroids, int** clusterAssign, int L, int k, double*** all_conformation_table);
 		void AllFirstConfDistances(Metrics* myMetric, double*** all_conformation_table, double** all_first_conf_distances);
 		void ConformationDistanceVector(Metrics* myMetric, double*** all_conformation_table, double* first_conf_distances, int conformation_no, int r, double* conformation_distance_vector);
 

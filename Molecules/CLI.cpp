@@ -73,9 +73,19 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 	euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix, all_conformation_table);
 
-	euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+	euclideanList->ClusterHandleExercise3( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing, NULL, false);
 
-	euclideanList->DistanceConformationVectorHandle(outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L, k, all_conformation_table);
+	clusterAssign= new int*[myMetric->point_number];	//deleting clusterAssign on first round inside clusterhandexercise3
+	for (int i = 0; i < myMetric->point_number; ++i)
+	{
+	    clusterAssign[i] = new int[3];
+	    clusterAssign[i][0] = -1;
+	    clusterAssign[i][1] = -1;
+	    clusterAssign[i][2] = -1;
+	}
+	clusterTable = new ClusterTable(myConf->number_of_clusters);
+
+	euclideanList->DistanceConformationVectorHandle(inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L, k, all_conformation_table);
 
 	int hashCreationDone = 0;
 	Hash<double**>* hashTableList = new Hash<double**>[L]();
