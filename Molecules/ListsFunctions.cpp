@@ -779,7 +779,6 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//outputFile << "Clustering Time: " << Assign_Update_elapsed + Initialization_elapsed <<endl;
 	current_silh = clusterTable->ReturnSilhouette(outputFile, myConf, distance_matrix, centroids, clusterAssign);		//returning Silhouette
 
-	cout << "END SILH : " << current_silh <<endl<<endl;
 
 	int total_on_clusters = 0;
 	for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
@@ -789,6 +788,9 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		outputFile << "CLUSTER-" << cluster_iter << " {"<<size_of_cluster << ", " << clusterTable->ClusterDistance( myMetric, distance_matrix, cluster_iter, clusterAssign) <<"}" <<endl;
 	}
 	outputFile << "Total on clusters: " <<total_on_clusters <<endl;
+
+	outputFile << "END SILH : " << current_silh <<endl<<endl;
+	
 	for (int cluster_iter = 0; cluster_iter < myConf->number_of_clusters; cluster_iter++)
 	{
 		//ClusterTable::PrintClusterDataForList(int cluster_no int* size_of_cluster)

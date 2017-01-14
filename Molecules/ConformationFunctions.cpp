@@ -498,7 +498,7 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 			experim << "Silhouette: " << currentData[3] <<endl;
 			experim << "Clustering time: " << currentData[4] <<endl;
 
-			experim << "#####################################";
+			experim << "#####################################" <<endl;
 
 
 			iteration++;

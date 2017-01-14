@@ -84,7 +84,7 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 
    		stringstream linestream(genericStr);
    		getline(linestream, pointStr, '\t');
-   		cout << pointStr <<endl;
+   		//cout << pointStr <<endl;
    		if (stoi(pointStr) != current_user)
    		{
    			point_number++;
@@ -117,7 +117,7 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
         }
         myMetric->point_number = point_number;
 	}	*/
-    cout << "Giving to myMetric: pointdim: " << item_max << " pointno: " << point_number <<endl;
+    //cout << "Giving to myMetric: pointdim: " << item_max << " pointno: " << point_number <<endl;
     myMetric->point_dimension = item_max;
     myMetric->point_number = point_number;
 

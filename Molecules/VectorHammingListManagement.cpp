@@ -252,6 +252,7 @@ void ListData<T>::DistanceMatrixComputationVector(Metrics* myMetric, double** di
 		}
 		//driver_node = driver_node->getNext();
 	}
+    cout <<endl;
 }
 
 

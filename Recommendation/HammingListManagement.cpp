@@ -136,6 +136,7 @@ void ListData<T>::DistanceMatrixComputationHamming(Metrics* myMetric, double** d
 		//cout << endl;
 		driver_node = driver_node->getNext();
 	}
+	cout << endl;
 }
 
 template <typename T>

@@ -20,10 +20,10 @@ class ListData
         Node<T>* getNode();
 		void PrintData();
 		void Insert(T item, int itemno, std::string itemName, double* ratings);
-		void initEuclideanList(Conf* myConf,Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
-		void initCosineList(Conf* myConf,Metrics* myMetric,  ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
+		void initEuclideanList(Conf* myConf,Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
+		void initCosineList(Conf* myConf,Metrics* myMetric,  ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 		void initDBHManagement(Conf* myConf, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
-		void initHammingLSHManagement(Conf* myConf,Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
+		void initHammingLSHManagement(Conf* myConf,Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign);
 
 		int Distance(T item1, T item2);
 		bool ExistsOnce(int itemno, Node<T>* header);

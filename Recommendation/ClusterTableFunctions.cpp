@@ -317,8 +317,8 @@ double ClusterTable::ClusterSilhouette(Conf* myConf, double** distanceMatrix, in
 
     if (currentNode == NULL)
     {
-        cout << "cluster empty" <<endl;
-        return 1;
+        //cout << "cluster empty" <<endl;
+        return 0;
         //cout << "exiting..." << endl;
     }
 

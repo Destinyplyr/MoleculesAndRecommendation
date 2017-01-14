@@ -576,7 +576,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//centroids = new int  		so we have enough space
 		/*if (init_iter == 0) //case KMedoids++
 		{*/
-			cout << "before kmpp" << cluster_num << endl;
+			//cout << "before kmpp" << cluster_num << endl;
 			KMPP_start = clock();
 			KMedoidsPP(myConf, myMetric, distance_matrix, centroids);
 			KMPP_finish = clock();
@@ -593,7 +593,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//centroids[1] = 10;
 		//centroids[2] = 20;
 		//centroids[3] = 30;
-		cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+		cout << "==================" << endl << "PRINTING CENTROIDS for " << myConf->number_of_clusters << " clusters: " <<endl;
 		for (int w = 0; w <myConf->number_of_clusters; w++) {
 			cout << centroids[w] << " ";
 		}
@@ -623,12 +623,12 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				Assign_Update_start = clock();
 				for (int assign_update_times =0; assign_update_times < 3; assign_update_times++)
 				{
-					cout << "before pam" <<endl;
+					//cout << "before pam" <<endl;
 					PAM(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign);		//assignment
 					//cin >> GARBAGE;
-					cout << "after pam" <<endl;
+					//cout << "after pam" <<endl;
 					if (!ALaLoyds(myConf, myMetric, distance_matrix, centroids, clusterTable, clusterAssign)) {		//update
-					 	cout << "done!" << endl;
+					 	//cout << "done!" << endl;
 					}	
 				}
 				Assign_Update_finish = clock();
@@ -698,17 +698,17 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//cout << "finished CLARANS" <<endl;
 	}
 
-	cout << "best_cluster_num: " <<best_cluster_num <<endl;
+	//cout << "best_cluster_num: " <<best_cluster_num <<endl;
 
 	myConf->number_of_clusters = best_cluster_num;
 
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	cout << "==================" << endl << "PRINTING CLUSTERS PRINTING CENTROIDS with best number of centroids : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
-		cout << "a" << centroids[w] << " ";
+		cout << centroids[w] << " ";
 	}
 	cout << endl <<endl;
 
-	cout << "OPER 1" <<endl;
+	//cout << "OPER 1" <<endl;
 
 
 	//CLUSTER AGAIN with optimized k
@@ -717,13 +717,13 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	KMPP_finish = clock();
 	Initialization_elapsed = (double)(KMPP_finish - KMPP_start)/CLOCKS_PER_SEC;
 
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
-	cout << endl <<endl;
+	cout << endl <<endl;*/
 
-	cout << "OPER 2" <<endl;
+	//cout << "OPER 2" <<endl;
 
 	//clear clusterassign
 	/*for (int i = 0; i < myMetric->point_number; ++i)
@@ -743,13 +743,13 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 	//clusterTable = new ClusterTable(myConf->number_of_clusters);
 	//cout << "starting pam - alaloyds" <<endl;
 	Assign_Update_start = clock();
-	cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
+	/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
 	for (int w = 0; w <myConf->number_of_clusters; w++) {
 		cout << centroids[w] << " ";
 	}
-	cout << endl <<endl;
+	cout << endl <<endl;*/
 
-	cout << "OPER 3" <<endl;
+	//cout << "OPER 3" <<endl;
 
 	for (int assign_update_times =0; assign_update_times < 3; assign_update_times++)
 	{
@@ -817,9 +817,9 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 			//cout << "cin now after ClusterItemNumberNext - new user" <<endl;
 			//cin >> GARBAGE;
 
-			cout << "current_point_no_in_cluster : " << current_point_no_in_cluster <<endl;
 			if (current_point_no_in_cluster != -1)		//if non-empty cluster
 			{
+				outputFile << "We found for user : " << current_point_no_in_cluster <<endl;
 
 				driver_user_ratings = this->ReturnUserRatings(current_point_no_in_cluster, user_rating_table);
 				//reset the current ratings
@@ -832,7 +832,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 				//cout << "cin after ReturnUserGeneralRating" <<endl;
 				//cin >> GARBAGE;
 
-				cout << "current_user_general_rating: " << current_user_general_rating <<endl;
+				outputFile << "R(u): " << current_user_general_rating <<endl;
 				if (neighborhood_size >= clusterTable->ReturnClusterSize(cluster))	//if a really small cluster
 				{
 					//for every item on the cluster
@@ -976,7 +976,7 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 
 				for (int best_recommendation = myMetric->point_dimension-1; best_recommendation > myMetric->point_dimension-6; best_recommendation-- )
 				{
-					cout << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
+					outputFile << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
 				}
 			}
 			
@@ -985,8 +985,8 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//cin >>GARBAGE;
 		
 	}
-	cout << "10-fold-cross validation on clustering " << myMetric->metric<< endl;
-	ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table);
+	outputFile << "10-fold-cross validation on clustering " << myMetric->metric << endl;
+	outputFile << "MAE: " << ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table) <<endl;
 	//cin >> GARBAGE;
 
 
@@ -1068,6 +1068,25 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		}
 	}*/
 	//cout << "finished CLARA" <<endl;
+
+	for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	{
+		delete[] current_ratings[current_item_rated];
+	}
+	delete[] current_ratings;
+
+	for (int i = 0; i < myMetric->point_number; ++i)
+	{
+		delete[] user_rating_table[i];
+	}
+	delete[] user_rating_table;
+
+	delete[] user_general_rating_table;
+
+	delete[] random_users_for_driver_user;
+
+	delete[] all_user_table;
+
 	delete clusterTable;
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
@@ -1334,7 +1353,7 @@ double ListData<T>::TenFoldCrossValidation(Metrics* myMetric, double** distanceM
 		//cout << "total_user_sum : " << total_user_sum <<endl;
 		MAE_sum += total_user_sum;
 	}
-	cout << "MAE_sum/(double)fold_size : " << MAE_sum/(double)fold_size <<endl;
+	//cout << "MAE_sum/(double)fold_size : " << MAE_sum/(double)fold_size <<endl;
 	//cin >> GARBAGE;
 	return MAE_sum/(double)fold_size;
 

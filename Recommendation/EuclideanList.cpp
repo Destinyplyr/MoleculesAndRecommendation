@@ -6,7 +6,7 @@ using namespace std;
 
 
 template <typename T>																						//dataLength is point dimension
-void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign) 
+void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign) 
 {
 	string genericStr;
 	string itemNos;
@@ -172,7 +172,7 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
     //Radius = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
 
     Radius = -1;
-    cout << "Radius: " << Radius <<endl;
+    //cout << "Radius: " << Radius <<endl;
 
     double** min_max_thresh = new double*[3];
     for (int i = 0; i < 3; ++i)
@@ -226,21 +226,21 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
     user_general_rating_table = ReturnUserGeneralRatingTable(myMetric);
 
 
-	TrickList<double*>* trickList = new TrickList<double*>();		//The first item of the TrickList is the info head
+	//TrickList<double*>* trickList = new TrickList<double*>();		//The first item of the TrickList is the info head
 
 	for (int o = 0; o < L; ++o) 	//for every hashtable
 	{
 		hashResult = 0;
 		for (int hashResult = 0; hashResult < tableSize; hashResult++)		//for every bucket
 		{
-			cout << "for bucket " << hashResult <<endl;
+			//cout << "for bucket " << hashResult <<endl;
 			nodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();
 			while(nodePtr != NULL)		//for every bucket item
 			{
 				//cout << "for user " << nodePtr->getItemNo() <<endl;
 				current_node_point_no = nodePtr->getItemNo();		//this point
 				times_radius_changed = 0;
-				assigned_in_this_radius = 0;
+				
 
 				for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 				{
@@ -254,13 +254,14 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 					min_max_thresh[i][1] = -1;
 				}
 				min_max_thresh[0][0] = 0;
-				min_max_thresh[2][0] = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
+				min_max_thresh[2][0] = 100; //FindRadiusForAssignment(myConf, distanceMatrix, centroids);
 
 				Radius = FindNextRadius(min_max_thresh, -1, -1, neighborhood_size);
-				cout << "for Radius : " << Radius <<endl;
+				//cout << "for Radius : " << Radius <<endl;
 
 				do 		//do until we have as many points as we want or we have changed radius a number of times
 				{
+					assigned_in_this_radius = 0;
 					otherBucketNodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();
 					while (otherBucketNodePtr != NULL)		//take all other items of the bucket
 					{
@@ -290,7 +291,7 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 					if (assigned_in_this_radius != neighborhood_size)		//more or less from neighborhood size
 					{
 						Radius = FindNextRadius(min_max_thresh, Radius, assigned_in_this_radius, neighborhood_size);
-						cout << "for Radius : " << Radius <<endl;
+						//cout << "for Radius : " << Radius <<endl;
 						if (Radius == -1)
 						{
 							break;
@@ -374,12 +375,12 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 				//cout << "cin after qs" <<endl;
 				//cin >> GARBAGE;
 
-				cout << "We found for user " << nodePtr->getItemNo() <<endl;
-				cout << "R(u) : " <<current_user_general_rating <<endl;
+				outputFile << "We found for user " << nodePtr->getItemNo() <<endl;
+				outputFile << "R(u) : " <<current_user_general_rating <<endl;
 
 				for (int best_recommendation = myMetric->point_dimension-1; best_recommendation > myMetric->point_dimension-6; best_recommendation-- )
 				{
-					cout << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
+					outputFile << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
 				}
 
 				nodePtr = nodePtr->getNext();
@@ -387,8 +388,8 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 			}
 
 		}
-		cout << "10-fold-cross validation on Euclidean LSH" <<endl;
-		ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table);
+		outputFile << "10-fold-cross validation on Euclidean LSH" <<endl;
+		outputFile << ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
 		//cin >> GARBAGE;
 		//cin >> GARBAGE;
 		break;			//not using multiple tables
@@ -546,7 +547,7 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 		
 	}*/
 
-	/*// v = new double**[L];
+	// v = new double**[L];
 	// t = new double*[L];
 	// r_k = new int*[L];
 	// for (int o = 0; o < L; ++o)
@@ -566,13 +567,17 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 			delete[] v[o][j];
 		}
 		delete[] v[o];
-		delete t[o];
-		delete r_k[o];
+		delete[] t[o];
+		delete[] r_k[o];
 
 	}
 	delete[] v;
-	delete t;
-	delete r_k;*/
+	delete[] t;
+	delete[] r_k;
+
+	/*v = new double***[L];
+	t = new double**[L];
+	r_k = new int**[L];*/
 	/*for (int o = 0; o < L; ++o)
 	{
 		for (int j = 0; j < k; j++) {
@@ -587,6 +592,28 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 	//delete t;
 	//delete r_k;
 	//delete dataLength;
+
+	delete[] user_general_rating_table;
+
+	for (int i = 0; i < myMetric->point_number; ++i)
+	{
+		delete[] user_rating_table[i];
+	}
+	delete[] user_rating_table;
+
+
+	delete[] random_users_for_driver_user;
+
+	delete[] NN_table;
+
+
+
+	for (int i = 0; i < 3; ++i)
+	{
+		delete[] min_max_thresh[i];
+		//min_max_thresh[i][1] = -1;
+	}
+	delete[] min_max_thresh;
 
 	for (int i = 0; i < *dataLengthPointNumber; ++i)
 	{

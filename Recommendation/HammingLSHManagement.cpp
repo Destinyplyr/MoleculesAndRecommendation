@@ -5,7 +5,7 @@
 //using namespace std;
 //Hash<bitset<64> >* hashTableList
 template <typename T>                                                                                           //dataLength is number of points
-void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifstream& inputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign)
+void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign)
 {
 	string GARBAGE;
 	int hammingSize = 0;     //Used for hamming size, or number of vector attributes
@@ -142,7 +142,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 
 	//Radius = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
 	Radius = -1;
-	cout << "Radius: " << Radius <<endl;
+	//cout << "Radius: " << Radius <<endl;
 
 	double** min_max_thresh = new double*[3];
 	for (int i = 0; i < 3; ++i)
@@ -199,7 +199,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 	//standard assignment 
 	for (int o = 0; o < L; ++o) 	//for every hashtable
 	{
-		cout << "For hash table " << o << " : " << endl;
+		//cout << "For hash table " << o << " : " << endl;
 		//REMERMBER TO clear current hashtable off assignments
 		hashResult = 0;
 		//do
@@ -207,7 +207,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 		//assigned_in_this_radius = false;
 		for (int hashResult = 0; hashResult < pow(2, k); hashResult++)		//for every bucket
 		{
-			cout << "for bucket " << hashResult <<endl;
+			//cout << "for bucket " << hashResult <<endl;
 			nodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();
 			while(nodePtr != NULL)		//for every bucket item
 			{
@@ -230,7 +230,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 				//cout << "min_max_thresh[2][0] :" << min_max_thresh[2][0] <<endl;
 
 				Radius = FindNextRadius(min_max_thresh, -1, -1, neighborhood_size);
-				cout << "for Radius : " << Radius <<endl;
+				//cout << "for Radius : " << Radius <<endl;
 
 				do 		//do until we have as many points as we want or we have changed radius a number of times
 				{
@@ -266,7 +266,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 					if (assigned_in_this_radius != neighborhood_size)		//more or less from neighborhood size
 					{
 						Radius = FindNextRadius(min_max_thresh, Radius, assigned_in_this_radius, neighborhood_size);
-						cout << "for Radius : " << Radius <<endl;
+						//cout << "for Radius : " << Radius <<endl;
 						if (Radius == -1)
 						{
 							break;
@@ -358,11 +358,11 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 				//cout << "cin after qs" <<endl;
 				//cin >> GARBAGE;
 
-				cout << "We found for user " << nodePtr->getItemNo() <<endl;
+				outputFile << "We found for user " << nodePtr->getItemNo() <<endl;
 
 				for (int best_recommendation = myMetric->point_dimension-1; best_recommendation > myMetric->point_dimension-6; best_recommendation-- )
 				{
-					cout << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
+					outputFile << "Best item " << current_ratings[best_recommendation][0] << " - Rating: " << current_ratings[best_recommendation][1] <<endl;
 				}
 
 				nodePtr = nodePtr->getNext();
@@ -370,8 +370,8 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 			}
 
 		}
-		cout << "10-fold-cross validation on Hamming LSH" <<endl;
-		ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table);
+		outputFile << "10-fold-cross validation on Hamming LSH" <<endl;
+		outputFile << ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
 		//cin >> GARBAGE;
 		break;			//not using multiple tables
 
@@ -511,6 +511,31 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 		}
 		
 	}*/
+
+	for (int i = 0; i < myMetric->point_number; ++i)
+	{
+		delete[] user_rating_table[i];
+	}
+	delete[] user_rating_table;
+	
+	for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
+	{
+		delete[] current_ratings[current_item_rated];
+	}
+	delete[] current_ratings;
+
+	delete[] user_general_rating_table;
+
+	delete[] NN_table;
+
+	delete[] random_users_for_driver_user;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		delete[] min_max_thresh[i];
+		//min_max_thresh[i][1] = -1;
+	}
+	delete[] min_max_thresh;
 	
 	for (int i = 0; i < *dataLength; ++i)
 	{

@@ -90,5 +90,8 @@ int main(int argc, char const *argv[])
 	CLI( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids,clusterAssign, L, k, validateFlag) ;
 
 
+	delete myConf;
+	delete myMetric;
+
 	return 0;
 }

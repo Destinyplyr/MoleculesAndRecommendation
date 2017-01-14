@@ -1,65 +1,334 @@
-==10554== Memcheck, a memory error detector
-==10554== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==10554== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==10554== Command: ./molecules
-==10554== 
+==3011== Memcheck, a memory error detector
+==3011== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==3011== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==3011== Command: ./molecules
+==3011== 
 File : input.dat opened successfully!
 File : conform.dat opened successfully!
-==10554== 
-==10554== HEAP SUMMARY:
-==10554==     in use at exit: 1,397,155 bytes in 42,433 blocks
-==10554==   total heap usage: 84,293 allocs, 41,860 frees, 3,228,945 bytes allocated
-==10554== 
-==10554== 28 bytes in 1 blocks are possibly lost in loss record 10 of 33
-==10554==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==10554==    by 0x5535248: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535E0A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535EA3: std::string::reserve(unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x55360EE: std::string::append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x54F0B81: std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x4027DF: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:77)
-==10554==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
-==10554==    by 0x401E89: main (mainSample.cpp:116)
-==10554== 
-==10554== 35 bytes in 1 blocks are possibly lost in loss record 11 of 33
-==10554==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==10554==    by 0x5535248: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535E0A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535EA3: std::string::reserve(unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x55360EE: std::string::append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x54F0EB3: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x40289C: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:94)
-==10554==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
-==10554==    by 0x401E89: main (mainSample.cpp:116)
-==10554== 
-==10554== 65 bytes in 1 blocks are possibly lost in loss record 12 of 33
-==10554==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==10554==    by 0x5535248: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535E0A: std::string::_Rep::_M_clone(std::allocator<char> const&, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5535EA3: std::string::reserve(unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x55360EE: std::string::append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x54F0EB3: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x402848: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:88)
-==10554==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
-==10554==    by 0x401E89: main (mainSample.cpp:116)
-==10554== 
-==10554== 5,198 bytes in 113 blocks are possibly lost in loss record 25 of 33
-==10554==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==10554==    by 0x5535248: std::string::_Rep::_S_create(unsigned long, unsigned long, std::allocator<char> const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5536970: char* std::string::_S_construct<char const*>(char const*, char const*, std::allocator<char> const&, std::forward_iterator_tag) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x5536D87: std::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19)
-==10554==    by 0x40295A: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:101)
-==10554==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
-==10554==    by 0x401E89: main (mainSample.cpp:116)
-==10554== 
-==10554== LEAK SUMMARY:
-==10554==    definitely lost: 0 bytes in 0 blocks
-==10554==    indirectly lost: 0 bytes in 0 blocks
-==10554==      possibly lost: 5,326 bytes in 116 blocks
-==10554==    still reachable: 1,391,829 bytes in 42,317 blocks
-==10554==         suppressed: 0 bytes in 0 blocks
-==10554== Reachable blocks (those to which a pointer was found) are not shown.
-==10554== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==10554== 
-==10554== For counts of detected and suppressed errors, rerun with: -v
-==10554== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
+item 0	item 1	item 2	item 3	item 4	item 5	item 6	item 7	item 8	item 9	item 10	item 11	item 12	item 13	item 14	item 15	item 16	item 17	item 18	item 19	item 20	item 21	item 22	item 23	item 24	item 25	item 26	item 27	item 28	item 29	item 30	item 31	item 32	item 33	item 34	item 35	item 36	item 37	item 38	item 39	item 40	item 41	item 42	item 43	item 44	item 45	item 46	item 47	item 48	item 49	item 50	item 51	item 52	item 53	item 54	item 55	item 56	item 57	item 58	item 59	item 60	item 61	item 62	item 63	item 64	item 65	item 66	item 67	item 68	item 69	item 70	item 71	item 72	item 73	item 74	item 75	item 76	item 77	item 78	item 79	item 80	item 81	item 82	item 83	item 84	item 85	item 86	item 87	item 88	item 89	item 90	item 91	item 92	item 93	item 94	item 95	item 96	item 97	item 98	item 99	item 100	item 101	item 102	item 103	item 104	item 105	item 106	item 107	item 108	item 109	item 110	item 111	item 112	item 113	item 114	item 115	item 116	item 117	item 118	item 119	item 120	item 121	item 122	item 123	item 124	item 125	item 126	item 127	item 128	item 129	item 130	item 131	item 132	item 133	item 134	item 135	item 136	item 137	item 138	item 139	item 140	item 141	item 142	item 143	item 144	item 145	item 146	item 147	item 148	item 149	item 150	item 151	item 152	item 153	item 154	item 155	item 156	item 157	item 158	item 159	item 160	item 161	item 162	item 163	item 164	item 165	item 166	item 167	item 168	item 169	item 170	item 171	item 172	item 173	item 174	item 175	item 176	item 177	item 178	item 179	item 180	item 181	item 182	item 183	item 184	item 185	item 186	item 187	item 188	item 189	item 190	item 191	item 192	item 193	item 194	item 195	item 196	item 197	item 198	item 199	item 200	item 201	item 202	item 203	item 204	item 205	item 206	item 207	item 208	item 209	item 210	item 211	item 212	item 213	item 214	item 215	item 216	item 217	item 218	item 219	item 220	item 221	item 222	item 223	item 224	item 225	item 226	item 227	item 228	item 229	item 230	item 231	item 232	item 233	item 234	item 235	item 236	item 237	item 238	item 239	item 240	item 241	item 242	item 243	item 244	item 245	item 246	item 247	item 248	item 249	item 250	item 251	item 252	item 253	item 254	item 255	item 256	item 257	item 258	item 259	item 260	item 261	item 262	item 263	item 264	item 265	item 266	item 267	item 268	item 269	item 270	item 271	item 272	item 273	item 274	item 275	item 276	item 277	item 278	item 279	item 280	item 281	item 282	item 283	item 284	item 285	item 286	item 287	item 288	item 289	item 290	item 291	item 292	item 293	item 294	item 295	item 296	item 297	item 298	item 299	item 300	item 301	item 302	item 303	item 304	item 305	item 306	item 307	item 308	item 309	item 310	item 311	item 312	item 313	item 314	item 315	item 316	item 317	item 318	item 319	item 320	item 321	item 322	item 323	item 324	item 325	==================
+PRINTING CENTROIDS for 4 clusters: 
+247 52 212 141 
+RET SILH 4 : 0.124427
+==================
+PRINTING CENTROIDS for 5 clusters: 
+156 135 142 125 176 
+RET SILH 5 : 0.141334
+==================
+PRINTING CENTROIDS for 6 clusters: 
+62 77 52 32 224 55 
+RET SILH 6 : 0.152232
+==================
+PRINTING CENTROIDS for 7 clusters: 
+131 205 200 64 81 97 314 
+RET SILH 7 : 0.159162
+==================
+PRINTING CENTROIDS for 8 clusters: 
+300 4 171 63 90 225 53 176 
+RET SILH 8 : 0.175543
+==================
+PRINTING CENTROIDS for 9 clusters: 
+186 213 268 127 96 204 100 197 131 
+RET SILH 9 : 0.175196
+==================
+PRINTING CENTROIDS with best number of centroids : 
+146 79 115 100 52 128 87 16 
+END SILH : 0.182969
+
+==================
+PRINTING CENTROIDS for 4 clusters: 
+223 97 32 159 
+RET SILH 4 : 0.125303
+==================
+PRINTING CENTROIDS for 5 clusters: 
+277 52 213 246 85 
+RET SILH 5 : 0.153963
+==================
+PRINTING CENTROIDS for 6 clusters: 
+17 32 55 213 264 217 
+RET SILH 6 : 0.160188
+==================
+PRINTING CENTROIDS for 7 clusters: 
+87 301 213 63 225 85 315 
+RET SILH 7 : 0.168385
+==================
+PRINTING CENTROIDS for 8 clusters: 
+311 213 133 141 88 53 60 276 
+RET SILH 8 : 0.152366
+==================
+PRINTING CENTROIDS for 9 clusters: 
+87 33 89 286 77 198 43 184 307 
+RET SILH 9 : 0.19304
+==================
+PRINTING CENTROIDS with best number of centroids : 
+293 171 54 81 306 91 84 100 65 
+END SILH : 0.181645
+
+above is r_select: 0 T_select: 0
+==================
+PRINTING CENTROIDS for 4 clusters: 
+72 268 54 213 
+RET SILH 4 : 0.104046
+==================
+PRINTING CENTROIDS for 5 clusters: 
+308 52 170 96 3 
+RET SILH 5 : 0.119452
+==================
+PRINTING CENTROIDS for 6 clusters: 
+32 171 155 82 143 89 
+RET SILH 6 : 0.15878
+==================
+PRINTING CENTROIDS for 7 clusters: 
+157 77 53 248 96 33 196 
+RET SILH 7 : 0.170883
+==================
+PRINTING CENTROIDS for 8 clusters: 
+117 323 133 66 170 315 143 100 
+RET SILH 8 : 0.154578
+==================
+PRINTING CENTROIDS for 9 clusters: 
+124 268 155 143 151 213 100 48 148 
+RET SILH 9 : 0.156525
+==================
+PRINTING CENTROIDS with best number of centroids : 
+124 266 97 213 156 1 174 
+END SILH : 0.186575
+
+above is r_select: 0 T_select: 1
+==================
+PRINTING CENTROIDS for 4 clusters: 
+16 52 32 222 
+RET SILH 4 : 0.110639
+==================
+PRINTING CENTROIDS for 5 clusters: 
+82 213 52 96 141 
+RET SILH 5 : 0.136283
+==================
+PRINTING CENTROIDS for 6 clusters: 
+195 214 52 213 105 57 
+RET SILH 6 : 0.160997
+==================
+PRINTING CENTROIDS for 7 clusters: 
+56 325 104 213 133 82 53 
+RET SILH 7 : 0.180656
+==================
+PRINTING CENTROIDS for 8 clusters: 
+37 201 170 236 52 228 55 32 
+RET SILH 8 : 0.161597
+==================
+PRINTING CENTROIDS for 9 clusters: 
+246 141 52 100 306 213 222 33 177 
+RET SILH 9 : 0.19989
+==================
+PRINTING CENTROIDS with best number of centroids : 
+2 100 194 209 33 198 54 51 322 
+END SILH : 0.167009
+
+above is r_select: 0 T_select: 2
+==================
+PRINTING CENTROIDS for 4 clusters: 
+153 33 139 63 
+RET SILH 4 : 0.144336
+==================
+PRINTING CENTROIDS for 5 clusters: 
+46 139 142 100 42 
+RET SILH 5 : 0.125152
+==================
+PRINTING CENTROIDS for 6 clusters: 
+33 87 88 171 197 199 
+RET SILH 6 : 0.168928
+==================
+PRINTING CENTROIDS for 7 clusters: 
+247 288 54 53 200 154 33 
+RET SILH 7 : 0.134934
+==================
+PRINTING CENTROIDS for 8 clusters: 
+170 205 236 100 82 323 141 96 
+RET SILH 8 : 0.173277
+==================
+PRINTING CENTROIDS for 9 clusters: 
+281 212 320 199 32 144 322 284 116 
+RET SILH 9 : 0.199041
+==================
+PRINTING CENTROIDS with best number of centroids : 
+26 225 155 213 301 87 253 84 205 
+END SILH : 0.181344
+
+above is r_select: 1 T_select: 0
+==================
+PRINTING CENTROIDS for 4 clusters: 
+292 171 301 132 
+RET SILH 4 : 0.100943
+==================
+PRINTING CENTROIDS for 5 clusters: 
+223 322 133 47 89 
+RET SILH 5 : 0.114862
+==================
+PRINTING CENTROIDS for 6 clusters: 
+65 125 76 314 173 215 
+RET SILH 6 : 0.137681
+==================
+PRINTING CENTROIDS for 7 clusters: 
+163 97 212 309 261 217 32 
+RET SILH 7 : 0.16343
+==================
+PRINTING CENTROIDS for 8 clusters: 
+240 213 126 214 140 154 100 157 
+RET SILH 8 : 0.215725
+==================
+PRINTING CENTROIDS for 9 clusters: 
+317 224 80 154 89 213 100 32 205 
+RET SILH 9 : 0.233902
+==================
+PRINTING CENTROIDS with best number of centroids : 
+260 52 322 114 32 306 131 101 55 
+END SILH : 0.172394
+
+above is r_select: 1 T_select: 1
+==================
+PRINTING CENTROIDS for 4 clusters: 
+209 315 89 300 
+RET SILH 4 : 0.112435
+==================
+PRINTING CENTROIDS for 5 clusters: 
+54 325 155 32 105 
+RET SILH 5 : 0.156104
+==================
+PRINTING CENTROIDS for 6 clusters: 
+298 213 33 270 53 156 
+RET SILH 6 : 0.109942
+==================
+PRINTING CENTROIDS for 7 clusters: 
+322 225 97 74 144 170 52 
+RET SILH 7 : 0.1768
+==================
+PRINTING CENTROIDS for 8 clusters: 
+319 201 321 213 104 52 100 197 
+RET SILH 8 : 0.229971
+==================
+PRINTING CENTROIDS for 9 clusters: 
+250 300 224 306 213 141 205 218 156 
+RET SILH 9 : 0.168032
+==================
+PRINTING CENTROIDS with best number of centroids : 
+117 213 142 57 132 270 199 106 
+END SILH : 0.19583
+
+above is r_select: 1 T_select: 2
+==================
+PRINTING CENTROIDS for 4 clusters: 
+90 212 65 47 
+RET SILH 4 : 0.131243
+==================
+PRINTING CENTROIDS for 5 clusters: 
+16 96 33 213 179 
+RET SILH 5 : 0.113354
+==================
+PRINTING CENTROIDS for 6 clusters: 
+0 254 62 143 100 322 
+RET SILH 6 : 0.149176
+==================
+PRINTING CENTROIDS for 7 clusters: 
+293 213 300 121 97 140 225 
+RET SILH 7 : 0.205968
+==================
+PRINTING CENTROIDS for 8 clusters: 
+139 96 309 229 52 109 224 323 
+RET SILH 8 : 0.197757
+==================
+PRINTING CENTROIDS for 9 clusters: 
+162 213 216 116 54 100 66 87 300 
+RET SILH 9 : 0.201159
+==================
+PRINTING CENTROIDS with best number of centroids : 
+88 139 143 32 54 109 224 
+END SILH : 0.198905
+
+above is r_select: 2 T_select: 3
+==3011== 
+==3011== HEAP SUMMARY:
+==3011==     in use at exit: 239,281,104 bytes in 123,337 blocks
+==3011==   total heap usage: 2,315,542 allocs, 2,192,205 frees, 3,143,508,412 bytes allocated
+==3011== 
+==3011== 0 bytes in 1 blocks are definitely lost in loss record 1 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x4075AC: ClusterTable::Init_Tables(double***, Metrics*, Conf*, int**, ClusterTable**, int***) (ClusterTableFunctions.cpp:206)
+==3011==    by 0x40218E: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:71)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 64 bytes in 1 blocks are definitely lost in loss record 2 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x40392B: ListData<double**>::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool, double*, bool) (ListsFunctions.cpp:747)
+==3011==    by 0x402216: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:76)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 64 bytes in 1 blocks are definitely lost in loss record 3 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x4022F6: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:86)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 312 bytes in 6 blocks are definitely lost in loss record 4 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x40357D: ListData<double**>::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool, double*, bool) (ListsFunctions.cpp:625)
+==3011==    by 0x402216: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:76)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 464 bytes in 7 blocks are definitely lost in loss record 5 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x4062D1: ListData<double*>::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool, double*, bool) (ListsFunctions.cpp:747)
+==3011==    by 0x4044FA: ListData<double**>::DistanceConformationVectorHandle(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, double***) (ConformationFunctions.cpp:445)
+==3011==    by 0x402355: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:88)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 464 bytes in 7 blocks are definitely lost in loss record 6 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x404616: ListData<double**>::DistanceConformationVectorHandle(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, double***) (ConformationFunctions.cpp:455)
+==3011==    by 0x402355: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:88)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 2,184 bytes in 42 blocks are definitely lost in loss record 7 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x406EF0: ClusterTable::ClusterTable(int) (ClusterTableFunctions.cpp:14)
+==3011==    by 0x405F23: ListData<double*>::ClusterHandleExercise3(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool, double*, bool) (ListsFunctions.cpp:625)
+==3011==    by 0x4044FA: ListData<double**>::DistanceConformationVectorHandle(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, double***) (ConformationFunctions.cpp:445)
+==3011==    by 0x402355: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:88)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 11,808 (2,952 direct, 8,856 indirect) bytes in 1 blocks are definitely lost in loss record 9 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x4026F6: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:53)
+==3011==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 543,168 bytes in 1 blocks are possibly lost in loss record 10 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x4043A5: ListData<double**>::DistanceConformationVectorHandle(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, double***) (ConformationFunctions.cpp:432)
+==3011==    by 0x402355: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:88)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 3,849,408 (962,352 direct, 2,887,056 indirect) bytes in 326 blocks are definitely lost in loss record 12 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x4029D5: ListData<double**>::ListInsertionVector(std::basic_ifstream<char, std::char_traits<char> >&, Metrics*) (VectorHammingListManagement.cpp:102)
+==3011==    by 0x40212D: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:42)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== 234,873,168 bytes in 2,281 blocks are definitely lost in loss record 13 of 13
+==3011==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3011==    by 0x4043A5: ListData<double**>::DistanceConformationVectorHandle(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, double***) (ConformationFunctions.cpp:432)
+==3011==    by 0x402355: CLI(std::basic_ifstream<char, std::char_traits<char> >&, std::basic_ofstream<char, std::char_traits<char> >&, Conf*, Metrics*, ClusterTable*, double**, int*, int**, int, int, bool) (CLI.cpp:88)
+==3011==    by 0x401E89: main (mainSample.cpp:116)
+==3011== 
+==3011== LEAK SUMMARY:
+==3011==    definitely lost: 235,842,024 bytes in 2,673 blocks
+==3011==    indirectly lost: 2,895,912 bytes in 120,663 blocks
+==3011==      possibly lost: 543,168 bytes in 1 blocks
+==3011==    still reachable: 0 bytes in 0 blocks
+==3011==         suppressed: 0 bytes in 0 blocks
+==3011== 
+==3011== For counts of detected and suppressed errors, rerun with: -v
+==3011== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 0 from 0)
