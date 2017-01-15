@@ -72,23 +72,10 @@ void headHashNode<T>::InsertTrick(int g, TrickList<T>* trickList, int L) {
     while(currentNode != NULL) {
         if (currentNode->getG() == g) {
             trickList->Insert(currentNode, L);
-            //cout << "Added in trickList : " << currentNode->getKey()[0] << endl;
         }
-        //cout << "NodeID: " << currentNode->getG() << " - g: " <<g <<endl;
         currentNode = currentNode->getNext();
     }
 }
-
-/*
-template <typename T>
-void headHashNode<T>::Duplicate(T item)
- {
-    Node<T> *currentNode = bucket;
-    while (currentNode != NULL)
-    {
-        if (currentNode->getKey() )
-    }
-}*/
 
 
 template <typename T>
@@ -123,23 +110,8 @@ Hash<T>::Hash()
 
 template <typename T>
 void Hash<T>::initHash(int tableSize) {
-/*    int tableSize;
-    //cout << "metric_space " << metric << endl;
-    if (strcmp(metric.c_str(), "hamming") == 0) {
-        tableSize = pow(2, k);
-    }
-    if (strcmp(metric.c_str(), "euclidean") == 0) {
-        tableSize = k;
-    }
-    if (strcmp(metric.c_str(), "cosine") == 0) {
-        tableSize = pow(2, k);
-    }
-    if (strcmp(metric.c_str(), "matrix") == 0) {
-        tableSize = pow(2, k);
-    }*/
     this->tableSize = tableSize;
 	this->hashTable = new headHashNode<T>[tableSize]();
-    //this->metric_space = metric;
 }
 
 
@@ -187,7 +159,6 @@ void Hash<T>::MoveToBack(int item_no, int cluster_no)
             else 
             {
                 Node<T> *_next = list->getNext();
-                //delete list;
                 prev->setNext(_next);
             }
         }

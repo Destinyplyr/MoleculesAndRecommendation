@@ -121,7 +121,6 @@ double FindNextRadius(double** min_max_thresh, double oldRadius, double oldInser
     
     if (oldRadius == min_max_thresh[0][0])  //we have used it with no luck
     {
-        //cout << "fnr 1" <<endl;
         min_max_thresh[0][1] = oldInserted;
         //cout << "oldInserted : " << oldInserted <<endl;
         if (oldInserted > neighborhood_size)
@@ -131,7 +130,6 @@ double FindNextRadius(double** min_max_thresh, double oldRadius, double oldInser
     }
     else if (oldRadius == min_max_thresh[2][0])  //we have used max with no luck
     {
-        //cout << "fnr 2" <<endl;
         min_max_thresh[2][1] = oldInserted;
         if (oldInserted < neighborhood_size)          
         {                                       //max becomes min
@@ -145,19 +143,16 @@ double FindNextRadius(double** min_max_thresh, double oldRadius, double oldInser
 
     if (min_max_thresh[0][1] == -1)     //haven't used min_max min
     {
-        //cout << "fnr 3" <<endl;
         return min_max_thresh[0][0];
     }
 
     else if (min_max_thresh[2][1] == -1)     //haven't used min_max max
     {
-        //cout << "fnr 4" <<endl;
         return min_max_thresh[1][0];
     }
 
     if (min_max_thresh[1][0] == oldRadius)      //middle tried
     {
-        //cout << "fnr 4" <<endl;
         min_max_thresh[1][1] = oldInserted;
         if (oldInserted > neighborhood_size)    //middle as max    
         {

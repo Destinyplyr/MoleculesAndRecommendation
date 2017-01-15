@@ -60,9 +60,9 @@ void KMedoidsPP(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* c
 				{
 					minDistances[v] = distanceMatrix[row][column];
 					//cout << "Min distance : " << minDistances[v] << endl;
-					if (minDistances[v] == 0) {
+					/*if (minDistances[v] == 0) {
 						//cin >> GARBAGE;
-					}
+					}*/
 				}
 			}
 		}

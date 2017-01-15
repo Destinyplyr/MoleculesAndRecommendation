@@ -33,12 +33,6 @@ int main(int argc, char const *argv[])
 
 	if (argc > 1)
 	{
-		/*if (argc % 2 == 0)
-		{
-			cout << "Missing the correct number of parameters" << endl;
-			cout << "Suggested use: $./recommendation –d <input file> -ο <output file>" << endl;
-			return -1;
-		}*/
 		for (int i = 1; i < argc; i++)
 		{
 			if (strcmp(argv[i], "-d") == 0)
@@ -52,10 +46,8 @@ int main(int argc, char const *argv[])
 				else
 				{
 					cout << "File : " << argv[i+1] << " opened successfully!" << endl;
-					//inParameter = true;
 				}
 				
-				//Init_Metrics(myMetric, inputFile);
 				i++;
 			}
 			else if (strcmp(argv[i], "-o") == 0)
@@ -69,7 +61,6 @@ int main(int argc, char const *argv[])
 				else
 				{
 					cout << "File : " << argv[i+1] << " opened successfully!" << endl;
-					//outParameter = true;
 				}
 
 				i++;

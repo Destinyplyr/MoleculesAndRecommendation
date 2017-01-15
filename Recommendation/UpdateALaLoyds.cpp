@@ -35,11 +35,6 @@ bool ALaLoyds(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* cen
 			centroids[i] = newMedoid;
 		}
 	}
-	/*cout << "==================" << endl << "PRINTING CLUSTERS AFTER ALaLoyds (within) : " <<endl;
-	for (int w = 0; w <myConf->number_of_clusters; w++) {
-		cout << centroids[w] << " ";
-	}
-	cout << endl;*/
 	
 	return changed;
 }

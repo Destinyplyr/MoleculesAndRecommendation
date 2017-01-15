@@ -35,14 +35,8 @@ void PAM(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* centroid
 					row = i;
 				}
 				//cout << "Old dist: " << minDistance << " dist with " << j << " : " << distanceMatrix[row][column] <<endl;
-				/*for (int exists_centroid = 0; exists_centroid < myConf->number_of_clusters; exists_centroid++) 
-				{
-					if ()
-				}*/
 
-				//already_centroid = find(begin(centroids), end(centroids), x) != end(centroids);
-				//cout << "row: " << row << "column : " <<column <<endl;
-				if (distanceMatrix[row][column] < minDistance) //&& !already_centroid)
+				if (distanceMatrix[row][column] < minDistance)
 				{
 					secondBest = minDistance;
 					//cout << "secondBest -----> " << secondBest << endl;
@@ -91,15 +85,5 @@ void PAM(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* centroid
 		
 			clusterAssign[i][2] = clusterAssign[i][0];
 		}
-		/*cout << "==================" << endl << "PRINTING CLUSTERS IN mainSample BEFORE CLARANS : " <<endl;
-		for (int w = 0; w <myConf->number_of_clusters; w++) {
-			cout << centroids[w] << " ";
-		}
-	}
-	/*cout << "==================" << endl << "PRINTING CLUSTERS IN AssignmentPAM : " <<endl;
-	for (int w = 0; w <myConf->number_of_clusters; w++) {
-		cout << centroids[w] << " ";
-	}
-	cout <<endl;*/
 	}
 }

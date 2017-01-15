@@ -79,17 +79,6 @@ void headHashNode<T>::InsertTrick(int g, TrickList<T>* trickList, int L) {
     }
 }
 
-/*
-template <typename T>
-void headHashNode<T>::Duplicate(T item)
- {
-    Node<T> *currentNode = bucket;
-    while (currentNode != NULL)
-    {
-        if (currentNode->getKey() )
-    }
-}*/
-
 
 template <typename T>
 void headHashNode<T>::printHash() {

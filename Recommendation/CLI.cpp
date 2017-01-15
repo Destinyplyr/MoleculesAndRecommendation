@@ -12,30 +12,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	clock_t clustering_start, clustering_finish, LSH_start, LSH_finish;
 	double time_taken;
 
-	/*if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
-	{
-
-	}
-	if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
-	{
-		if (strcmp(myMetric->metric.c_str(), "euclidean") == 0)
-		{
-
-		}
-		
-		if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
-		{
-
-		}
-	}
-	if (strcmp(myMetric->metric_space.c_str(), "matrix") == 0)
-	{
-
-
-	}*/
-
 	myMetric->metric_space = "hamming";
-	//cout << "test" <<endl;
 	Init_Metrics(myMetric, inputFile);
 
 
@@ -43,14 +20,10 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
 	{
 		ListData<boost::dynamic_bitset<> >* hammingList = new ListData<boost::dynamic_bitset<> >();
-		//ListData<bitset<64> >* hammingList = new ListData<bitset<64> >();
 		hammingList->ListInsertionHamming(inputFile, myMetric);
-		//cout << "ended" <<endl;
 		clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
-		// SetClaransFraction(myConf, myMetric);
 
 		hammingList->DistanceMatrixComputationHamming(myMetric, distance_matrix);
-		//cout << "omorfi" <<endl;
 
 		outputFile << "##############Algorithm: Hamming Clustering" <<endl;
 		cout << "##############Algorithm: Hamming Clustering" <<endl;
@@ -85,14 +58,11 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 
 
 		delete[] hashTableList;
-		// hammingList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
-		// delete hammingList;
+
 		delete hammingList;
 	}
 
 
-	
-	//exit(1);
 
 	myMetric->metric_space = "vector";
 
@@ -106,29 +76,9 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		{
 
 			ListData<double*>* euclideanList = vectorList;//= new ListData<double*>();
-			//euclideanList->ListInsertionVector(inputFile, myMetric);
-			//cin >> GARBAGE;
-
-			// //DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
-			// for (int i = 0; i < myMetric->point_number; i++) {
-			//     delete[] distance_matrix[i];
-			// }
-			// delete[] distance_matrix;       //distance matrix deletion
-			// //cout << "ekana to distance" << endl;
-			// delete[] centroids;
-			// //cout << "ekana to insertion" << endl;
-
-			// /*delete clusterTable;
-			// //cout << "list: " << (*clusterTable)->getArray() <<endl;
-			// for (int i = 0; i < myMetric->point_number; ++i)
-			// {
-			//     delete[] clusterAssign[i];
-			// }
-			// delete[] clusterAssign;*/
 
 
 			clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
-			// SetClaransFraction(myConf, myMetric);
 			
 
 			euclideanList->DistanceMatrixComputationVector(myMetric, distance_matrix);
@@ -161,40 +111,16 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			LSH_finish = clock();
 			time_taken = (double)(LSH_finish - LSH_start )/CLOCKS_PER_SEC;	//total clustering time
 			outputFile << "Time taken: " << time_taken <<endl;
-			// euclideanList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
+
 			delete[] hashTableList;
-			// delete euclideanList;
 		}
 		myMetric->metric = "cosine";
 		if (strcmp(myMetric->metric.c_str(), "cosine") == 0)
 		{
 			ListData<double*>* cosineList =  vectorList;//= new ListData<double*>();
-			//cosineList->ListInsertionVector(inputFile, myMetric);
-
-			//cout << "new list" <<endl;
-
-			//DELETE SEGMENT			//MANDATORY USAGE AFTER OTHER 
-			/*for (int i = 0; i < myMetric->point_number; i++) {
-			    delete[] distance_matrix[i];
-			}
-			delete[] distance_matrix;       //distance matrix deletion
-			//cout << "ekana to distance" << endl;
-			delete[] centroids;
-			//cout << "ekana to insertion" << endl;*/
-
-			//delete clusterTable;
-			//cout << "list: " << (*clusterTable)->getArray() <<endl;
-			/*for (int i = 0; i < myMetric->point_number; ++i)
-			{
-			    delete[] clusterAssign[i];
-			}
-			delete[] clusterAssign;*/
-
-			//cout << "deleted" <<endl;
 
 
 			clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
-			// SetClaransFraction(myConf, myMetric);
 
 			cosineList->DistanceMatrixComputationVector(myMetric, distance_matrix);
 
@@ -228,26 +154,10 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			LSH_finish = clock();
 			time_taken = (double)(LSH_finish - LSH_start )/CLOCKS_PER_SEC;	//total clustering time
 			outputFile << "Time taken: " << time_taken <<endl;
-			// cosineList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
-			// delete cosineList;
 		}
 		delete vectorList;
 	}
-
-	/*if (strcmp(myMetric->metric_space.c_str(), "matrix") == 0)
-	{
-		ListData<double*>* DBHList = new ListData<double*>();
-		DBHList->ListInsertionDB(inputFile, myMetric);
-
-
-		clusterTable->Init_Tables(&distance_matrix, myMetric, myConf, &centroids, &clusterTable, &clusterAssign);
-		SetClaransFraction(myConf, myMetric);
-
-
-		DBHList->DistanceMatrixComputationDB(inputFile, myMetric, distance_matrix);
-		DBHList->Printer( inputFile, outputFile, myConf, myMetric, clusterTable, distance_matrix, centroids, clusterAssign, L,  k, complete_printing);
-		delete DBHList;
-	}*/
+	
 	//DELETE SEGMENT
 	/*for (int i = 0; i < myMetric->point_number; i++) {
 	    delete [] distance_matrix[i];

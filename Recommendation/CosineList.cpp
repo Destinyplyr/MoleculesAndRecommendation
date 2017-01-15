@@ -41,7 +41,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 	int inputFileSize = 0;
 	int queryCounter = 1;
 	int hashResult = 0;
-	//int assigned_in_this_radius = 0;
 	int minimumCentroid = -1;
 	int secondBestCentroid = -1;
 	clock_t begin, begin_brute, end_ebrute, begin_euclidList;
@@ -54,9 +53,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 	std::cout.setf(std::ios_base::fixed, std::ios_base::floatfield);
 	std::cout.precision(20);
 
-	/*dataLength = new int;
-	*dataLength = 0;
-*/
 	double** point_to_centroid_assignment = new double*[*dataLengthPointNumber];           //[0] holds current centroid  [1] holds distance from it [2] holds second best centroid [3]  holds distance from it
 	for (int i = 0; i < *dataLengthPointNumber; ++i)
 	{
@@ -67,22 +63,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 		point_to_centroid_assignment[i][3] = INT_MAX;
 	}
 
-	/*inputFile.clear();              //Restart
-	inputFile.seekg(0, ios::beg);   //Data file back from start*/
 	begin = clock();
-
-	/*inputFile >> metric_space;      //Read "@metric space"      
-	inputFile >> metric_space;      //Read "euclidean"
-	inputFile >> metric;            //Read etc, "@metric"       
-	inputFile >> metric;            //Read euclidean
-	inputFile >> itemNos;           //Read itemno*/
-
-	/*getline(inputFile, genericStr);
-	stringstream linestream(genericStr);
-	getline(linestream, pointStr, '\t');
-	while (getline(linestream, pointStr, '\t')) {           //Calculate dimension of points
-		(*dataLength)++;
-	}*/
 	
 	h = new double**[L];
 	for (int o = 0; o < L; ++o)
@@ -127,7 +108,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 	//cout << "tableSize :" << tableSize << endl;
 	long long M = pow(2, 32) - 5;
 	//cout << "M :" << M << endl;
-	//Hash<double*>* hashTableList = new Hash<double*>[L];
 
 	if (*hashCreationDone == 0)     //create the hashtable
 	{
@@ -173,10 +153,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 		hashTableList[o].ReInitializeHashTable(L, tableSize);
 	}
 
-	//Radius = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
-
 	Radius = -1;
-	//cout << "Radius: " << Radius <<endl;
 
 	double** min_max_thresh = new double*[3];
 	for (int i = 0; i < 3; ++i)
@@ -185,9 +162,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 		//min_max_thresh[i][1] = -1;
 	}
 
-	//Node<T> *nodePtr = NULL;
 	Node<T> *otherBucketNodePtr = NULL;
-	//minimumNode = NULL;
 
 	int assigned_in_this_radius = 0;
 	int neighborhood_size = 35;
@@ -207,9 +182,7 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 	int other_point_no_in_bucket = -1;
 
 	double* driver_user_ratings = NULL;
-	//driver_user_ratings = new double[myMetric->point_dimension];
 	double* other_user_ratings = NULL;
-	//other_user_ratings = new double[myMetric->point_dimension];
 
 	double* user_general_rating_table = NULL;
 	double** user_rating_table = NULL;
@@ -228,9 +201,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 
 	user_rating_table = ReturnUserRatingTable(myMetric);
 	user_general_rating_table = ReturnUserGeneralRatingTable(myMetric);
-
-
-	//TrickList<double*>* trickList = new TrickList<double*>();       //The first item of the TrickList is the info head
 
 	for (int o = 0; o < L; ++o)     //for every hashtable
 	{
@@ -266,7 +236,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 				min_max_thresh[2][0] = FindRadiusForAssignment(myConf, distanceMatrix, centroids);
 
 				Radius = FindNextRadius(min_max_thresh, -1, -1, neighborhood_size);
-				//cout << "for Radius : " << Radius <<endl;
 
 				do 		//do until we have as many points as we want or we have changed radius a number of times
 				{
@@ -274,12 +243,10 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 					otherBucketNodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();
 					while (otherBucketNodePtr != NULL)		//take all other items of the bucket
 					{
-						//cout << "1?" <<endl;
 						other_node_point_no = otherBucketNodePtr->getItemNo();
 						if (otherBucketNodePtr == nodePtr)
 						{
 							otherBucketNodePtr = otherBucketNodePtr->getNext();
-							//cout << "2?" <<endl;
 							continue;
 						}
 						else 
@@ -305,7 +272,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 						{
 							break;
 						}
-						//cout << "next Radius: " << Radius << endl;
 						times_radius_changed++;
 					}
 					else
@@ -336,12 +302,11 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 					{
 						other_point_no_in_bucket = NN_table[other_bucket_item];
 						other_user_ratings = this->ReturnUserRatings(other_point_no_in_bucket, user_rating_table);
-						//cout << 1 <<endl;
 						if (other_point_no_in_bucket != current_node_point_no)		//if not same item in bucket
 						{
 							//item_rating_from_other_user = ReturnUserSpecificRating (other_point_no_in_bucket, current_item_rated);
+							//below more efficient
 							item_rating_from_other_user = user_rating_table[other_point_no_in_bucket][current_item_rated];
-							//cout << 2 <<endl;
 							if (item_rating_from_other_user != 0)
 							{
 								if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0)
@@ -362,10 +327,9 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 								}
 								//similarity_sum += ( this->SimilarityHamming(myMetric, distance_matrix, current_node_point_no, other_point_no_in_bucket)) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_bucket)) ;
 								// similarity_sum += (added_similarity) * (item_rating_from_other_user - this->ReturnUserGeneralRating(myMetric, other_point_no_in_bucket)) ;
+								//below more efficient
 								similarity_sum += (added_similarity) * (item_rating_from_other_user - user_general_rating_table[other_point_no_in_bucket]);
-								//cout << 3 <<endl;
 								normalizing_factor += added_similarity;
-								//cout << 4 <<endl;
 							}
 						}
 					}
@@ -381,9 +345,6 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 				}
 
 				quickSort_twolist(current_ratings, 0, myMetric->point_dimension-1);
-
-				//cout << "cin after qs" <<endl;
-				//cin >> GARBAGE;
 
 				outputFile << "We found for user " << nodePtr->getItemNo() <<endl;
 				outputFile << "R(u) : " <<current_user_general_rating <<endl;
@@ -403,148 +364,8 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 			outputFile << "10-fold-cross validation on Cosine LSH" <<endl;
 			outputFile << "MAE: "<< ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
 		}
-		//cin >> GARBAGE;
 		break;			//not using multiple tables
-
-
-
-
-
-
-
-		/*do
-		{
-			assigned_in_this_radius = false;
-			for (int q = 0; q < myConf->number_of_clusters; q++)    //for every centroid 
-			{
-				hashResult = 0;
-
-				nodePtr = this->getNode();      //nodePtr holds current centroid
-				while(nodePtr->getItemNo() != centroids[q])
-				{
-					nodePtr = nodePtr->getNext();
-				}
-				//euclidean hashing for centroid
-				for (int j = 0; j < k; ++j)     //For every h
-				{
-					if (dot_product(nodePtr->getKey(), h[o][j], *dataLength) >= 0) {
-						hashResult += pow (2, j);
-					}
-				}
-
-				//cout << "The hash result : " << hashResult << endl;
-
-				centroidPtr = nodePtr;      //centroidPtr now holds the centroid
-				nodePtr = hashTableList[o].getHashTable()[hashResult].getBucket();        //nodePtr holds bucket items now
-				if (nodePtr == NULL)
-				{
-
-				}
-				while (nodePtr != NULL && nodePtr->getFlagAsAssigned() != 1)
-				{
-					distance_bucketpoint_from_centroid = DistanceMatrixDistance(distanceMatrix, nodePtr->getItemNo(), centroids[q]);
-					//cout << "Distance bucket from centroid : " << distance_bucketpoint_from_centroid << endl;
-					//cout << "Radius : " << Radius << endl;
-					if (distance_bucketpoint_from_centroid <= Radius)       //if inside radius
-					{
-						if (distance_bucketpoint_from_centroid < nodePtr->getDistanceFromCentroid())        //getDistance initialized as INT_MAX
-						{
-							assigned_in_this_radius = true;
-							nodePtr->setSecondBestCentroid(nodePtr->getCentroid());
-							nodePtr->setSecondBestDistance(nodePtr->getDistanceFromCentroid());
-							nodePtr->setFlagForAssignment(1);
-							nodePtr->setCentroid(centroids[q]);
-							nodePtr->setDistanceFromCentroid(distance_bucketpoint_from_centroid);
-						}
-					}
-					nodePtr = nodePtr->getNext();
-				}
-
-			}
-			for (int hash_bucket = 0; hash_bucket < tableSize; hash_bucket++)   //from assign in hashtable to legit assigned
-			{
-				nodePtr = hashTableList[o].getHashTable()[hash_bucket].getBucket();     //nodePtr now holds current bucket
-				while(nodePtr != NULL)
-				{
-					if (nodePtr->getFlagForAssignment() == 1) 
-					{
-
-						nodePtr->setFlagAsAssigned(1);
-						hashTableList[o].MoveToBack(nodePtr->getItemNo(), hash_bucket);
-						//cout << "nodePtr->getItemNo() : " << nodePtr->getItemNo() << endl;
-						if(point_to_centroid_assignment[nodePtr->getItemNo()][0] == -1)
-						{
-							//cout << "It was -1 (centroid - distance) and now updated to our local array : old :" << point_to_centroid_assignment[nodePtr->getItemNo()][0] << " : " << point_to_centroid_assignment[nodePtr->getItemNo()][1] << endl;
-							point_to_centroid_assignment[nodePtr->getItemNo()][0] = nodePtr->getCentroid();
-							point_to_centroid_assignment[nodePtr->getItemNo()][1] = nodePtr->getDistanceFromCentroid();
-							//cout << "It was -1 (centroid - distance) and now updated to our local array : new :" << point_to_centroid_assignment[nodePtr->getItemNo()][0] << " : " << point_to_centroid_assignment[nodePtr->getItemNo()][1] << endl;
-						}
-						else 
-						{
-							//cout << "We have a previous assignment in our local array" <<endl;
-							if(point_to_centroid_assignment[nodePtr->getItemNo()][1] > nodePtr->getDistanceFromCentroid())
-							{
-								//cout << "It had values before (centroid - distance) and now updated to our local array : old " << point_to_centroid_assignment[nodePtr->getItemNo()][0] << " : " << point_to_centroid_assignment[nodePtr->getItemNo()][1] << endl;
-								point_to_centroid_assignment[nodePtr->getItemNo()][0] = nodePtr->getCentroid();
-								point_to_centroid_assignment[nodePtr->getItemNo()][1] = nodePtr->getDistanceFromCentroid();
-								if (point_to_centroid_assignment[nodePtr->getItemNo()][3] > nodePtr->getSecondBestDistance())
-								{
-									point_to_centroid_assignment[nodePtr->getItemNo()][2] = nodePtr->getSecondBestCentroid();
-									point_to_centroid_assignment[nodePtr->getItemNo()][3] = nodePtr->getSecondBestDistance();
-								}
-								//cout << "It had values before (centroid - distance) and now updated to our local array : new " << point_to_centroid_assignment[nodePtr->getItemNo()][0] << " : " << point_to_centroid_assignment[nodePtr->getItemNo()][1] << endl;
-							}
-						}
-					}
-					nodePtr = nodePtr->getNext();
-				}
-			}
-			//cout << "Multiplying Radius" <<endl;
-			Radius = Radius * 2;
-		}while(assigned_in_this_radius);*/
 	}
-	/*for (int point_iter = 0; point_iter < *dataLengthPointNumber; point_iter++) //leftover assignment
-	{
-		//cout << "Leftover : " << point_iter << endl;
-		minimumDistance = numeric_limits<double>::max() ;       //make it DOUBLE
-		minimumCentroid = -1;
-		if (point_to_centroid_assignment[point_iter][0] == -1 || point_to_centroid_assignment[point_iter][1] == -1)
-		{
-			for (int centroid_iter = 0; centroid_iter < myConf->number_of_clusters; centroid_iter++)
-			{
-				// distance_bucketpoint_from_centroid = DistanceMatrixDistance(distanceMatrix, nodePtr->getItemNo(), centroids[centroid_iter]);
-				distance_bucketpoint_from_centroid = DistanceMatrixDistance(distanceMatrix, point_iter, centroids[centroid_iter]);
-				if (distance_bucketpoint_from_centroid < minimumDistance)
-				{
-					secondBestCentroid = minimumCentroid;
-					secondBestDistance = minimumDistance;
-					minimumDistance = distance_bucketpoint_from_centroid;
-					minimumCentroid = centroids[centroid_iter];
-				}
-			}
-			point_to_centroid_assignment[point_iter][0] = minimumCentroid;
-			point_to_centroid_assignment[point_iter][1] = minDistance;
-			point_to_centroid_assignment[point_iter][2] = secondBestCentroid;
-			point_to_centroid_assignment[point_iter][3] = secondBestDistance;
-		}
-		//cout << "Leftover updated" << endl;
-	}*/
-	//cout << "Exiting..." << endl;
-	/*for (int point_iter = 0; point_iter < *dataLengthPointNumber; point_iter++) 
-	{
-		//cout << "changing to best : " << point_to_centroid_assignment[point_iter][0] <<endl;
-		clusterAssign[point_iter][2] = point_to_centroid_assignment[point_iter][0];     //give best centroid chosen
-		//cout << "changing to 2nd best : " << point_to_centroid_assignment[point_iter][2] <<endl;
-		if (point_to_centroid_assignment[point_iter][2] == -1) 
-		{
-			clusterAssign[point_iter][1] = clusterAssign[point_iter][2];
-		}
-		else
-		{
-			clusterAssign[point_iter][1] = point_to_centroid_assignment[point_iter][2];     //give 2nd best centroid
-		}
-		
-	}*/
 
 	delete[] hashTableList;
 

@@ -42,15 +42,6 @@ void Concentrate(Conf* myConf, Metrics* myMetric, double** distanceMatrix, int* 
 
 	quickSort_twolist(V_s, 0, myMetric->point_number-1);
 
-/*	for (int i = 0; i < 4; ++i)
-	{
-		cout << newh[i][0] <<newh[i][1] <<endl;
-	}*/
-	
-/*    for (int i = 0; i < myMetric->point_number ; ++i)
-    {
-    	cout << "V_s " << i << " - " << V_s[i][0] << " - " << V_s[i][1] <<endl;
-    }*/
     for (int i = 0; i < myConf->number_of_clusters; i ++) {
         centroids[i] = V_s[i][1];
     }

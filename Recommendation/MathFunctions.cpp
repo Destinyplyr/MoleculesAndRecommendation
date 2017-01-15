@@ -21,7 +21,6 @@ double euclid_norm(T vector1, int vector_size) {
     }
     return sqrt(norm);
 }
-//bool SameArray(double* array1, double* array2, int size) {    //actually this 
 template <typename T>
 bool SameArray(T array1, T array2, int size) {
     for (int i = 0; i < size; i++) {
@@ -34,8 +33,6 @@ bool SameArray(T array1, T array2, int size) {
 }
 
 
-/*double DistanceEuclid(double item1[], double item2[], int size)   //actually this
-{*/
 template <typename T>
 double DistanceEuclid(T item1[], T item2[], int size)
 {

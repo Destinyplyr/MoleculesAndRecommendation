@@ -20,12 +20,9 @@ double*** ListData<T>::AllConformationTableCreation(Metrics* myMetric)
 			all_conformation_table[conformation_no][current_backbone_atom][1] = (currentNode->getKey())[current_backbone_atom][1];
 			all_conformation_table[conformation_no][current_backbone_atom][2] = (currentNode->getKey())[current_backbone_atom][2];
 			//cout << all_conformation_table[conformation_no][current_backbone_atom][0] << " - " << all_conformation_table[conformation_no][current_backbone_atom][1] << " - " << all_conformation_table[conformation_no][current_backbone_atom][2] <<endl;
-			//cin >> GARBAGE;
 		}
-		//all_conformation_table[conformation_no] = currentNode->getKey();
 		conformation_no++;
 		currentNode = currentNode->getNext();
-		//cin >>GARBAGE;
 	}
 	return all_conformation_table;
 }
@@ -51,19 +48,12 @@ void ListData<T>::ConformationTableMove(Metrics* myMetric, double*** all_conform
 				x_c[vector_iter] += all_conformation_table[conformation_no][current_backbone_atom][vector_iter];
 				//cout << " all_conformation_table[conformation_no][current_backbone_atom][vector_iter] : " << all_conformation_table[conformation_no][current_backbone_atom][vector_iter] <<endl;
 			}
-			/*all_conformation_table[conformation_no][current_backbone_atom] = new double[3];
-			all_conformation_table[conformation_no][current_backbone_atom][0] = (currentNode->getKey())[current_backbone_atom][0];
-			all_conformation_table[conformation_no][current_backbone_atom][1] = (currentNode->getKey())[current_backbone_atom][1];
-			all_conformation_table[conformation_no][current_backbone_atom][2] = (currentNode->getKey())[current_backbone_atom][2];*/
-			//cout << all_conformation_table[conformation_no][current_backbone_atom][0] << " - " << all_conformation_table[conformation_no][current_backbone_atom][1] << " - " << all_conformation_table[conformation_no][current_backbone_atom][2] <<endl;
-			//cin >> GARBAGE;
 		}
 
 		for (int vector_iter = 0; vector_iter <3; vector_iter++)
 		{
 			x_c[vector_iter] /= myMetric->point_dimension;		//now x_c is ready to be subtracted from all_conformation_table
 			//cout << "x_c[" << vector_iter << "] : " << x_c[vector_iter] <<endl;
-			//cin >> GARBAGE;
 		}
 
 		for (int current_backbone_atom = 0; current_backbone_atom < myMetric->point_dimension; current_backbone_atom++)
@@ -77,11 +67,7 @@ void ListData<T>::ConformationTableMove(Metrics* myMetric, double*** all_conform
 			all_conformation_table[conformation_no][current_backbone_atom][1] = (currentNode->getKey())[current_backbone_atom][1];
 			all_conformation_table[conformation_no][current_backbone_atom][2] = (currentNode->getKey())[current_backbone_atom][2];*/
 			//cout << all_conformation_table[conformation_no][current_backbone_atom][0] << " - " << all_conformation_table[conformation_no][current_backbone_atom][1] << " - " << all_conformation_table[conformation_no][current_backbone_atom][2] <<endl;
-			//cin >> GARBAGE;
 		}
-
-
-		//all_conformation_table[conformation_no] = currentNode->getKey();
 	}
 
 	delete[] x_c;
@@ -167,8 +153,6 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 
 	double Frobenius_norm = 0;
 
-	//double* stat = new double[6];
-
 
 	/*cout << "X Matrix : " <<endl;
 	for (int i = 0; i < myMetric->point_number; ++i)
@@ -183,7 +167,7 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 
 //	calculate X^T * Y = C
 //	cblas_dgemm(row/col major, 	A/A^T, 		B/B^T, 		  A/C rows,	B cols, A cols/B rows, scalar alpha, , conformation_X, A rows, conformation_Y, B rows, scalar beta,		C return table, C rows 						 )
-	cblas_dgemm (CblasRowMajor, CblasTrans, CblasNoTrans, 3, 3, myMetric->point_number , 1, comformation_X_consec, 3 , comformation_Y_consec, 3, 0, returned_table, 3);
+	cblas_dgemm (CblasRowMajor, CblasTrans, CblasNoTrans, 3, 3, myMetric->point_dimension , 1, comformation_X_consec, 3 , comformation_Y_consec, 3, 0, returned_table, 3);
 
 
 	//LAPACKE_dgesvd( LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda,s, u, ldu, vt, ldvt, superb );
@@ -206,11 +190,10 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
 		cout << v_t_table[3*i+0] << "\t" << v_t_table[3*i+1] << "\t" << v_t_table[3*i+2] << endl;
 	}*/
-	//LAPACKE_dgesvj(LAPACK_ROW_MAJOR, 'G', 'U', 'V', 3, 3, returned_table , 3, singular, 3, v_t_table, 3, stat);
-	//u_table = returned_table;
 
 	string desc = "Singular values";
 	//print_matrix( desc.c_str(), 1, 3, singular, 1 );
+
 	//CHECK σ3 is >0
 	if (singular[2] <= 0)
 	{
@@ -241,7 +224,6 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 
 
 	//cout << "det of Q: " << ThreebyThreeDeterminant(q_rotation_table) <<endl;
-	//cin >>GARBAGE;
 	if (ThreebyThreeDeterminant(q_rotation_table) < 0)
 	{	//negate 3rd column of U
 		for (int i = 0; i < 3; ++i)
@@ -253,9 +235,9 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 	}
 
 	//X_rotated = X * Q
-	cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, myMetric->point_number, 3, 3 , 1, comformation_X_consec, 3 , q_rotation_table, 3, 0, comformation_X_consec_rotated, 3);
+	cblas_dgemm (CblasRowMajor, CblasNoTrans, CblasNoTrans, myMetric->point_dimension, 3, 3 , 1, comformation_X_consec, 3 , q_rotation_table, 3, 0, comformation_X_consec_rotated, 3);
 
-	this->MxN_MatrixMinusMatrix(myMetric, comformation_X_consec_rotated, comformation_Y_consec , x_q_minus_y, myMetric->point_number, 3);
+	this->MxN_MatrixMinusMatrix(myMetric, comformation_X_consec_rotated, comformation_Y_consec , x_q_minus_y, myMetric->point_dimension, 3);
 
 	/*cout << "Matrix for frobi 1: " <<endl;
 	for (int i = 0; i < myMetric->point_number; ++i)
@@ -263,12 +245,10 @@ double ListData<T>::cRMSD(Metrics* myMetric, double** conformation_X, double** c
 		//cout << returned_table[i+0] << "\t" << returned_table[i+1] << "\t" << returned_table[i+2] << endl;
 		cout << x_q_minus_y[3*i+0] << "\t" << x_q_minus_y[3*i+1] << "\t" << x_q_minus_y[3*i+2] << endl;
 	}*/
-
-	Frobenius_norm = LAPACKE_dlange(LAPACK_ROW_MAJOR, 'F', myMetric->point_number, 3, x_q_minus_y, 3);
+	Frobenius_norm = LAPACKE_dlange(LAPACK_ROW_MAJOR, 'F', myMetric->point_dimension, 3, x_q_minus_y, 3);
 	
 	//cout << "Frobenius_norm : " << Frobenius_norm <<endl;
 	//cout << "Returning : " << Frobenius_norm/(sqrt(myMetric->point_number)) <<endl;
-	//cin >>GARBAGE;
 
 	delete[] comformation_X_consec;
 	
@@ -317,13 +297,7 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 	}
 
 	AllFirstConfDistances(myMetric, all_conformation_table, all_first_conf_distances);
-	/*cout << "r all" <<endl;
-	for (int r_iter = 0; r_iter < all_pairs_num; r_iter++)
-	{
-		cout << "best item : pair_no : " << all_first_conf_distances[r_iter][0] << " pair dis: " << all_first_conf_distances[r_iter][1] <<endl;
-	}
-	cout << "######################################" <<endl;
-	cout << "all_pairs_num : " << all_pairs_num <<endl;*/
+
 	quickSort_twolist(all_first_conf_distances, 0, all_pairs_num-1);
 
 	double** clusteringData = new double*[7];
@@ -334,7 +308,7 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 
 	double* currentData = new double[5];
 
-	ListData<double*>* euclideanList = NULL;// = new ListData<double**>();
+	ListData<double*>* euclideanList = NULL;
 
 	for(int r_select = 0; r_select < 3; r_select++)
 	{
@@ -345,25 +319,10 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 		else if (r_select == 1)
 		{	//N^1.5
 			
-/*			for (int r_delete = 0; r_delete < r; r_delete++)
-			{
-				delete[] distance_pairs[r_delete];
-			}
-			delete[] distance_pairs;*/
-
-			//delete first_conf_distances;
 			r = pow(myMetric->point_dimension, 1.5);
 		}
 		else if (r_select == 2)
 		{	//(N*(N-1))/2
-			
-/*			for (int r_delete = 0; r_delete < r; r_delete++)
-			{
-				delete[] distance_pairs[r_delete];
-			}
-			delete[] distance_pairs;
-
-			delete[] first_conf_distances;*/
 			r = all_pairs_num;
 		}
 
@@ -420,12 +379,6 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 			}
 
 			quickSort(first_conf_distances, 0, r-1);
-			/*cout << "first_conf_distances : " <<endl;
-			for (int r_iter = 0; r_iter < r; r_iter++)
-			{
-				cout << "r : "<< r_iter <<" : " << first_conf_distances[r_iter] <<endl;
-				//cout << "best item : random_pair_no : " << random_pair << " pair dis: " << all_first_conf_distances[random_pair][1] <<endl;
-			}*/
 
 			for (int conformation_no = 0; conformation_no < myMetric->point_number; conformation_no++)
 			{
@@ -438,7 +391,6 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 					cout << conformation_distance_vector[r_iter] << "\t";
 				}
 				cout << endl;*/
-				//cin >> GARBAGE;
 				euclideanList->Insert(conformation_distance_vector, conformation_no, "current_backbone_atom", &conformation_distance_vector);
 			}
 
@@ -509,7 +461,6 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 				T_select = 3;
 			}
 			cout << "above is r_select: " <<r_select << " T_select: " << T_select <<endl;
-			//cin >> GARBAGE;
 
 		}
 
@@ -520,7 +471,6 @@ void ListData<T>::DistanceConformationVectorHandle(ifstream& inputFile, ofstream
 		delete[] distance_pairs;		//distance pairs will be chosen from the first conformation
 
 		delete[] first_conf_distances;
-		//cin >> GARBAGE;
 
 	}
 
@@ -567,6 +517,7 @@ void ListData<T>::AllFirstConfDistances(Metrics* myMetric, double*** all_conform
 			all_first_conf_distances[distance_pair_counter][0] = distance_pair_counter;
 			all_first_conf_distances[distance_pair_counter][1] = DistanceEuclid(all_conformation_table[0][current_backbone_atom_no],all_conformation_table[0][next_backbone_atom_no] , 3);
 			//cout << "Distance of pair " << all_first_conf_distances[distance_pair_counter][0] << " : " << all_first_conf_distances[distance_pair_counter][1] <<endl;
+			
 			distance_pair_counter++;		//first backbone atom with second have pair_no = 0, first with third pair_no = 1 etc.
 		}
 	}
@@ -578,8 +529,6 @@ void ListData<T>::ConformationDistanceVector(Metrics* myMetric, double*** all_co
 	int distance_pair_counter = 0;
 	int r_iter = 0;
 	int all_pairs_num = ((myMetric->point_dimension)*(myMetric->point_dimension - 1))/2;
-/*	int(int r_iter = 0; r_iter < r; r_iter++)		//for every one of the r pairs
-	{*/
 	//for every atom in the given atom
 	for(int current_backbone_atom_no = 0; current_backbone_atom_no < myMetric->point_dimension; current_backbone_atom_no++)
 	{
@@ -588,18 +537,14 @@ void ListData<T>::ConformationDistanceVector(Metrics* myMetric, double*** all_co
 		{
 			if (distance_pair_counter == first_conf_distances[r_iter])
 			{
-				//cout << first_conf_distances[r_iter] << " was lucky - r_iter : " << r_iter <<endl;
 				conformation_distance_vector[r_iter] = DistanceEuclid(all_conformation_table[conformation_no][current_backbone_atom_no], all_conformation_table[conformation_no][next_backbone_atom_no] , 3);
 				r_iter++;
 				if (r_iter < r)
 				{
-					//cout << "suitable r" <<endl;
 					if (first_conf_distances[r_iter] == first_conf_distances[r_iter - 1])
 					{
-						//cout << "we have the condition" <<endl;
 						if(first_conf_distances[r_iter] + 1 < all_pairs_num)
 						{
-							//cout << "let's change that wanted pair" <<endl;
 							first_conf_distances[r_iter]++;
 						}
 						else		//leave it as zero - it's just one element
@@ -615,14 +560,9 @@ void ListData<T>::ConformationDistanceVector(Metrics* myMetric, double*** all_co
 			{
 				return;
 			}
-			// all_first_conf_distances[distance_pair_counter][0] = distance_pair_counter;
-			// all_first_conf_distances[distance_pair_counter][1] = DistanceEuclid(all_conformation_table[0][current_backbone_atom_no],all_conformation_table[0][next_backbone_atom_no] , 3);
-			//cout << "Distance of pair " << all_first_conf_distances[distance_pair_counter][0] << " : " << all_first_conf_distances[distance_pair_counter][1] <<endl;
 			distance_pair_counter++;		//first backbone atom with second have pair_no = 0, first with third pair_no = 1 etc.
 		}
 	}
-	//cout << "finished with r_iter: " << r_iter << " conformation_no : " << conformation_no << " r : "<< r <<endl;
-/*	}*/
 }
 
 

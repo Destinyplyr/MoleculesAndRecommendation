@@ -51,78 +51,6 @@ void Init_Metrics(Metrics* myMetric, std::ifstream& inputFile)
 	inputFile >> myMetric->point_number;	//Read noConform
 	inputFile >> myMetric->point_dimension;	//Read N
 
-	/*if (strcmp(myMetric->metric_space.c_str(), "vector") == 0)
-	{
-		inputFile >> GARBAGE;  				//Read "@metric space"
-		if (strcmp(GARBAGE.c_str(), "@metric") == 0) {
-			inputFile >> myMetric->metric;		//Read etc, "hamming"
-			inputFile >> GARBAGE;				//read itemno to coordinate with else
-		}
-		else {
-			myMetric->metric = "euclidean";
-		}
-		getline(inputFile, genericStr);
-   		stringstream linestream(genericStr);
-   		getline(linestream, pointStr, '\t');
-   		while (getline(linestream, pointStr, '\t'))    //Calculate dimension of points
-        {			
-   			point_dimension++;
-   		}
-
-   		myMetric->point_dimension = point_dimension;
-
-	}
-
-	if (strcmp(myMetric->metric_space.c_str(), "hamming") == 0) {
-		inputFile >> GARBAGE;		//read itemno
-		inputFile >> genericStr;	//read an item
-		myMetric->point_dimension = genericStr.length();
-	}*/
-
-	//getline(inputFile, genericStr);
-
-
-	/*do {
-
-   		stringstream linestream(genericStr);
-   		getline(linestream, pointStr, '\t');
-   		cout << pointStr <<endl;
-   		if (stoi(pointStr) != current_user)
-   		{
-   			point_number++;
-   			current_user = stoi(pointStr);
-   		}
-   		getline(linestream, pointStr, '\t');
-   		if (stoi(pointStr) > item_max)
-   		{
-   			item_max = stoi(pointStr);
-   		}
-   		getline(linestream, pointStr, '\t');
-   		//cout << pointStr <<endl;*/
-
-   		/*currentPoint = bitset<64>(string(pointStr));
-		if (!this->HammingB2BDuplicate(currentPoint)) {
-			cout << "point inserted: " << currentPoint << " - " << point_number << " - " << itemNos <<endl;
-			this->Insert(currentPoint, point_number, itemNos);
-		}
-		inputFile >> itemNos;		//next itemno
-		point_number++;*/
-
-	/*}while(getline(inputFile, genericStr));*/
-
-	/*if (strcmp(myMetric->metric_space.c_str(), "matrix") == 0) {
-		inputFile >> GARBAGE;		//read itemno
-        getline(inputFile, genericStr);
-        stringstream linestream2(genericStr);
-        while (getline(linestream2, pointStr, ',')) {       //Calculate dimension of points
-            ++point_number;
-        }
-        myMetric->point_number = point_number;
-	}	*/
-    /*cout << "Giving to myMetric: pointdim: " << item_max << " pointno: " << point_number <<endl;
-    myMetric->point_dimension = item_max;
-    myMetric->point_number = point_number;*/
-
  	inputFile.clear();      		//Restart
  	inputFile.seekg(0, ios::beg);   //Data file back from start
 
@@ -175,21 +103,6 @@ double ObjectiveCost(int** clusterAssign, double** distanceMatrix, Metrics* myMe
 
 	for (int i = 0; i < myMetric->point_number; ++i)
 	{
-/*		j = clusterAssign[i][0];			//holds best - second best and current centroid
-		if (j != i)
-		{
-			if (j < i)
-			{
-				column = i;
-				row = j;
-			}
-			else
-			{
-				column = j;
-				row = i;
-			}
-		}*/
-		//theCost += distanceMatrix[row][column];
 		theCost += DistanceMatrixDistance( distanceMatrix, clusterAssign[i][0], i);
 	}
 
