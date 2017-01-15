@@ -5,7 +5,7 @@
 //using namespace std;
 //Hash<bitset<64> >* hashTableList
 template <typename T>                                                                                           //dataLength is number of points
-void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign)
+void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign, bool complete_printing)
 {
 	string GARBAGE;
 	int hammingSize = 0;     //Used for hamming size, or number of vector attributes
@@ -517,7 +517,7 @@ void ListData<T>::initHammingLSHManagement(Conf* myConf, Metrics* myMetric, ifst
 		delete[] user_rating_table[i];
 	}
 	delete[] user_rating_table;
-	
+
 	for(int current_item_rated = 0; current_item_rated < myMetric->point_dimension; current_item_rated++)
 	{
 		delete[] current_ratings[current_item_rated];

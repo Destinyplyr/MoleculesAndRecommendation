@@ -33,12 +33,12 @@ int main(int argc, char const *argv[])
 
 	if (argc > 1)
 	{
-		if (argc % 2 == 0)
+		/*if (argc % 2 == 0)
 		{
 			cout << "Missing the correct number of parameters" << endl;
 			cout << "Suggested use: $./recommendation –d <input file> -ο <output file>" << endl;
 			return -1;
-		}
+		}*/
 		for (int i = 1; i < argc; i++)
 		{
 			if (strcmp(argv[i], "-d") == 0)

@@ -78,7 +78,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 		cout << "##############Algorithm: Hamming LSH" <<endl;
 
 		LSH_start = clock();
-		hammingList->initHammingLSHManagement(myConf, myMetric, inputFile, outputFile, distance_matrix,  k,  L, &myMetric->point_number, &hashCreationDone, hashTableList, centroids, clusterAssign);
+		hammingList->initHammingLSHManagement(myConf, myMetric, inputFile, outputFile, distance_matrix,  k,  L, &myMetric->point_number, &hashCreationDone, hashTableList, centroids, clusterAssign, complete_printing);
 		LSH_finish = clock();
 		time_taken = (double)(LSH_finish - LSH_start )/CLOCKS_PER_SEC;	//total clustering time
 		outputFile << "Time taken: " << time_taken <<endl;
@@ -157,7 +157,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			cout << "##############Algorithm: Euclidean LSH" <<endl;
 
 			LSH_start = clock();
-			euclideanList->initEuclideanList(myConf ,myMetric, inputFile, outputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign);
+			euclideanList->initEuclideanList(myConf ,myMetric, inputFile, outputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign, complete_printing);
 			LSH_finish = clock();
 			time_taken = (double)(LSH_finish - LSH_start )/CLOCKS_PER_SEC;	//total clustering time
 			outputFile << "Time taken: " << time_taken <<endl;
@@ -224,7 +224,7 @@ void CLI(ifstream& inputFile, ofstream& outputFile, Conf* myConf, Metrics* myMet
 			outputFile << "##############Algorithm: Cosine LSH" <<endl;
 			cout << "##############Algorithm: Cosine LSH" <<endl;
 			LSH_start = clock();
-			cosineList->initCosineList(myConf, myMetric, inputFile, outputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign);
+			cosineList->initCosineList(myConf, myMetric, inputFile, outputFile, distance_matrix, k, L, &(myMetric->point_dimension), &(myMetric->point_number), &hashCreationDone, hashTableList, centroids, clusterAssign, complete_printing);
 			LSH_finish = clock();
 			time_taken = (double)(LSH_finish - LSH_start )/CLOCKS_PER_SEC;	//total clustering time
 			outputFile << "Time taken: " << time_taken <<endl;

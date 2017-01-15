@@ -1,0 +1,317 @@
+#####################################
+Above is with:
+r: Ν
+T: min distance pairs
+k: 7
+Silhouette: 0,194665
+Clustering time: 0,032421
+#####################################CLUSTER-0 {53, 113}
+
+#####################################
+Above is with:
+r: Ν
+T: max distance pairs
+k: 9
+Silhouette: 0,197266
+Clustering time: 0,029647
+#####################################CLUSTER-0 {124, 243}
+
+#####################################
+Above is with:
+r: Ν
+T: random distance pairs
+k: 5
+Silhouette: 0,112979
+Clustering time: 0,031535
+#####################################CLUSTER-0 {37, 252}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: min distance pairs
+k: 9
+Silhouette: 0,167082
+Clustering time: 0,029523
+#####################################CLUSTER-0 {37, 21}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: max distance pairs
+k: 9
+Silhouette: 0,1783
+Clustering time: 0,030947
+#####################################CLUSTER-0 {112, 181}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: random distance pairs
+k: 8
+Silhouette: 0,180739
+Clustering time: 0,031119
+#####################################CLUSTER-0 {79, 181}
+
+#####################################
+Above is with:
+r: All distance pairs
+T: min distance pairs
+k: 8
+Silhouette: 0,152799
+Clustering time: 0,029649
+#####################################
+
+#####################################
+Above is with:
+r: Ν
+T: min distance pairs
+k: 6
+Silhouette: 0,151826
+Clustering time: 0,032282
+#####################################CLUSTER-0 {63, 232}
+
+#####################################
+Above is with:
+r: Ν
+T: max distance pairs
+k: 8
+Silhouette: 0,129068
+Clustering time: 0,029056
+#####################################CLUSTER-0 {60, 281}
+
+#####################################
+Above is with:
+r: Ν
+T: random distance pairs
+k: 7
+Silhouette: 0,195215
+Clustering time: 0,031145
+#####################################CLUSTER-0 {44, 232}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: min distance pairs
+k: 9
+Silhouette: 0,158617
+Clustering time: 0,030444
+#####################################CLUSTER-0 {16, 76}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: max distance pairs
+k: 7
+Silhouette: 0,166647
+Clustering time: 0,030056
+#####################################CLUSTER-0 {52, 232}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: random distance pairs
+k: 7
+Silhouette: 0,157224
+Clustering time: 0,029567
+#####################################CLUSTER-0 {109, 243}
+
+#####################################
+Above is with:
+r: All distance pairs
+T: min distance pairs
+k: 8
+Silhouette: 0,149556
+Clustering time: 0,032058
+#####################################
+
+
+#####################################
+Above is with:
+r: Ν
+T: min distance pairs
+k: 9
+Silhouette: 0,175558
+Clustering time: 0,031199
+#####################################CLUSTER-0 {44, 232}
+
+#####################################
+Above is with:
+r: Ν
+T: max distance pairs
+k: 9
+Silhouette: 0,140368
+Clustering time: 0,030438
+#####################################CLUSTER-0 {72, 232}
+
+#####################################
+Above is with:
+r: Ν
+T: random distance pairs
+k: 4
+Silhouette: 0,123242
+Clustering time: 0,030967
+#####################################CLUSTER-0 {46, 165}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: min distance pairs
+k: 8
+Silhouette: 0,139038
+Clustering time: 0,028532
+#####################################CLUSTER-0 {37, 34}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: max distance pairs
+k: 9
+Silhouette: 0,248714
+Clustering time: 0,028509
+#####################################CLUSTER-0 {40, 266}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: random distance pairs
+k: 9
+Silhouette: 0,176031
+Clustering time: 0,030702
+#####################################CLUSTER-0 {110, 181}
+
+#####################################
+Above is with:
+r: All distance pairs
+T: min distance pairs
+k: 9
+Silhouette: 0,168922
+Clustering time: 0,0307
+#####################################
+
+
+#####################################
+Above is with:
+r: Ν
+T: min distance pairs
+k: 8
+Silhouette: 0,197374
+Clustering time: 0,032541
+#####################################CLUSTER-0 {39, 49}
+
+#####################################
+Above is with:
+r: Ν
+T: max distance pairs
+k: 8
+Silhouette: 0,205131
+Clustering time: 0,029836
+#####################################CLUSTER-0 {46, 281}
+
+#####################################
+Above is with:
+r: Ν
+T: random distance pairs
+k: 9
+Silhouette: 0,197264
+Clustering time: 0,029747
+#####################################CLUSTER-0 {107, 243}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: min distance pairs
+k: 9
+Silhouette: 0,168245
+Clustering time: 0,030923
+#####################################CLUSTER-0 {65, 21}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: max distance pairs
+k: 7
+Silhouette: 0,198953
+Clustering time: 0,031337
+#####################################CLUSTER-0 {102, 181}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: random distance pairs
+k: 9
+Silhouette: 0,167486
+Clustering time: 0,029353
+#####################################CLUSTER-0 {36, 62}
+
+#####################################
+Above is with:
+r: All distance pairs
+T: min distance pairs
+k: 7
+Silhouette: 0,171015
+Clustering time: 0,030085
+#####################################
+
+
+#####################################
+Above is with:
+r: Ν
+T: min distance pairs
+k: 5
+Silhouette: 0,14252
+Clustering time: 0,030914
+#####################################CLUSTER-0 {89, 243}
+
+#####################################
+Above is with:
+r: Ν
+T: max distance pairs
+k: 7
+Silhouette: 0,131173
+Clustering time: 0,032689
+#####################################CLUSTER-0 {52, 232}
+
+#####################################
+Above is with:
+r: Ν
+T: random distance pairs
+k: 8
+Silhouette: 0,151203
+Clustering time: 0,029975
+#####################################CLUSTER-0 {85, 243}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: min distance pairs
+k: 7
+Silhouette: 0,124242
+Clustering time: 0,031437
+#####################################CLUSTER-0 {46, 113}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: max distance pairs
+k: 8
+Silhouette: 0,17532
+Clustering time: 0,030369
+#####################################CLUSTER-0 {98, 181}
+
+#####################################
+Above is with:
+r: N^{1,5}
+T: random distance pairs
+k: 8
+Silhouette: 0,13843
+Clustering time: 0,030811
+#####################################CLUSTER-0 {21, 106}
+
+#####################################
+Above is with:
+r: All distance pairs
+T: min distance pairs
+k: 9
+Silhouette: 0,19058
+Clustering time: 0,031282
+#####################################

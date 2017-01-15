@@ -7,7 +7,7 @@ using namespace std;
 
 
 template <typename T>
-void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign)
+void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign, bool complete_printing)
 {
 	string genericStr;
 	string itemNos;
@@ -398,8 +398,11 @@ void ListData<T>::initCosineList(Conf* myConf, Metrics* myMetric, ifstream& inpu
 			}
 
 		}
-		outputFile << "10-fold-cross validation on Cosine LSH" <<endl;
-		outputFile << "MAE: "<< ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
+		if (complete_printing == true)
+		{
+			outputFile << "10-fold-cross validation on Cosine LSH" <<endl;
+			outputFile << "MAE: "<< ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
+		}
 		//cin >> GARBAGE;
 		break;			//not using multiple tables
 

@@ -985,8 +985,12 @@ void ListData<T>::ClusterHandleExercise3(ifstream& inputFile, ofstream& outputFi
 		//cin >>GARBAGE;
 		
 	}
-	outputFile << "10-fold-cross validation on clustering " << myMetric->metric << endl;
-	outputFile << "MAE: " << ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table) <<endl;
+	if (complete_printing == true)
+	{
+		outputFile << "10-fold-cross validation on clustering " << myMetric->metric << endl;
+		outputFile << "MAE: " << ListData<T>::TenFoldCrossValidation(myMetric, distance_matrix, user_rating_table, user_general_rating_table) <<endl;
+	}
+	
 	//cin >> GARBAGE;
 
 

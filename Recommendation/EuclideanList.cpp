@@ -6,7 +6,7 @@ using namespace std;
 
 
 template <typename T>																						//dataLength is point dimension
-void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign) 
+void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& inputFile, ofstream& outputFile, double** distanceMatrix, int k, int L, int* dataLength, int* dataLengthPointNumber, int* hashCreationDone, Hash<T>* hashTableList, int* centroids, int** clusterAssign, bool complete_printing) 
 {
 	string genericStr;
 	string itemNos;
@@ -388,8 +388,11 @@ void ListData<T>::initEuclideanList(Conf* myConf, Metrics* myMetric, ifstream& i
 			}
 
 		}
-		outputFile << "10-fold-cross validation on Euclidean LSH" <<endl;
-		outputFile << ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
+		if (complete_printing == true)
+		{
+			outputFile << "10-fold-cross validation on Euclidean LSH" <<endl;
+			outputFile << ListData<T>::TenFoldCrossValidation(myMetric, distanceMatrix, user_rating_table, user_general_rating_table) <<endl;
+		}
 		//cin >> GARBAGE;
 		//cin >> GARBAGE;
 		break;			//not using multiple tables
